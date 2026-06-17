@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 01 — Affordances & Signifiers</title>
+<link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Lesson 01 · Norman's Foundations · Deep + visual</div>
+  <h1>Affordances &amp; Signifiers</h1>
+  <div class="lede">You already build good signifiers by instinct. This lesson adds the vocabulary and the framework behind them. The exercises don't tell you what's wrong; you operate each interface and judge it yourself.</div>
+
+  <nav class="toc">
+    <a href="#s1">The distinction</a>
+    <a href="#s2">The confusion to unlearn</a>
+    <a href="#s3">The diagnostic map (Gaver's 2×2)</a>
+    <a href="#s4">Wrong vs right, live</a>
+    <a href="#s5">Clinic: the lost feature</a>
+    <a href="#s6">Clinic: the dashboard</a>
+    <a href="#s7">Build it: signify a row</a>
+    <a href="#s8">Audit a real screen</a>
+    <a href="#s9">The expert's nuance</a>
+    <a href="#s10">When hidden is fine</a>
+    <a href="#s11">Retrieve it (operate &amp; classify)</a>
+    <a href="#s12">Capstone (write your answer)</a>
+    <a href="#s13">Strengthen the muscle</a>
+  </nav>
+
+  <h2 id="s1"><span class="n">01</span>The distinction</h2>
+  <p>An <em>affordance</em> is a relationship: what an object lets an agent <em>do</em>. A checkbox affords toggling; a canvas affords scrolling. An affordance exists whether or not anyone notices it — it is about <em>possibility</em>, and it lives in the system, invisibly.<span class="cite"> — Norman, <a href="https://jnd.org/affordances_and_design/">jnd.org</a></span></p>
+  <p>A <em>signifier</em> is the perceivable cue that <em>tells</em> the user the affordance is there and where to act: the raised fill of a button, the underline on a link, a "↕ drag to reorder" handle, a blinking caret. A signifier that can't be perceived isn't doing its job.<span class="cite"> — Norman, <a href="https://jnd.org/signifiers_not_affordances/">"Signifiers, Not Affordances"</a></span></p>
+  <div class="pull"><b>Affordances</b> determine what actions are possible. <b>Signifiers</b> communicate where the action should take place. <i>You need both.</i><br><span class="cite">— Don Norman, <em>The Design of Everyday Things</em>, 2013</span></div>
+  <p>The pair is useful because it splits a vague question ("is this usable?") into two you can answer separately: can the system do the thing (affordance), and does the user know where to act (signifier)? Many interaction problems come down to a failure of just one of them.</p>
+
+  <h2 id="s2"><span class="n">02</span>The confusion to unlearn</h2>
+  <p>A common confusion: designers say "this button has great affordance" when they mean it has a great <em>signifier</em>. Norman made the same slip in 1988, when he wrote "perceived affordance," and later introduced "signifier" to correct it.<span class="cite"> — <a href="https://jnd.org/signifiers_not_affordances/">jnd.org</a></span> The clickability is built into the system and invisible; the thing you're actually judging is the cue. Two failure modes follow from the distinction, and both recur through the lesson:</p>
+  <ul>
+    <li><b>Hidden affordance</b> — a real action with no signifier. It works; nobody knows to try.</li>
+    <li><b>False affordance</b> — a signifier with no affordance behind it. It looks actionable; acting does nothing.</li>
+  </ul>
+
+  <h2 id="s3"><span class="n">03</span>The diagnostic map <span class="tag do">use this constantly</span></h2>
+  <p>Bill Gaver (1991) turned the two ideas into a 2×2 you can run any element through in five seconds. One axis: <em>does the affordance exist?</em> The other: <em>is there a signifier for it?</em> Four outcomes — two good, two broken. <b>Click each cell</b> for a rendered example.<span class="cite"> — <a href="https://www.lri.fr/~mbl/Stanford/CS477/papers/Gaver-CHI1991.pdf">Gaver, CHI '91</a></span></p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="matrix">
+        <div></div>
+        <div class="axis">Signifier present</div>
+        <div class="axis">Signifier absent</div>
+        <div class="axis" style="writing-mode:vertical-rl; transform:rotate(180deg);">Affordance present</div>
+        <button class="cell good" onclick="msel(this,'perceptible')"><b>Perceptible affordance</b><small>action exists + is signalled</small></button>
+        <button class="cell bad" onclick="msel(this,'hidden')"><b>Hidden affordance</b><small>action exists, not signalled</small></button>
+        <div class="axis" style="writing-mode:vertical-rl; transform:rotate(180deg);">Affordance absent</div>
+        <button class="cell bad" onclick="msel(this,'false')"><b>False affordance</b><small>signalled, no real action</small></button>
+        <button class="cell neutral" onclick="msel(this,'reject')"><b>Correct rejection</b><small>nothing there, nothing implied</small></button>
+      </div>
+      <div class="mdetail" id="mdetail">Tap a quadrant to see a rendered example and the user's experience.</div>
+    </div>
+  </div>
+
+  <h2 id="s4"><span class="n">04</span>Wrong vs right, live</h2>
+  <p>Same product card, same three actions. The <em>affordances are identical</em> — everything works in both. Only the <em>signifiers</em> change. Toggle, and try to act on each.</p>
+  <div class="ix">
+    <div class="ix-head"><span id="demoLabel">Version A</span>
+      <div class="toggle"><button data-v="wrong" class="on" onclick="setVer('wrong')">Version A</button><button data-v="right" onclick="setVer('right')">Version B</button></div>
+    </div>
+    <div class="ix-body">
+      <div class="task">in Version A, save the chair to a list.</div>
+      <div class="stage"><div>
+      <div class="card" id="cardWrong">
+        <h4>Aeron Task Chair</h4><div class="price">$1,395.00</div>
+        <div class="crow"><span class="w-save" onclick="ping('Saved!')">Save to list</span></div>
+        <div class="crow"><span class="w-fav" onclick="ping('Favourited!')">Favourite</span></div>
+        <div class="crow"><span class="qlabel">Qty</span><select class="w-qty"><option>1</option><option>2</option><option>3</option></select></div>
+      </div>
+      <div class="card" id="cardRight" style="display:none">
+        <h4>Aeron Task Chair</h4><div class="price">$1,395.00</div>
+        <div class="crow"><button class="r-save" onclick="ping('Saved!')">＋ Save to list</button></div>
+        <div class="crow"><button class="r-fav" onclick="ping('Favourited!')">♡ Favourite</button></div>
+        <div class="crow"><span class="qlabel">Qty</span><select class="r-qty"><option>1</option><option>2</option><option>3</option></select></div>
+      </div>
+    </div></div>
+    </div>
+  </div>
+  <p>In Version A nothing looked actionable, so the save was a hidden affordance: you had to hunt for it. Version B adds signifiers — fill, pointer cursor, underline, icons, a chevron — without changing any functionality, and the same actions become obvious.</p>
+
+  <h2 id="s5"><span class="n">05</span>Clinic: the lost feature <span class="tag try">your turn</span></h2>
+  <p>An invoices table, exactly as it shipped — three columns, a few rows. Try the task before you read the options under it.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">sort the invoices by Amount, highest first.</div>
+      <div class="stage"><div class="screen" style="width:330px">
+        <div class="u-title">Invoices</div>
+        <table class="mtable" id="invTable">
+          <thead><tr><th onclick="sortInv(0)">Client</th><th onclick="sortInv(1)">Amount</th><th onclick="sortInv(2)">Status</th></tr></thead>
+          <tbody id="invBody"></tbody>
+        </table>
+        <div id="invMsg" style="font-size:.7rem;color:#999;text-align:center;margin-top:.4rem;min-height:.9rem"></div>
+      </div></div>
+
+      <div class="neutralq">It worked — but how would you classify the sort feature as shipped?</div>
+      <div class="opts grid2" data-a="b">
+        <button onclick="clinic(this,'a','c1')">False affordance</button>
+        <button onclick="clinic(this,'b','c1')">Hidden affordance</button>
+        <button onclick="clinic(this,'c','c1')">Perceptible affordance</button>
+        <button onclick="clinic(this,'d','c1')">Correct rejection</button>
+      </div>
+      <div class="fb" id="c1">Sorting works the whole time — but nothing signalled it, so you only found it because you were told to look. Action present, signifier absent: a <b>hidden affordance</b> (telemetry would show ~2% discovery). The fix is a signifier, not new behaviour.</div>
+
+      <div class="step-label">Pick the changes that add a real signifier (choose all that apply)</div>
+      <div class="pick" id="c1fix">
+        <label><input type="checkbox" data-good="1"> A directional caret (▲/▼) on the sorted column</label>
+        <label><input type="checkbox" data-good="1"> Pointer cursor and a hover highlight on every header</label>
+        <label><input type="checkbox" data-good="0"> Increase the zebra-striping contrast between rows</label>
+        <label><input type="checkbox" data-good="1"> A "Sort" hint that fades in when a header is hovered</label>
+        <label><input type="checkbox" data-good="0"> Default-sort the table on load, changing nothing else</label>
+      </div>
+      <button class="btn" onclick="checkPick('c1fix','c1res')">Check my fixes</button>
+      <button class="btn ghost" onclick="applyFix()">Show the fixed headers ↻</button>
+      <div class="fb" id="c1res"></div>
+      <button class="reveal" onclick="tog('c1exp')">Reveal how an expert frames it ▾</button>
+      <div class="expert" id="c1exp"><b>Expert framing:</b> the action exists, so don't touch behaviour — add the cheapest perceptible signifiers (caret on the sorted column, pointer + hover). A faster default sort changes <em>function</em>, not <em>perception</em>; zebra contrast aids reading, not discovery. Neither signals sorting.</div>
+    </div>
+  </div>
+
+  <h2 id="s6"><span class="n">06</span>Clinic: the dashboard <span class="tag try">your turn</span></h2>
+  <p>A metrics dashboard as it shipped: four tiles. Do the task, and click a few of the others while you're in there.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">open the full report — and try a few other tiles on the way.</div>
+      <div class="stage"><div class="screen">
+        <div class="u-title">Dashboard</div>
+        <div class="dash">
+          <div class="stat" onclick="probe(this,false)"><div class="v">$48.2k</div><div class="l">Revenue</div></div>
+          <div class="stat" onclick="probe(this,false)"><div class="v">1,204</div><div class="l">Orders</div></div>
+          <div class="stat" onclick="probe(this,true)"><div class="v">Open ›</div><div class="l">Full report</div></div>
+          <div class="stat" onclick="probe(this,false)"><div class="v">3.1%</div><div class="l">Refund rate</div></div>
+        </div>
+      </div></div>
+
+      <div class="neutralq">What's the problem with the tiles that did nothing?</div>
+      <div class="opts grid2" data-a="a">
+        <button onclick="clinic(this,'a','c2')">False affordance</button>
+        <button onclick="clinic(this,'b','c2')">Hidden affordance</button>
+        <button onclick="clinic(this,'c','c2')">Correct rejection</button>
+        <button onclick="clinic(this,'d','c2')">Perceptible affordance</button>
+      </div>
+      <div class="fb" id="c2">Shadow + hover-lift are button-like signifiers, but three tiles do nothing — a <b>false affordance</b>. You clicked, got nothing, and started doubting the one tile that <em>does</em> work.</div>
+
+      <div class="step-label">The PM insists the "rich, premium" look stays. Soundest response?</div>
+      <div class="opts" data-a="c">
+        <button onclick="clinic(this,'a','c2b')">Keep all the styling; add an onboarding coachmark explaining which tiles are interactive</button>
+        <button onclick="clinic(this,'b','c2b')">Keep all the styling but remove the pointer cursor from the display tiles</button>
+        <button onclick="clinic(this,'c','c2b')">Keep the premium static look (shadow, radius), but strip the hover-LIFT and pointer from the display tiles — reserve motion-on-hover for things that act</button>
+      </div>
+      <div class="fb" id="c2b">The shadow and radius aren't the problem; a static surface can look premium and still read as non-interactive. What misleads is the <em>interaction</em> cue: the hover-lift (motion reads as "I respond") and the pointer cursor. Option <b>(b)</b> fixes only half of that. Option <b>(a)</b> leaves the misleading cue in place and explains it away once.</div>
+    </div>
+  </div>
+
+  <h2 id="s7"><span class="n">07</span>Build it: signify a row <span class="tag try">your turn</span></h2>
+  <p>A single settings row that navigates to a detail screen. Pick the cues that say "tappable, leads somewhere" and watch the row update live, then check your set.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="pick" id="b1">
+        <label><input type="checkbox" data-good="1" onchange="prev()"> Trailing chevron "›"</label>
+        <label><input type="checkbox" data-good="1" onchange="prev()"> Pointer cursor + hover/press highlight</label>
+        <label><input type="checkbox" data-good="0" onchange="prev()"> Blue underline on the label text</label>
+        <label><input type="checkbox" data-good="0" onchange="prev()"> A filled button background on every row</label>
+        <label><input type="checkbox" data-good="1" onchange="prev()"> Adequate tap height (≥44px)</label>
+      </div>
+      <div class="stage"><div class="preview-row" id="prevRow"><span id="prevLabel">Notifications</span><span id="prevChev" style="display:none;color:#bbb">›</span></div></div>
+      <button class="btn" style="margin-top:1rem" onclick="checkPick('b1','b1res')">Check my design</button>
+      <div class="fb" id="b1res"></div>
+    </div>
+  </div>
+
+  <h2 id="s8"><span class="n">08</span>Audit a real screen <span class="tag try">hardest</span></h2>
+  <p>An order-confirmation screen, as shipped. <b>Click each element to see what it does</b> — some work, some don't. Then <b>⚑ flag</b> the ones whose <em>appearance doesn't match their behaviour</em>: something that looks dead but works, or looks clickable but doesn't. Leave the honest ones, then check.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="stage"><div class="screen" style="width:320px">
+        <div class="audwrap" data-v="ok" data-k="A heading — inert, and nothing implies otherwise. Correct rejection." onclick="probeAud(this,null)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+          <div class="u-title" style="margin:0">Order #4821</div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="ok" data-k="Filled, labelled button. Looks clickable, is clickable. Perceptible affordance — honest." onclick="probeAud(this,true)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+          <div class="btn" style="width:100%;text-align:center;pointer-events:none">Track package</div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="Looks like plain dark body text — but it IS tappable and opens an address editor. Hidden affordance." onclick="probeAud(this,true)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+          <div class="u-text" style="color:#222">Change delivery address</div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="Card shadow + hover-lift like a button, but it does nothing — pure status. False affordance." onclick="probeAud(this,false)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+          <div class="stat" style="pointer-events:none"><div class="v" style="font-size:.9rem">Delivered</div><div class="l">2 days ago</div></div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="Blue + underlined = the link signifier, but it's just emphasis — no link behind it. False affordance." onclick="probeAud(this,false)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+          <div class="u-text">Your <span style="color:var(--link);text-decoration:underline">Premium</span> membership renews May 3.</div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="ok" data-k="A genuine link, styled as one. Perceptible affordance — honest." onclick="probeAud(this,true)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+          <div style="color:var(--link);text-decoration:underline;font-size:.82rem">View receipt ›</div><span class="vbadge"></span></div>
+      </div></div>
+      <div style="text-align:center;margin-top:1rem"><button class="btn" onclick="audCheck()">Check my audit</button></div>
+      <div class="fb" id="audRes"></div>
+      <button class="reveal" onclick="tog('audExp')">Reveal the full mark-up ▾</button>
+      <div class="expert" id="audExp"><b>The three broken:</b> "Change delivery address" (hidden — looked like text, but it worked), the "Delivered" tile (false — button styling, did nothing), the underlined "Premium" (false — link signifier, no link). <b>The honest three:</b> the heading (correct rejection), "Track package" (perceptible), "View receipt ›" (perceptible). The job each time is to separate <em>what acts</em> from <em>what only looks like it acts</em>.</div>
+    </div>
+  </div>
+
+  <h2 id="s9"><span class="n">09</span>The expert's nuance</h2>
+  <h3 class="sub">Signifier strength should match action stakes</h3>
+  <p>A primary, irreversible action (Delete account) deserves a loud signifier; a tertiary one (a "learn more" link) a quiet one. Equal-volume signifiers flatten hierarchy and make users hunt. Your visual-design eye is the asset — you already modulate emphasis; now you can justify it as signifier weighting.</p>
+  <h3 class="sub">Conventions are pre-installed signifiers</h3>
+  <p>An underlined blue phrase, a hamburger, a trailing chevron — they work because users learned them elsewhere. Following convention means the signifier is <em>already</em> in the user's head; a novel one you must teach. Break convention only when the payoff beats the re-teaching cost.<span class="cite"> — <a href="https://www.nngroup.com/articles/">nngroup.com</a></span></p>
+  <h3 class="sub">Feedback is a signifier too — for the <em>next</em> action</h3>
+  <p>When a toggle slides and recolors on tap, that's feedback for the action just taken — and a signifier of the new state and what's now possible. (Deep dive in <a href="0002-mapping-and-feedback.html">Lesson 02</a>.)</p>
+
+  <h2 id="s10"><span class="n">10</span>When a hidden affordance is fine</h2>
+  <p>Where most "affordance audits" — and §02 taken literally — go wrong: treating <em>every</em> hidden affordance as a defect. That maximalist trap produces bloated, over-signified screens. Operate the file list below — hover or swipe a row and see what surfaces.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">archive a file (the action only appears on hover/swipe).</div>
+      <div class="stage"><div class="lwrap">
+        <div class="lrow"><span class="lbl">Q3 Forecast.xlsx<span class="sub" style="display:block">Edited yesterday</span></span><span class="arch">Archive</span></div>
+        <div class="lrow"><span class="lbl">Board deck.key<span class="sub" style="display:block">Edited Mon</span></span><span class="arch">Archive</span></div>
+        <div class="lrow"><span class="lbl">Budget.pdf<span class="sub" style="display:block">Edited last week</span></span><span class="arch">Archive</span></div>
+      </div></div>
+      <div class="pull"><b>The rule that overrides "signify everything":</b> no <em>critical</em> action may be reachable <em>only</em> by a hidden affordance. Hidden affordances are fine as <em>accelerators</em> — faster second paths for users who learned them — provided a discoverable primary path also exists.</div>
+      <div class="step-label">One teammate: "put a visible Archive button on every row." Another: "leave it." Soundest position?</div>
+      <div class="opts" data-a="a">
+        <button onclick="clinic(this,'a','jc')">Keep the swipe as an accelerator, but add a discoverable path (e.g. a row "⋯ → Archive") so the action is never reachable <em>only</em> by the hidden gesture</button>
+        <button onclick="clinic(this,'b','jc')">Signify everything: an Archive button on every row — an undiscovered feature is a worthless feature</button>
+        <button onclick="clinic(this,'c','jc')">Leave it hidden: the people who archive are power users anyway, and visible buttons add clutter</button>
+      </div>
+      <div class="fb" id="jc">Archiving is <em>common and important</em>, so it can't live <em>only</em> behind a hidden gesture (rules out C). But a full button on every row destroys scannability (rules out B). The move: a discoverable primary path <em>plus</em> the swipe as a fast accelerator.</div>
+      <button class="reveal" onclick="tog('jcExp')">Reveal the deeper principle ▾</button>
+      <div class="expert" id="jcExp"><b>The principle that overrides the naïve one:</b> the goal was never "signify every affordance." It's "guarantee a discoverable path to every action whose importance demands it, then let hidden affordances exist freely as accelerators." Two questions: <em>(1) how critical is the action?</em> and <em>(2) is there a discoverable equivalent?</em> Only "critical + no equivalent" is a true defect. The target word is <b>discoverability</b>, not total exposure.</div>
+    </div>
+  </div>
+
+  <h2 id="s11"><span class="n">11</span>Retrieve it — operate &amp; classify</h2>
+  <p>Each element below works, or doesn't. <b>Do the task, see what happens, then classify</b>: <b>perceptible</b>, <b>hidden</b>, <b>false</b>, or <b>correct rejection</b>. The wording won't tell you which; you have to try it.</p>
+  <div class="ix"><div class="ix-body" id="quiz">
+
+    <div class="q" data-a="false">
+      <div class="task">open it for the breakdown.</div>
+      <div class="qwidget"><div class="qcard" style="box-shadow:0 5px 14px rgba(0,0,0,.16);cursor:pointer" onclick="probe(this,false)"><div style="font-size:.72rem;color:#999">Total saved</div><div style="font-size:1.1rem;font-weight:700">$1,240</div></div></div>
+      <div class="neutralq">How would you classify this element?</div>
+      <div class="opts grid2"><button onclick="ans(this,'hidden')">Hidden affordance</button><button onclick="ans(this,'false')">False affordance</button><button onclick="ans(this,'perceptible')">Perceptible afford.</button><button onclick="ans(this,'reject')">Correct rejection</button></div>
+      <div class="fb">It wears the "clickable card" signifier (shadow, hover) but nothing happens — a false affordance, and it erodes trust in cards that <em>are</em> real.</div>
+    </div>
+
+    <div class="q" data-a="hidden">
+      <div class="task">reveal the advanced options.</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;font-weight:700;margin-bottom:6px">Filters</div><div id="qh1" style="font-size:.78rem;color:#222;cursor:pointer" onclick="expand(this)">Show advanced options</div></div></div>
+      <div class="neutralq">How would you classify this element?</div>
+      <div class="opts grid2"><button onclick="ans(this,'hidden')">Hidden affordance</button><button onclick="ans(this,'false')">False affordance</button><button onclick="ans(this,'perceptible')">Perceptible afford.</button><button onclick="ans(this,'reject')">Correct rejection</button></div>
+      <div class="fb">It reads as a plain label, yet it expands — it works, but nothing signalled it. A hidden affordance (a chevron or link styling would fix it).</div>
+    </div>
+
+    <div class="q" data-a="perceptible">
+      <div class="task">continue to the next step.</div>
+      <div class="qwidget"><div class="qcard" style="text-align:center"><div class="btn" style="width:100%" onclick="probe(this,true)">Continue</div></div></div>
+      <div class="neutralq">How would you classify this element?</div>
+      <div class="opts grid2"><button onclick="ans(this,'hidden')">Hidden affordance</button><button onclick="ans(this,'false')">False affordance</button><button onclick="ans(this,'perceptible')">Perceptible afford.</button><button onclick="ans(this,'reject')">Correct rejection</button></div>
+      <div class="fb">Looks clickable, is clickable, does what it says — a perceptible affordance. The goal state; don't "fix" it.</div>
+    </div>
+
+    <div class="q" data-a="false">
+      <div class="task">open the guarantee link.</div>
+      <div class="qwidget"><div class="qcard"><div class="u-text">Backed by our <span style="color:var(--link);text-decoration:underline;cursor:pointer" onclick="probe(this,false)">30-day guarantee</span> on all orders.</div></div></div>
+      <div class="neutralq">How would you classify this element?</div>
+      <div class="opts grid2"><button onclick="ans(this,'hidden')">Hidden affordance</button><button onclick="ans(this,'false')">False affordance</button><button onclick="ans(this,'perceptible')">Perceptible afford.</button><button onclick="ans(this,'reject')">Correct rejection</button></div>
+      <div class="fb">Blue + underline is the link signifier, but there's no link behind it — a false affordance. (Either link it, or stop styling it like one.)</div>
+    </div>
+
+    <div class="q" data-a="reject">
+      <div class="task">check whether anything here is interactive.</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;font-weight:700">Shipping</div><div class="u-text" onclick="probe(this,false)">Arrives in 3–5 business days to most addresses.</div></div></div>
+      <div class="neutralq">How would you classify this text?</div>
+      <div class="opts grid2"><button onclick="ans(this,'hidden')">Hidden affordance</button><button onclick="ans(this,'false')">False affordance</button><button onclick="ans(this,'perceptible')">Perceptible afford.</button><button onclick="ans(this,'reject')">Correct rejection</button></div>
+      <div class="fb">Plain body text: nothing happens, and nothing implied it would. Correct rejection — exactly right. Most of a screen should live here.</div>
+    </div>
+
+    <div class="q" data-a="hidden">
+      <div class="task">open this product for full details.</div>
+      <div class="qwidget"><div class="qcard" style="border:1px solid #eee;cursor:pointer" onclick="probe(this,true)"><div style="font-size:.8rem;font-weight:600">Aeron Chair</div><div class="u-text">$1,395 · In stock</div></div></div>
+      <div class="neutralq">How would you classify this card?</div>
+      <div class="opts grid2"><button onclick="ans(this,'hidden')">Hidden affordance</button><button onclick="ans(this,'false')">False affordance</button><button onclick="ans(this,'perceptible')">Perceptible afford.</button><button onclick="ans(this,'reject')">Correct rejection</button></div>
+      <div class="fb">The whole card opens details — but it looks like static content (no chevron, no hover cue). It works, unsignalled: a hidden affordance.</div>
+    </div>
+
+    <div class="score" id="score">Score: 0 / 6</div>
+  </div></div>
+
+  <h2 id="s12"><span class="n">12</span>Capstone — write your answer</h2>
+  <p>One scenario fusing every section, including §10. Operate it, then critique it.</p>
+  <div class="ix"><div class="ix-body">
+    <div class="scenario" style="font-size:1rem;margin:0 0 1rem;padding:.85rem 1.05rem;background:var(--surface-2);border:1px solid var(--rule);border-radius:10px"><b>A teammate proposes:</b> "Make the whole card clickable to open details, drop the explicit 'View details' button — cleaner — and add a swipe-left on the card for the secondary 'Add to compare' action."</div>
+    <div class="stage"><div class="screen" style="width:300px">
+      <div style="border:1px solid #eee;border-radius:11px;padding:.8rem">
+        <div style="height:64px;background:#f1ede5;border-radius:7px;margin-bottom:.5rem"></div>
+        <div class="u-title" style="margin:0">Aeron Chair</div>
+        <div class="u-text">$1,395 · In stock</div>
+      </div>
+    </div></div>
+    <div class="caption" style="font-family:var(--ui);font-size:.8rem;color:var(--muted);text-align:center;margin-top:.6rem">The proposed card: no button, whole-card click, hidden swipe for compare.</div>
+    <p style="font-family:var(--ui);font-size:.9rem">Write the two-part critique: <b>(1)</b> the risk with the primary action, and <b>(2)</b> whether the swipe is acceptable — why or why not. Use the vocabulary.</p>
+    <textarea class="answer" id="capAns" placeholder="1) Primary action risk…&#10;&#10;2) The swipe…"></textarea>
+    <div class="countline"><span id="capCount">0 words</span><span id="capSaved"></span></div>
+    <button class="reveal" onclick="revealCap()">Reveal a model answer ▾</button>
+    <div class="expert" id="capExp"><b>Model answer:</b> "<u>Primary:</u> dropping the button turns the whole-card click into a <em>hidden affordance</em> — and 'open details' is the card's critical action, so it can't be reachable only by an unsignified click. Keep a perceptible cue (chevron, hover state, or the persistent link). <u>Swipe:</u> 'Add to compare' is <em>secondary</em>, so a hidden gesture is fine <em>as an accelerator</em> — provided a discoverable equivalent exists elsewhere (in details, or a row menu). If it's the only path to compare, it's orphaned, and not acceptable." The three ideas to carry out of this: hidden affordance, critical-versus-accelerator, and discoverable equivalent.</div>
+  </div></div>
+
+  <h2 id="s13"><span class="n">13</span>Strengthen the muscle</h2>
+  <p>Turn the reasoning into a <em>conscious procedure</em>. Protocol → guided walk-through → real-world mission.</p>
+
+  <h3 class="sub">Part A — The protocol (run it on any element)</h3>
+  <div class="ix"><div class="ix-body">
+    <div class="proto">
+      <div class="s"><div class="num"></div><div class="t"><b>Name the affordance.</b> <span class="ask-q">What can this element actually do?</span> Strip the styling away in your head.</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Find the signifier.</b> <span class="ask-q">What perceptible cue communicates it?</span> If you can't point to one, there isn't one.</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Place it on the 2×2.</b> <span class="ask-q">Perceptible, hidden, false, or correct rejection?</span></div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>If broken, branch.</b> <em>Hidden</em> → is the action critical, and is there a discoverable equivalent? <em>False</em> → which interaction signifier is lying — pointer, hover-lift, underline?</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Prescribe.</b> Almost always: <span class="ask-q">change perception, not function.</span></div></div>
+    </div>
+    <p style="font-family:var(--ui); font-size:.84rem; color:var(--muted); margin:.4rem 0 0">Keep it as a card: <a href="../reference/diagnostic-protocol.html">Diagnostic Protocol reference ↗</a>.</p>
+  </div></div>
+
+  <h3 class="sub">Part B — Walk the reasoning (operate, then earn the verdict)</h3>
+  <p>Two elements, each failing in its own way. Operate each, then commit every step before the next unlocks.</p>
+
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">save this item for later.</div>
+      <div class="stage"><div class="screen" style="width:240px"><div class="u-title" style="margin-bottom:.4rem">Cart</div><div class="u-text" style="margin-bottom:.6rem">Aeron Chair — $1,395</div><div style="font-size:.85rem;color:#222;cursor:pointer" onclick="probe(this,true)">Save for later</div></div></div>
+      <div class="gstep active" id="g1s1"><div class="ql">Step 1 — What can it actually do?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g1s1','g1s2')">Nothing — it's a static label</button><button onclick="gans(this,'b','g1s1','g1s2')">It saves the item when tapped</button><button onclick="gans(this,'c','g1s1','g1s2')">It links out to another page</button></div></div>
+      <div class="gstep" id="g1s2"><div class="ql">Step 2 — What perceptible cue signalled that?</div>
+        <div class="opts" data-a="c"><button onclick="gans(this,'a','g1s2','g1s3')">A clear button shape</button><button onclick="gans(this,'b','g1s2','g1s3')">An underline</button><button onclick="gans(this,'c','g1s2','g1s3')">None — it reads as plain text</button></div></div>
+      <div class="gstep" id="g1s3"><div class="ql">Step 3 — Verdict + prescription?</div>
+        <div class="opts" data-a="a"><button onclick="gans(this,'a','g1s3','g1synth')">Hidden affordance → add a signifier</button><button onclick="gans(this,'b','g1s3','g1synth')">False affordance → strip the styling</button><button onclick="gans(this,'c','g1s3','g1synth')">Correct rejection → leave it</button></div></div>
+      <div class="gsynth" id="g1synth"><b>Affordance</b> (saves) → <b>signifier</b> (none) → <b>hidden affordance</b> → <b>prescribe a signifier</b> (make it a button or add a "+ Save" cue). Perception changes; behaviour doesn't.</div>
+    </div>
+  </div>
+
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">open the shipment tracking.</div>
+      <div class="stage"><div class="screen" style="width:240px"><div class="u-title" style="margin-bottom:.5rem">Order</div><div class="stat" style="box-shadow:0 5px 13px rgba(0,0,0,.16);cursor:pointer" onclick="probe(this,false)"><div class="v" style="font-size:.95rem">Shipped</div><div class="l">Status</div></div></div></div>
+      <div class="gstep active" id="g2s1"><div class="ql">Step 1 — What can it actually do?</div>
+        <div class="opts" data-a="a"><button onclick="gans(this,'a','g2s1','g2s2')">Nothing — it's display only</button><button onclick="gans(this,'b','g2s1','g2s2')">It opens shipment tracking</button><button onclick="gans(this,'c','g2s1','g2s2')">It toggles a setting</button></div></div>
+      <div class="gstep" id="g2s2"><div class="ql">Step 2 — What is the styling signalling?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g2s2','g2s3')">No cue at all</button><button onclick="gans(this,'b','g2s2','g2s3')">Shadow + hover-lift imply it's clickable</button><button onclick="gans(this,'c','g2s2','g2s3')">A clear button label</button></div></div>
+      <div class="gstep" id="g2s3"><div class="ql">Step 3 — Verdict + prescription?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g2s3','g2synth')">Hidden affordance → add a signifier</button><button onclick="gans(this,'b','g2s3','g2synth')">False affordance → strip the interaction cues</button><button onclick="gans(this,'c','g2s3','g2synth')">Perceptible affordance → fine as-is</button></div></div>
+      <div class="gsynth" id="g2synth">Mirror image: <b>affordance</b> (none) → <b>signifier</b> (shadow + lift, implying clickable) → <b>false affordance</b> → <b>prescribe removal</b> of the interaction cues. This is the opposite case from the first, and telling the two apart is what the drill is for.</div>
+    </div>
+  </div>
+
+  <h3 class="sub">Part C — Field mission</h3>
+  <p>Over the next few days, catch <b>three affordance failures in apps you actually use</b>. For each, log the element, the quadrant, and the one-line fix. Saved automatically.</p>
+  <div class="ix"><div class="ix-body">
+    <div class="fm"><input class="fmf" data-k="el1" placeholder="Element & app"><select class="fmf" data-k="q1"><option value="">Quadrant…</option><option>Hidden affordance</option><option>False affordance</option><option>Correct rejection</option><option>Perceptible</option></select><input class="fmf" data-k="fx1" placeholder="One-line fix"></div>
+    <div class="fm"><input class="fmf" data-k="el2" placeholder="Element & app"><select class="fmf" data-k="q2"><option value="">Quadrant…</option><option>Hidden affordance</option><option>False affordance</option><option>Correct rejection</option><option>Perceptible</option></select><input class="fmf" data-k="fx2" placeholder="One-line fix"></div>
+    <div class="fm"><input class="fmf" data-k="el3" placeholder="Element & app"><select class="fmf" data-k="q3"><option value="">Quadrant…</option><option>Hidden affordance</option><option>False affordance</option><option>Correct rejection</option><option>Perceptible</option></select><input class="fmf" data-k="fx3" placeholder="One-line fix"></div>
+    <div class="countline"><span id="fmCount">0 / 3 logged</span><span id="fmSaved"></span></div>
+    <p style="font-family:var(--ui); font-size:.84rem; color:var(--muted); margin:.6rem 0 0">Bring these back to chat and we'll pressure-test your verdicts — especially the ambiguous ones.</p>
+  </div></div>
+
+  <div class="ask"><b>Your teacher is on call.</b> Want to run a screen from your own product through the §08 audit with me? Paste or describe it and we'll flag every hidden and false affordance, then argue the ambiguous calls.</div>
+
+  <div class="source">
+    <div class="kicker">Primary source · read this next</div>
+    <h3>"Signifiers, Not Affordances" — Don Norman</h3>
+    <p style="margin:.4rem 0 .8rem; font-size:.92rem; color:#e9e2d6;">The short essay where Norman introduces the word and explains why "affordance" alone was failing designers. ~10 minutes, straight from the source. Then, for the full treatment plus Gaver's matrix, <em>The Design of Everyday Things</em>, Ch. 1.</p>
+    <a href="https://jnd.org/signifiers_not_affordances/">jnd.org/signifiers_not_affordances →</a>
+  </div>
+
+  <div class="nav"><span><a href="../reference/glossary.html">Glossary ↗</a></span><span><a href="0002-mapping-and-feedback.html">Lesson 02 → Mapping &amp; Feedback</a></span></div>
+</div>
+
+<script>
+  // ---- small helper: flash a result tag on an element ----
+  function flash(el,msg,ok){ var t=document.createElement('span'); t.textContent=msg;
+    t.style.cssText='position:absolute;left:50%;top:-13px;transform:translateX(-50%);background:'+(ok?'#3f6b4a':'#9c4a3c')+';color:#fff;font:600 .62rem var(--ui);padding:.1rem .45rem;border-radius:4px;z-index:6;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.2)';
+    var host=el; getComputedStyle(host).position==='static' && (host.style.position='relative'); host.appendChild(t); setTimeout(()=>t.remove(),1100); }
+  function probe(el,works){ flash(el, works?'✓ opened':'✗ nothing happens', works); }
+  function expand(el){ if(el.dataset.done)return; el.dataset.done='1'; el.insertAdjacentHTML('afterend','<div style="font-size:.72rem;color:#666;margin-top:5px">▸ Date range<br>▸ Status<br>▸ Owner</div>'); flash(el,'✓ expanded',true); }
+  function ping(m){ var t=document.createElement('div'); t.textContent=m;
+    t.style.cssText='position:fixed;left:50%;top:1.2rem;transform:translateX(-50%);background:#1a1814;color:#fff;font-family:sans-serif;font-size:.85rem;padding:.5rem .9rem;border-radius:8px;z-index:99;box-shadow:0 4px 14px rgba(0,0,0,.2)';
+    document.body.appendChild(t); setTimeout(()=>t.remove(),1100); }
+
+  // ---- matrix ----
+  var M={
+    perceptible:["Perceptible affordance ✓","A filled, labelled button. The user sees it, knows what it does, clicks confidently. The target for every interactive element.",
+      '<div class="mini-box"><div style="background:#7a4f2a;color:#fff;text-align:center;border-radius:7px;padding:7px;font-weight:600">Continue</div></div>'],
+    hidden:["Hidden affordance ✗","This row is tappable, but nothing says so. Discovery depends on luck or habit. Fix: add a signifier.",
+      '<div class="mini-box"><div style="padding:7px 0;border-bottom:1px solid #eee">Account</div><div style="padding:7px 0">Privacy</div></div>'],
+    "false":["False affordance ✗","A non-clickable tile styled with shadow + hover-lift. Looks tappable; does nothing. Users feel misled. Fix: remove the styling.",
+      '<div class="mini-box" style="box-shadow:0 5px 12px rgba(0,0,0,.18)"><div style="font-weight:700">$48k</div><div style="color:#999">Revenue</div></div>'],
+    reject:["Correct rejection ✓","Plain text, no interactive styling, no action — exactly right. Most of a screen should live here.",
+      '<div class="mini-box"><div style="height:5px;background:#eee;border-radius:3px;margin:4px 0"></div><div style="height:5px;background:#eee;border-radius:3px;width:70%"></div></div>']
+  };
+  function msel(el,k){ document.querySelectorAll('.cell').forEach(c=>c.classList.remove('sel')); el.classList.add('sel');
+    document.getElementById('mdetail').innerHTML='<div>'+M[k][2]+'</div><div><b>'+M[k][0]+'</b><br>'+M[k][1]+'</div>'; }
+
+  // ---- wrong/right card ----
+  function setVer(v){ document.getElementById('cardWrong').style.display=v==='wrong'?'block':'none'; document.getElementById('cardRight').style.display=v==='right'?'block':'none';
+    document.getElementById('demoLabel').textContent=v==='wrong'?'Version A':'Version B';
+    document.querySelectorAll('[onclick^="setVer"]').forEach(b=>b.classList.toggle('on',b.dataset.v===v)); }
+
+  // ---- generic clinic ----
+  function clinic(btn,choice,fbId){ var box=btn.closest('.opts'); if(box.dataset.locked)return; box.dataset.locked='1';
+    var correct=box.dataset.a; box.querySelectorAll('button').forEach(b=>b.disabled=true);
+    if(choice===correct) btn.classList.add('correct'); else { btn.classList.add('wrong'); box.querySelectorAll('button').forEach((b,i)=>{ if('abcd'[i]===correct) b.classList.add('correct'); }); }
+    document.getElementById(fbId).classList.add('show'); }
+  function tog(id){document.getElementById(id).classList.toggle('show');}
+  function checkPick(groupId,resId){ var g=document.getElementById(groupId), res=document.getElementById(resId);
+    var boxes=[...g.querySelectorAll('input')], good=0,bad=0,missed=0;
+    boxes.forEach(b=>{ var isGood=b.dataset.good==='1'; if(b.checked&&isGood)good++; if(b.checked&&!isGood)bad++; if(!b.checked&&isGood)missed++;
+      b.parentElement.style.borderColor=b.checked?(isGood?'var(--right)':'var(--wrong)'):'var(--rule)'; b.parentElement.style.background=b.checked?(isGood?'var(--right-bg)':'var(--wrong-bg)'):'#fff'; });
+    var msg; if(bad===0&&missed===0) msg='Perfect — every pick changes what the user can perceive about the action, and you dodged the decoys.';
+    else { msg='Caught '+good+' real signifier'+(good===1?'':'s')+'. '; if(bad) msg+=bad+' pick'+(bad===1?'':'s')+' don\'t add a signifier. '; if(missed) msg+=missed+' real signifier'+(missed===1?'':'s')+' missed. ';
+      msg+='Test each: does it change what the user can PERCEIVE about the action? If it changes function, readability, or is decoration, it is not a signifier.'; }
+    res.textContent=msg; res.classList.add('show'); }
+
+  // ---- invoices table (operable, hidden affordance) ----
+  var invData=[['Northwind','$2,400','Paid'],['Acme Co','$880','Overdue'],['Globex','$5,120','Pending']];
+  function num(s){ return +s.replace(/[^0-9.]/g,''); }
+  function renderInv(){ var b=document.getElementById('invBody'); b.innerHTML=''; invData.forEach(r=>{ var tr=document.createElement('tr'); tr.innerHTML='<td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td>'; b.appendChild(tr); }); }
+  function sortInv(col){ invData.sort((a,b)=> col===1 ? num(b[1])-num(a[1]) : a[col].localeCompare(b[col])); renderInv();
+    document.getElementById('invMsg').textContent='✓ sorted by '+['Client','Amount','Status'][col]+(col===1?' (high→low)':'')+' — but did anything tell you that was possible?'; }
+  function applyFix(){ var t=document.getElementById('invTable'); t.classList.add('fixed'); var ths=t.querySelectorAll('th');
+    if(ths[1].querySelector('.caret'))return; ths.forEach(th=>th.title='Click to sort'); ths[1].innerHTML='Amount <span class="caret">▼</span>'; ping('Headers now signify sorting'); }
+
+  // ---- build-it preview ----
+  function prev(){ var i=document.querySelectorAll('#b1 input'); var chev=i[0].checked,pointer=i[1].checked,underline=i[2].checked,filled=i[3].checked,tall=i[4].checked;
+    var row=document.getElementById('prevRow'),lbl=document.getElementById('prevLabel'); document.getElementById('prevChev').style.display=chev?'inline':'none';
+    row.style.cursor=pointer?'pointer':'default'; row.style.padding=tall?'.85rem 1rem':'.32rem 1rem'; row.style.background=filled?'var(--accent)':'#fff';
+    lbl.style.textDecoration=underline?'underline':'none'; lbl.style.color=underline?'#2a6df0':(filled?'#fff':'#1a1814');
+    row.onmouseenter=()=>{ if(pointer&&!filled) row.style.background='#f3eee4'; }; row.onmouseleave=()=>{ row.style.background=filled?'var(--accent)':'#fff'; }; }
+
+  // ---- audit (operable + flag) ----
+  var audLocked=false;
+  function probeAud(el,works){ if(works===null){ flash(el,'(not interactive)',false); return; } flash(el, works?'✓ opened':'✗ nothing happens', works); }
+  function flagTog(btn,ev){ ev.stopPropagation(); if(audLocked)return; btn.classList.toggle('on'); }
+  function audCheck(){ if(audLocked)return; audLocked=true; var els=[...document.querySelectorAll('.audwrap')], tp=0,fp=0,fn=0;
+    els.forEach(el=>{ var bad=el.dataset.v==='bad', flagged=el.querySelector('.flagbtn').classList.contains('on'); var badge=el.querySelector('.vbadge'); el.classList.add('checked');
+      if(bad&&flagged){tp++; el.classList.add('a-correct'); badge.style.background='var(--right)'; badge.textContent='✓ caught';}
+      else if(!bad&&flagged){fp++; el.classList.add('a-false'); badge.style.background='var(--warn)'; badge.textContent='false alarm';}
+      else if(bad&&!flagged){fn++; el.classList.add('a-missed'); badge.style.background='var(--wrong)'; badge.textContent='✗ missed';}
+      else { badge.style.background='#9aa'; badge.textContent='ok'; } el.title=el.dataset.k; });
+    var res=document.getElementById('audRes'); res.innerHTML='<b>'+tp+'/3 broken caught.</b> '+(fp?fp+' false alarm'+(fp===1?'':'s')+'. ':'')+(fn?fn+' missed. ':'')+(tp===3&&fp===0?'Clean audit — you separated what acts from what only looks like it acts. ':'')+'Hover any element for its verdict, or reveal the mark-up.'; res.classList.add('show'); }
+
+  // ---- quiz ----
+  var score=0,total=document.querySelectorAll('#quiz .q').length; document.getElementById('score').textContent='Score: 0 / '+total;
+  function ans(btn,choice){ var q=btn.closest('.q'); if(q.dataset.done)return; q.dataset.done='1'; var correct=q.dataset.a; q.querySelectorAll('.opts button').forEach(b=>b.disabled=true);
+    if(choice===correct){btn.classList.add('correct');score++;} else{btn.classList.add('wrong'); q.querySelectorAll('.opts button').forEach(b=>{ if(b.getAttribute('onclick').indexOf("'"+correct+"'")>-1) b.classList.add('correct'); });}
+    q.querySelector('.fb').classList.add('show'); document.getElementById('score').textContent='Score: '+score+' / '+total; }
+
+  // ---- guided stepper ----
+  function gans(btn,choice,stepId,nextId){ var box=btn.closest('.opts'); if(box.dataset.locked)return; box.dataset.locked='1'; var correct=box.dataset.a; box.querySelectorAll('button').forEach(b=>b.disabled=true);
+    if(choice===correct) btn.classList.add('correct'); else { btn.classList.add('wrong'); box.querySelectorAll('button').forEach((b,i)=>{ if('abc'[i]===correct) b.classList.add('correct'); }); }
+    var nxt=document.getElementById(nextId); if(nxt) nxt.classList.add(nxt.classList.contains('gsynth')?'show':'active'); }
+
+  // ---- capstone textarea ----
+  var ta=document.getElementById('capAns'), KEY='lesson01-capstone';
+  try{ var saved=localStorage.getItem(KEY); if(saved) ta.value=saved; }catch(e){}
+  function wc(){ var w=ta.value.trim()?ta.value.trim().split(/\s+/).length:0; document.getElementById('capCount').textContent=w+' word'+(w===1?'':'s'); }
+  ta.addEventListener('input',function(){ wc(); try{ localStorage.setItem(KEY,ta.value); document.getElementById('capSaved').textContent='saved'; }catch(e){} }); wc();
+  function revealCap(){ var w=ta.value.trim()?ta.value.trim().split(/\s+/).length:0; if(w<10 && !document.getElementById('capExp').classList.contains('show')){ if(!confirm('Writing your own answer first is where the learning happens. Reveal the model anyway?')) return; } tog('capExp'); }
+
+  // ---- field mission ----
+  (function(){ var FKEY='lesson01-field', fields=[...document.querySelectorAll('.fmf')];
+    try{ var d=JSON.parse(localStorage.getItem(FKEY)||'{}'); fields.forEach(f=>{ if(d[f.dataset.k]!=null) f.value=d[f.dataset.k]; }); }catch(e){}
+    function count(){ var rows=[['el1','q1','fx1'],['el2','q2','fx2'],['el3','q3','fx3']]; var n=rows.filter(r=>r.some(k=>{var f=document.querySelector('.fmf[data-k="'+k+'"]');return f&&f.value.trim();})).length; document.getElementById('fmCount').textContent=n+' / 3 logged'; }
+    fields.forEach(f=>f.addEventListener('input',function(){ var d={}; fields.forEach(x=>d[x.dataset.k]=x.value); try{ localStorage.setItem(FKEY,JSON.stringify(d)); document.getElementById('fmSaved').textContent='saved'; }catch(e){} count(); })); count(); })();
+
+  // init
+  setVer('wrong'); renderInv();
+</script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 02 — Mapping & Feedback</title>
+<link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Lesson 02 · Norman's Foundations · Deep + visual</div>
+  <h1>Mapping &amp; Feedback</h1>
+  <div class="lede">Lesson 01 was about making an element readable. This one is about making it operable: mapping lets a user predict what a control will do before acting; feedback tells them what happened after. The exercises don't describe the bugs; you operate each interface and find them.</div>
+
+  <nav class="toc">
+    <a href="#s1">The two gulfs</a>
+    <a href="#s2">Mapping: natural vs arbitrary</a>
+    <a href="#s3">Live: the stovetop</a>
+    <a href="#s4">Feedback &amp; the 3 time limits</a>
+    <a href="#s5">Live: the silent button</a>
+    <a href="#s6">Clinic: the settings panel</a>
+    <a href="#s7">Clinic: the export</a>
+    <a href="#s8">Build it: feedback to latency</a>
+    <a href="#s9">Audit a real screen</a>
+    <a href="#s10">The expert's nuance</a>
+    <a href="#s11">Retrieve it (operate &amp; classify)</a>
+    <a href="#s12">Capstone (write your answer)</a>
+    <a href="#s13">Strengthen the muscle</a>
+  </nav>
+
+  <h2 id="s1"><span class="n">01</span>The two gulfs</h2>
+  <p>Norman models every interaction as a loop: you form a goal, <em>do</em> something, then <em>check</em> whether it worked. Two gaps open in that loop, and they have names.<span class="cite"> — Norman, <em>DOET</em> (2013); <a href="https://en.wikipedia.org/wiki/Seven_stages_of_action">seven stages of action</a></span></p>
+  <ul>
+    <li><b>The Gulf of Execution</b> — "how do I do this? which control?" The gap between your intention and the system's accepted actions. <b>Mapping</b> is the main bridge.</li>
+    <li><b>The Gulf of Evaluation</b> — "did that work? what state am I in now?" The gap between the system's actual state and your ability to perceive it. <b>Feedback</b> is the main bridge.</li>
+  </ul>
+  <div class="pull"><b>Mapping</b> shrinks the gulf of <em>execution</em> (before the action). <b>Feedback</b> shrinks the gulf of <em>evaluation</em> (after it). Most "confusing" interfaces are one specific gulf left un-bridged — and naming which one tells you the fix.</div>
+
+  <h2 id="s2"><span class="n">02</span>Mapping: natural vs arbitrary</h2>
+  <p><b>Mapping</b> is the relationship between a control and its effect. A <em>natural mapping</em> exploits spatial layout or cultural convention so the relationship is obvious without a label.<span class="cite"> — <a href="https://www.nngroup.com/articles/natural-mappings/">NN/G, "Natural Mappings"</a></span></p>
+  <div class="pull">"When I turn on the wrong stove burner, it is not due to my lack of knowledge: it is due to poor <b>mapping</b> between controls and burners. Teaching me the relationship will not stop the error from recurring: redesigning the stove will."<br><span class="cite">— Don Norman, <em>The Design of Everyday Things</em></span></div>
+
+  <h2 id="s3"><span class="n">03</span>Live: the stovetop <span class="tag try">your turn</span></h2>
+  <p>Same four burners and knobs, both fully functional — only the knob <em>layout</em> changes. You're told a burner to light; click the knob you believe controls it. Track your hit rate in each version.</p>
+  <div class="ix">
+    <div class="ix-head"><span id="stoveLabel">Layout A</span>
+      <div class="toggle"><button data-v="wrong" class="on" onclick="renderStove('wrong')">Layout A</button><button data-v="right" onclick="renderStove('right')">Layout B</button></div>
+    </div>
+    <div class="ix-body">
+      <div class="stage"><div class="cooktop">
+        <div class="burners">
+          <div class="burner" id="b0"><span>back-L</span></div><div class="burner" id="b1"><span>back-R</span></div>
+          <div class="burner" id="b2"><span>front-L</span></div><div class="burner" id="b3"><span>front-R</span></div>
+        </div>
+        <div id="knobWrap" class="knobs row"></div>
+      </div></div>
+      <div class="goal">Light the <b id="goalName">front-left</b> burner.</div>
+      <div class="sresult" id="sresult"></div>
+    </div>
+  </div>
+  <p>In one layout you were guessing; in the other, the knob's position answered the question before you clicked. Being able to predict the result before acting is what it means to cross the gulf of execution, and natural mapping is how you get there, without labels.</p>
+
+  <h2 id="s4"><span class="n">04</span>Feedback &amp; the three time limits</h2>
+  <p><b>Feedback</b> is the system communicating that it registered your action, what it's doing, and the result — <em>immediate</em>, <em>informative</em>, <em>appropriate</em>. Its absence forces guessing, and guessing breeds errors. How fast it must arrive isn't taste; Jakob Nielsen pinned the perceptual thresholds:<span class="cite"> — <a href="https://www.nngroup.com/articles/response-times-3-important-limits/">NN/G, "Response Time Limits"</a></span></p>
+  <ul>
+    <li><b>0.1 s</b> — feels instantaneous; show the result, no special feedback needed.</li>
+    <li><b>1 s</b> — noticed, but thought survives; still usually no spinner.</li>
+    <li><b>10 s</b> — the limit of held attention. Past this you owe a <em>progress bar with an estimate</em>.</li>
+  </ul>
+
+  <h2 id="s5"><span class="n">05</span>Live: the silent button <span class="tag try">your turn</span></h2>
+  <p>A checkout button with a ~1.5 s call behind it. Same action both ways — only the feedback differs. Press it, and behave like a real user: if nothing seems to happen, press it again.</p>
+  <div class="ix">
+    <div class="ix-head"><span id="silLabel">Version A</span>
+      <div class="toggle"><button data-v="wrong" class="on" onclick="setSil('wrong')">Version A</button><button data-v="right" onclick="setSil('right')">Version B</button></div>
+    </div>
+    <div class="ix-body">
+      <div class="stage"><div class="checkout">
+        <div class="co-line"><span>Aeron Chair ×1</span><span>$1,395</span></div>
+        <div class="co-line co-total"><span>Total</span><span>$1,395</span></div>
+        <button class="placebtn" id="placeBtn" onclick="placeOrder()">Place order</button>
+        <div class="counter" id="orderCount"></div>
+      </div></div>
+    </div>
+  </div>
+  <p>Version A says nothing for 1.5 s, so a normal user assumes failure and clicks again — and each click is a real charge. The missing feedback <em>causes</em> the duplicate-order bug; Version B's instant acknowledgement makes it impossible.</p>
+
+  <h2 id="s6"><span class="n">06</span>Clinic: the settings panel <span class="tag try">your turn</span></h2>
+  <p>A notifications panel, as shipped — the toggle works. Operate it for the task below, then commit to a check.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">turn OFF the security-alert emails, then Save.</div>
+      <div class="stage"><div class="screen" style="width:260px">
+        <div class="u-title">Notifications</div>
+        <div class="u-text" style="padding:.35rem 0">Email me about product updates</div>
+        <div class="floatpill"><div class="pill on" id="ambPill" onclick="this.classList.toggle('on')"></div></div>
+        <div class="u-text" style="padding:.35rem 0">Email me about security alerts</div>
+        <button class="btn" style="width:100%;margin-top:.6rem" onclick="ambCheck()">Save changes</button>
+        <div id="ambResult" class="readout" style="margin-top:.6rem;min-height:1rem"></div>
+      </div></div>
+
+      <div class="neutralq">What, if anything, is wrong here?</div>
+      <div class="opts grid2" data-a="a">
+        <button onclick="clinic(this,'a','c1')">Gulf of execution — mapping</button>
+        <button onclick="clinic(this,'b','c1')">Gulf of evaluation — feedback</button>
+        <button onclick="clinic(this,'c','c1')">Both gulfs at once</button>
+        <button onclick="clinic(this,'d','c1')">Nothing — it's fine</button>
+      </div>
+      <div class="fb" id="c1">The pill <em>does</em> show its state (feedback is fine), but you couldn't tell which setting it governs before acting — a <b>mapping</b> failure across the gulf of <b>execution</b>. The control isn't bound, spatially, to its effect.</div>
+
+      <div class="step-label">Now pick the changes that actually fix it (choose all that apply)</div>
+      <div class="pick" id="c1fix">
+        <label><input type="checkbox" data-good="1"> Put each toggle on the same row as its label, right-aligned</label>
+        <label><input type="checkbox" data-good="1"> Tighten proximity so the toggle clearly belongs to one label</label>
+        <label><input type="checkbox" data-good="0"> Add a success toast when the toggle is flipped</label>
+        <label><input type="checkbox" data-good="0"> Make the toggle animate more smoothly</label>
+      </div>
+      <button class="btn" onclick="checkPick('c1fix','c1res')">Check my fixes</button>
+      <div class="fb" id="c1res"></div>
+      <button class="reveal" onclick="tog('c1exp')">Reveal how an expert frames it ▾</button>
+      <div class="expert" id="c1exp"><b>Expert framing:</b> a mapping failure is fixed in <em>layout</em> — bind control to effect with row alignment and proximity (spatial natural mapping). A success <em>toast</em> is feedback; it answers "did it flip?", not "which setting does it control?". A feedback fix won't close a mapping gap.</div>
+    </div>
+  </div>
+
+  <h2 id="s7"><span class="n">07</span>Clinic: the export <span class="tag try">your turn</span></h2>
+  <p>An export screen, as shipped. Press Export and actually wait for it to finish before you commit to a check.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">export the report and tell when it's done.</div>
+      <div class="stage"><div class="screen" style="width:240px">
+        <div class="u-title">Export report</div>
+        <div class="u-text" style="margin-bottom:.6rem">12,400 rows · PDF</div>
+        <button class="btn" id="expBtn" style="width:100%" onclick="runExport()">Export</button>
+        <div id="expArea" style="margin-top:.7rem;text-align:center;min-height:1.4rem"></div>
+      </div></div>
+
+      <div class="neutralq">What, if anything, is wrong here?</div>
+      <div class="opts grid2" data-a="b">
+        <button onclick="clinic(this,'a','c2')">Mapping — wrong control layout</button>
+        <button onclick="clinic(this,'b','c2')">Feedback — wrong for the duration</button>
+        <button onclick="clinic(this,'c','c2')">A false affordance</button>
+        <button onclick="clinic(this,'d','c2')">Nothing — it's fine</button>
+      </div>
+      <div class="fb" id="c2">There <em>is</em> feedback (a spinner), but for a long job it never resolves into progress — past ~10 s an indefinite spinner reads as "frozen." The gulf of <b>evaluation</b> stays open: you can't tell if it's working or how long is left.</div>
+
+      <div class="step-label">The right feedback here?</div>
+      <div class="opts" data-a="c">
+        <button onclick="clinic(this,'a','c2b')">A larger, faster spinner so it looks more active</button>
+        <button onclick="clinic(this,'b','c2b')">A modal that blocks the screen until it finishes</button>
+        <button onclick="clinic(this,'c','c2b')">A determinate progress bar with % and estimate — and let them keep working</button>
+      </div>
+      <div class="fb" id="c2b">Past 10 s you owe a determinate signal: progress + estimate, so attention is rewarded and "frozen?" never arises. <button class="btn ghost" style="margin-top:.6rem" onclick="runExport(true)">▶ Run the fixed version</button></div>
+      <button class="reveal" onclick="tog('c2exp')">Reveal the principle ▾</button>
+      <div class="expert" id="c2exp"><b>Principle:</b> the right feedback depends on the latency, not just on being present. Nielsen's limits make it concrete: under 0.1 s none, around 1 s subtle, over 10 s progress and an estimate. The same idea drives §08.</div>
+    </div>
+  </div>
+
+  <h2 id="s8"><span class="n">08</span>Build it: feedback to latency <span class="tag do">rule drill</span></h2>
+  <p>For each operation and its real duration, choose the <em>minimum appropriate feedback</em> from Nielsen's limits.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div id="latGrid">
+        <div class="lat" data-correct="none"><span>Toggling a checkbox</span><span class="dur">0.05 s</span>
+          <select><option value="">choose…</option><option value="none">Just show the result</option><option value="subtle">Subtle inline cue</option><option value="spinner">Spinner</option><option value="progress">Progress bar + estimate</option></select></div>
+        <div class="lat" data-correct="none"><span>Filtering a visible list</span><span class="dur">0.4 s</span>
+          <select><option value="">choose…</option><option value="none">Just show the result</option><option value="subtle">Subtle inline cue</option><option value="spinner">Spinner</option><option value="progress">Progress bar + estimate</option></select></div>
+        <div class="lat" data-correct="spinner"><span>Loading search results</span><span class="dur">2.5 s</span>
+          <select><option value="">choose…</option><option value="none">Just show the result</option><option value="subtle">Subtle inline cue</option><option value="spinner">Spinner</option><option value="progress">Progress bar + estimate</option></select></div>
+        <div class="lat" data-correct="progress"><span>Generating a PDF report</span><span class="dur">25 s</span>
+          <select><option value="">choose…</option><option value="none">Just show the result</option><option value="subtle">Subtle inline cue</option><option value="spinner">Spinner</option><option value="progress">Progress bar + estimate</option></select></div>
+      </div>
+      <button class="btn" style="margin-top:1rem" onclick="checkLat()">Check my choices</button>
+      <div class="fb" id="latRes"></div>
+    </div>
+  </div>
+
+  <h2 id="s9"><span class="n">09</span>Audit a real screen <span class="tag try">hardest</span></h2>
+  <p>A device-settings screen. <b>Operate every control</b> — actually drag, tap, and press them. When one feels wrong, hit its <b>⚑ flag</b>. Leave the honest ones. No descriptions; trust your hands. Then check.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="stage"><div class="screen" style="width:330px">
+        <div class="audwrap" data-v="ok" data-k="Section heading — inert, nothing implied. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="u-title" style="margin:0">Display</div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="MAPPING: the slider runs backwards — dragging right makes the screen darker."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="u-text">Brightness</div>
+          <input type="range" id="audBright" min="0" max="100" value="40" oninput="brightUpd('audBright','audSw','audBval')">
+          <div class="swatch" id="audSw"></div><div class="readout" id="audBval"></div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="ok" data-k="MAPPING + FEEDBACK ok: label left, toggle right on the same row; flips clearly."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="row" style="border:0"><span>Dark mode</span><div class="pill" onclick="this.classList.toggle('on')"></div></div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="MAPPING: ▲ moves the selected item DOWN and ▼ moves it up — direction inverted from effect."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="reord" id="reord">
+            <div class="item sel">Widget A <span><button class="stepbtn" onclick="reorder(1)">▲</button><button class="stepbtn" onclick="reorder(-1)">▼</button></span></div>
+            <div class="item">Widget B</div><div class="item">Widget C</div>
+          </div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="FEEDBACK: 'Reset all' wipes every setting instantly — no confirmation, no undo."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <button class="btn" style="width:100%;background:#9c4a3c" onclick="resetAll()">Reset all settings</button><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="ok" data-k="FEEDBACK ok: Save disables, shows a spinner, then 'Saved ✓' — status visible throughout."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <button class="btn" style="width:100%" id="audSave" onclick="audSaveRun()">Save</button><span class="vbadge"></span></div>
+      </div></div>
+      <div style="text-align:center;margin-top:1rem"><button class="btn" onclick="audCheck()">Check my audit</button> <button class="btn ghost" onclick="resetAll(true)">Restore screen</button></div>
+      <div class="fb" id="audRes"></div>
+      <button class="reveal" onclick="tog('audExp')">Reveal the full mark-up ▾</button>
+      <div class="expert" id="audExp"><b>The three broken:</b> the <u>brightness slider</u> (mapping — runs backwards), the <u>reorder ▲/▼</u> (mapping — direction inverted), and <u>Reset all</u> (feedback — destructive, fires with no confirmation or undo). <b>The three honest:</b> the "Display" heading, "Dark mode" (clean row mapping with a clear flip), "Save" (visible status). For each one, name the gulf first; the gulf points to the fix.</div>
+    </div>
+  </div>
+
+  <h2 id="s10"><span class="n">10</span>The expert's nuance</h2>
+  <h3 class="sub">Feedback can over-communicate</h3>
+  <p>More feedback isn't better. A badge on every icon, a toast for every save, a buzz for every event — and users tune all of it out, including the one that mattered. Match feedback's <em>intensity</em> to the event's importance: passive for routine, assertive only for consequential.</p>
+  <h3 class="sub">Mapping rides on convention — and convention is local</h3>
+  <p>Spatial mapping (layout matches layout) is near-universal. Cultural mapping (red = stop; a switch up = on in the US, off in the UK) is not. When a mapping leans on convention, you've inherited the user's prior — verify it travels to your audience.</p>
+  <h3 class="sub">Optimistic feedback: answer before you know</h3>
+  <p>For high-confidence actions (liking, sending), show success <em>immediately</em> and reconcile with the server quietly — perceived latency drops to zero. The trade: handle the rare failure gracefully, or you've replaced a slow truth with a fast lie.</p>
+
+  <h2 id="s11"><span class="n">11</span>Retrieve it — operate &amp; classify</h2>
+  <p>Each widget below works. <b>Do the task, watch what happens, then classify</b>: a <b>mapping</b> problem (execution), a <b>feedback</b> problem (evaluation), <b>both</b>, or <b>nothing wrong</b>. The wording won't tell you which; you have to try it.</p>
+  <div class="ix"><div class="ix-body" id="quiz">
+
+    <div class="q" data-a="map">
+      <div class="task">make the screen as bright as you can.</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;margin-bottom:4px">Brightness</div>
+        <input type="range" id="qBright" min="0" max="100" value="35" oninput="brightUpd('qBright','qSw','qBval')">
+        <div class="swatch" id="qSw" style="height:34px"></div><div class="readout" id="qBval" style="font-size:.7rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'map')">Mapping problem</button><button onclick="ans(this,'fb')">Feedback problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">The readout updated instantly (feedback fine), but "right = darker" fights the spatial convention — you can't predict the result. Pure mapping (execution) failure.</div>
+    </div>
+
+    <div class="q" data-a="fb">
+      <div class="task">like this post.</div>
+      <div class="qwidget"><div class="qcard" style="text-align:center"><div style="font-size:.74rem;margin-bottom:6px;text-align:left">Sunset over the bay</div>
+        <span class="heart" id="qHeart" onclick="heartTap()">♡</span></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'map')">Mapping problem</button><button onclick="ans(this,'fb')">Feedback problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">The control is obvious (mapping fine), but tapping gives no confirmation it worked — so you tapped again, unsure. Gulf of evaluation: a feedback failure. (It <em>did</em> register every tap.)</div>
+    </div>
+
+    <div class="q" data-a="fb">
+      <div class="task">export and wait for it to complete.</div>
+      <div class="qwidget"><div class="qcard" style="text-align:center"><button class="btn" id="qExpBtn" style="width:100%" onclick="qExport()">Export 30k rows</button><div id="qExpArea" style="min-height:1.4rem;margin-top:6px"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'map')">Mapping problem</button><button onclick="ans(this,'fb')">Feedback problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">Feedback exists but never becomes progress — past 10 s it reads as frozen, so you can't tell completion. A feedback (evaluation) failure: the signal doesn't match the latency.</div>
+    </div>
+
+    <div class="q" data-a="both">
+      <div class="task">turn on Low-data mode (only that one).</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.72rem;padding:2px 0">Wi-Fi calling</div>
+        <div class="floatpill"><div class="pill" id="qBothPill" onclick="bothTap(this)"></div></div>
+        <div style="font-size:.72rem;padding:2px 0">Low-data mode</div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'map')">Mapping problem</button><button onclick="ans(this,'fb')">Feedback problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">You can't tell which setting it controls (mapping) <em>and</em> it doesn't visibly change when tapped (feedback). Both gulfs open — "both."</div>
+    </div>
+
+    <div class="q" data-a="none">
+      <div class="task">toggle dark mode on and off a couple of times.</div>
+      <div class="qwidget"><div class="qcard"><div class="row" style="border:0;padding:.3rem 0"><span style="font-size:.78rem">Dark mode</span><div class="pill" onclick="this.classList.toggle('on')"></div></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'map')">Mapping problem</button><button onclick="ans(this,'fb')">Feedback problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">Label and control are bound on one row (mapping clear), and the flip is instant and visible (feedback immediate). Correctly designed — "nothing wrong." Don't invent a defect, and don't add feedback it doesn't need.</div>
+    </div>
+
+    <div class="q" data-a="map">
+      <div class="task">light the front-left burner.</div>
+      <div class="qwidget"><div class="qcard" style="text-align:center"><div style="font-size:.7rem;margin-bottom:5px">Tap a knob to light a burner</div>
+        <div id="qStoveBurn" style="display:grid;grid-template-columns:1fr 1fr;gap:5px;width:80px;margin:0 auto 8px"></div>
+        <div id="qStoveKnob" style="display:flex;gap:8px;justify-content:center"></div>
+        <div id="qStoveRes" style="font-size:.66rem;color:#777;margin-top:5px;min-height:.8rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'map')">Mapping problem</button><button onclick="ans(this,'fb')">Feedback problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">The lit burner gave clear feedback; the trouble was predicting which knob does what — a row of knobs over a 2×2 grid. Norman's original mapping (execution) failure.</div>
+    </div>
+
+    <div class="score" id="score">Score: 0 / 6</div>
+  </div></div>
+
+  <h2 id="s12"><span class="n">12</span>Capstone — write your answer</h2>
+  <p>One scenario fusing both gulfs. Operate it first, then critique it.</p>
+  <div class="ix"><div class="ix-body">
+    <div class="task">use the toolbar on the two selected files — try each icon.</div>
+    <div class="stage"><div class="screen" style="width:300px">
+      <div style="display:flex;gap:14px;justify-content:center;background:#1a1814;border-radius:9px;padding:.55rem;color:#fff;font-size:1.05rem">
+        <span style="cursor:pointer" onclick="bulkAct('up')">⬆</span><span style="cursor:pointer" onclick="bulkAct('down')">⬇</span><span style="cursor:pointer" onclick="bulkAct('del')">🗑</span><span style="cursor:pointer" onclick="bulkAct('mail')">✉</span>
+      </div>
+      <div id="bulkList" style="margin-top:.6rem">
+        <div class="row"><span>✓ Q3 Forecast.xlsx</span></div>
+        <div class="row"><span>✓ Board deck.key</span></div>
+        <div class="row" style="border:0"><span>Budget.pdf</span></div>
+      </div>
+      <div id="bulkMsg" class="readout" style="min-height:1rem;margin-top:.4rem"></div>
+    </div></div>
+    <p style="font-family:var(--ui);font-size:.9rem">You probably hesitated over the icons, and an action may have fired with no visible result. Critique it across <b>both gulfs</b>: <b>(1)</b> the mapping/execution problems, <b>(2)</b> the feedback/evaluation problems — and say which deserves the loudest fix and why.</p>
+    <textarea class="answer" id="capAns" placeholder="1) Execution / mapping…&#10;&#10;2) Evaluation / feedback…&#10;&#10;Priority…"></textarea>
+    <div class="countline"><span id="capCount">0 words</span><span id="capSaved"></span></div>
+    <button class="reveal" onclick="revealCap()">Reveal a model answer ▾</button>
+    <div class="expert" id="capExp"><b>Model answer:</b> "<u>Execution (mapping):</u> icon-only ⬆⬇🗑✉ force guessing — especially ⬆/⬇, whose meaning (move? priority? sort?) maps to nothing. Add labels/tooltips and make destructive ✉/🗑 distinct. <u>Evaluation (feedback):</u> two failures stacked — the bulk action fires with <em>no confirmation</em>, and the list shows <em>no result</em> until refresh. Update optimistically and give 🗑 a confirm + undo. <u>Priority:</u> the feedback gap on the <em>destructive</em> action matters most. An unconfirmed, unshown bulk delete can wipe data with no chance to catch the error. Fix that first." Check your own answer for three things: you separated the two gulfs, you ranked the destructive feedback gap highest, and you reached for optimistic update plus undo.</div>
+  </div></div>
+
+  <h2 id="s13"><span class="n">13</span>Strengthen the muscle</h2>
+  <p>Turn the reasoning into a <em>conscious procedure</em>. Protocol → guided walk-through → real-world mission.</p>
+
+  <h3 class="sub">Part A — The protocol (run it on any action)</h3>
+  <div class="ix"><div class="ix-body">
+    <div class="proto">
+      <div class="s"><div class="num"></div><div class="t"><b>Find the action cycle.</b> A goal → a <em>do</em> → a <em>check</em>. Two gulfs: execution (before), evaluation (after).</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Mapping check (before).</b> <span class="ask-q">Can the user predict which control produces which effect, without a label?</span> Natural = spatial layout or trusted convention.</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Feedback check (after).</b> <span class="ask-q">Does the system confirm it heard, show what it's doing, and report the result?</span> Immediate · informative · appropriate.</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Time the feedback.</b> &lt;0.1 s none · ~1 s subtle/none · 1–10 s spinner · &gt;10 s progress + estimate.</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Prescribe to the right gulf.</b> Mapping → fix <em>layout/convention</em>. Feedback → add the <em>right signal at the right time</em>. Never patch one gulf with the other's tool.</div></div>
+    </div>
+    <p style="font-family:var(--ui); font-size:.84rem; color:var(--muted); margin:.4rem 0 0">Keep it as a card: <a href="../reference/mapping-feedback-protocol.html">Mapping &amp; Feedback Protocol reference ↗</a>.</p>
+  </div></div>
+
+  <h3 class="sub">Part B — Walk the reasoning (operate, then earn the verdict)</h3>
+  <p>Two cases. Operate each, then commit every step before the next unlocks.</p>
+
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">raise the temperature to 72°.</div>
+      <div class="stage"><div class="screen" style="width:200px;text-align:center"><div class="u-title">Thermostat</div>
+        <button class="stepbtn" style="width:36px" onclick="thermo(1)">▲</button>
+        <div id="thVal" style="font-size:1.5rem;font-weight:700;margin:.3rem 0">68°</div>
+        <button class="stepbtn" style="width:36px" onclick="thermo(-1)">▼</button></div></div>
+      <div class="gstep active" id="g1s1"><div class="ql">Step 1 — Is the after-state communicated?</div>
+        <div class="opts" data-a="a"><button onclick="gans(this,'a','g1s1','g1s2')">Yes — the number updates immediately</button><button onclick="gans(this,'b','g1s1','g1s2')">No — nothing changes on screen</button></div></div>
+      <div class="gstep" id="g1s2"><div class="ql">Step 2 — Could you predict the control's effect beforehand?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g1s2','g1s3')">Yes — ▲ clearly raised it</button><button onclick="gans(this,'b','g1s2','g1s3')">No — ▲ is on top but it lowered the temp</button></div></div>
+      <div class="gstep" id="g1s3"><div class="ql">Step 3 — Verdict + prescription?</div>
+        <div class="opts" data-a="a"><button onclick="gans(this,'a','g1s3','g1synth')">Mapping failure → swap the arrows to match direction</button><button onclick="gans(this,'b','g1s3','g1synth')">Feedback failure → add a confirmation toast</button></div></div>
+      <div class="gsynth" id="g1synth"><b>Feedback present</b> (number updates) → <b>mapping broken</b> (▲ cools) → <b>fix the layout</b>, not the feedback. The working feedback is a distraction here.</div>
+    </div>
+  </div>
+
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">upload the files and wait until they're in.</div>
+      <div class="stage"><div class="screen" style="width:220px;text-align:center"><div class="u-title">Upload</div>
+        <button class="btn" id="upBtn" style="width:100%" onclick="uploadRun()">Upload 8 files</button>
+        <div id="upArea" style="min-height:1.4rem;margin-top:.5rem"></div></div></div>
+      <div class="gstep active" id="g2s1"><div class="ql">Step 1 — Could you predict what the button does?</div>
+        <div class="opts" data-a="a"><button onclick="gans(this,'a','g2s1','g2s2')">Yes — labelled "Upload 8 files," clearly placed</button><button onclick="gans(this,'b','g2s1','g2s2')">No — the control was ambiguous</button></div></div>
+      <div class="gstep" id="g2s2"><div class="ql">Step 2 — After tapping, did it show status in time?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g2s2','g2s3')">Yes — status was visible throughout</button><button onclick="gans(this,'b','g2s2','g2s3')">No — seconds of silence, then it just appeared</button></div></div>
+      <div class="gstep" id="g2s3"><div class="ql">Step 3 — Verdict + prescription?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g2s3','g2synth')">Mapping failure → relabel the button</button><button onclick="gans(this,'b','g2s3','g2synth')">Feedback failure → add a progress indicator</button></div></div>
+      <div class="gsynth" id="g2synth">The reverse of the first case: <b>mapping fine</b> → <b>feedback missing</b> for the latency → <b>add the right-timed signal</b>. The case turns on the other gulf, and telling the two apart is the point of the drill.</div>
+    </div>
+  </div>
+
+  <h3 class="sub">Part C — Field mission</h3>
+  <p>Over the next few days, catch <b>three mapping-or-feedback failures in apps you actually use</b>. Log the element, which gulf it fails, and the fix. Saved automatically.</p>
+  <div class="ix"><div class="ix-body">
+    <div class="fm"><input class="fmf" data-k="el1" placeholder="Element & app"><select class="fmf" data-k="q1"><option value="">Which gulf…</option><option>Mapping (execution)</option><option>Feedback (evaluation)</option><option>Both</option></select><input class="fmf" data-k="fx1" placeholder="One-line fix"></div>
+    <div class="fm"><input class="fmf" data-k="el2" placeholder="Element & app"><select class="fmf" data-k="q2"><option value="">Which gulf…</option><option>Mapping (execution)</option><option>Feedback (evaluation)</option><option>Both</option></select><input class="fmf" data-k="fx2" placeholder="One-line fix"></div>
+    <div class="fm"><input class="fmf" data-k="el3" placeholder="Element & app"><select class="fmf" data-k="q3"><option value="">Which gulf…</option><option>Mapping (execution)</option><option>Feedback (evaluation)</option><option>Both</option></select><input class="fmf" data-k="fx3" placeholder="One-line fix"></div>
+    <div class="countline"><span id="fmCount">0 / 3 logged</span><span id="fmSaved"></span></div>
+    <p style="font-family:var(--ui); font-size:.84rem; color:var(--muted); margin:.6rem 0 0">Bring these back to chat and we'll pressure-test which gulf each really fails — that argument is the consolidation.</p>
+  </div></div>
+
+  <div class="ask"><b>Your teacher is on call.</b> Run a screen from your own product through the §09 audit with me — we'll separate its mapping failures from its feedback failures and time every signal against Nielsen's limits.</div>
+
+  <div class="source">
+    <div class="kicker">Primary source · read this next</div>
+    <h3>"Response Times: The 3 Important Limits" — Jakob Nielsen</h3>
+    <p style="margin:.4rem 0 .8rem; font-size:.92rem; color:#e9e2d6;">Short and well-known, and it turns "good feedback" into the 0.1 / 1 / 10-second guideline you can apply directly. About six minutes. Then pair it with <em>The Design of Everyday Things</em>, Ch. 1–2.</p>
+    <a href="https://www.nngroup.com/articles/response-times-3-important-limits/">nngroup.com/articles/response-times-3-important-limits →</a>
+  </div>
+
+  <div class="nav"><span><a href="0001-affordances-and-signifiers.html">← Lesson 01</a> · <a href="../reference/glossary.html">Glossary ↗</a></span><span><a href="0003-constraints-and-conceptual-models.html">Lesson 03 → Constraints &amp; Conceptual Models</a></span></div>
+</div>
+
+<script>
+  // ---------- stovetop ----------
+  var burnerNames=['back-left','back-right','front-left','front-right'];
+  var maps={ right:[0,1,2,3], wrong:[2,0,3,1] };
+  var stoveVer='wrong', goalBurner=2, stoveScore={right:[0,0],wrong:[0,0]};
+  function clearBurners(){ for(var i=0;i<4;i++) document.getElementById('b'+i).classList.remove('on'); }
+  function newGoal(){ goalBurner=Math.floor(Math.random()*4); document.getElementById('goalName').textContent=burnerNames[goalBurner]; }
+  function renderStove(v){
+    stoveVer=v; clearBurners();
+    document.querySelectorAll('[onclick^="renderStove"]').forEach(b=>b.classList.toggle('on', b.dataset.v===v));
+    document.getElementById('stoveLabel').textContent = v==='wrong' ? 'Layout A — knobs in a row' : 'Layout B — knobs match the burners';
+    var wrap=document.getElementById('knobWrap'); wrap.className='knobs '+(v==='wrong'?'row':'grid2'); wrap.innerHTML='';
+    for(var k=0;k<4;k++){ var d=document.createElement('div'); d.className='knob'; d.innerHTML='<span class="lab">'+(v==='wrong'?('#'+(k+1)):'')+'</span>';
+      d.onclick=(function(idx){return function(){turnKnob(idx);};})(k); wrap.appendChild(d); }
+    document.getElementById('sresult').textContent=''; newGoal();
+  }
+  function turnKnob(k){ clearBurners(); var lit=maps[stoveVer][k]; document.getElementById('b'+lit).classList.add('on');
+    var res=document.getElementById('sresult'), t=stoveScore[stoveVer];
+    if(lit===goalBurner){ t[0]++; t[1]++; res.style.color='var(--right)'; res.innerHTML='✓ Correct &nbsp;<b>'+t[0]+'/'+t[1]+'</b>'; }
+    else{ t[1]++; res.style.color='var(--wrong)'; res.innerHTML='✗ That lit the <b>'+burnerNames[lit]+'</b> burner &nbsp;<b>'+t[0]+'/'+t[1]+'</b>'; }
+    setTimeout(function(){ clearBurners(); newGoal(); },1300);
+  }
+
+  // ---------- silent button ----------
+  var silVer='wrong', orders=0, busy=false;
+  function setSil(v){ silVer=v; orders=0; busy=false;
+    document.querySelectorAll('[onclick^="setSil"]').forEach(b=>b.classList.toggle('on', b.dataset.v===v));
+    document.getElementById('silLabel').textContent=v==='wrong'?'Version A':'Version B';
+    var btn=document.getElementById('placeBtn'); btn.disabled=false; btn.textContent='Place order'; document.getElementById('orderCount').innerHTML='';
+  }
+  function placeOrder(){ var btn=document.getElementById('placeBtn'), c=document.getElementById('orderCount');
+    if(silVer==='wrong'){ orders++; setTimeout(function(){ c.innerHTML='Order placed. <b class="'+(orders>1?'bad':'good')+'">Charged: '+orders+(orders>1?' ✗ duplicate!':' ✓')+'</b>'; },1500); }
+    else { if(busy||orders>0)return; busy=true; btn.disabled=true; btn.innerHTML='Placing… <span class="spin"></span>';
+      setTimeout(function(){ orders=1; busy=false; btn.innerHTML='✓ Order placed'; c.innerHTML='<b class="good">Charged: 1 ✓</b>'; },1500); }
+  }
+
+  // ---------- generic clinic / helpers ----------
+  function clinic(btn,choice,fbId){ var box=btn.closest('.opts'); if(box.dataset.locked)return; box.dataset.locked='1';
+    var correct=box.dataset.a; box.querySelectorAll('button').forEach(b=>b.disabled=true);
+    if(choice===correct) btn.classList.add('correct'); else { btn.classList.add('wrong'); box.querySelectorAll('button').forEach((b,i)=>{ if('abcd'[i]===correct) b.classList.add('correct'); }); }
+    document.getElementById(fbId).classList.add('show'); }
+  function tog(id){document.getElementById(id).classList.toggle('show');}
+  function checkPick(groupId,resId){ var g=document.getElementById(groupId), res=document.getElementById(resId);
+    var boxes=[...g.querySelectorAll('input')], good=0,bad=0,missed=0;
+    boxes.forEach(b=>{ var isGood=b.dataset.good==='1'; if(b.checked&&isGood)good++; if(b.checked&&!isGood)bad++; if(!b.checked&&isGood)missed++;
+      b.parentElement.style.borderColor=b.checked?(isGood?'var(--right)':'var(--wrong)'):'var(--rule)'; b.parentElement.style.background=b.checked?(isGood?'var(--right-bg)':'var(--wrong-bg)'):'#fff'; });
+    var msg; if(bad===0&&missed===0) msg='Perfect — every pick binds control to effect; you skipped the feedback decoys.';
+    else { msg='Caught '+good+' real fix'+(good===1?'':'es')+'. '; if(bad) msg+=bad+' fix the wrong gulf (feedback, not mapping). '; if(missed) msg+=missed+' mapping fix'+(missed===1?'':'es')+' missed. ';
+      msg+='Ask: does it help PREDICT the effect (mapping) or only confirm it AFTER (feedback)?'; }
+    res.textContent=msg; res.classList.add('show'); }
+
+  // ---------- settings panel clinic ----------
+  function ambCheck(){ var on=document.getElementById('ambPill').classList.contains('on');
+    document.getElementById('ambResult').innerHTML='That toggle controls <b>Product updates</b> ('+(on?'ON':'OFF')+'). <b style="color:var(--wrong)">Security alerts is unchanged.</b>'; }
+
+  // ---------- export clinic ----------
+  var exporting=false;
+  function runExport(fixed){ if(exporting&&!fixed)return; var area=document.getElementById('expArea'), btn=document.getElementById('expBtn');
+    if(fixed){ exporting=true; btn.disabled=true; area.innerHTML='<div style="font-size:.72rem;color:#555">Generating… <span id="pct">0%</span> · ~<span id="eta">12</span>s left</div><div class="bar"><i id="pbar"></i></div>';
+      var p=0,t=setInterval(function(){ p+=8; if(p>100)p=100; document.getElementById('pbar').style.width=p+'%'; document.getElementById('pct').textContent=p+'%'; document.getElementById('eta').textContent=Math.max(0,Math.round((100-p)/8));
+        if(p>=100){ clearInterval(t); area.innerHTML='<div style="font-size:.75rem;color:var(--right)">✓ Export ready</div>'; btn.disabled=false; exporting=false; } },220); return; }
+    exporting=true; btn.disabled=true; var s=0; area.innerHTML='<div class="spin2"></div><div id="expsec" style="font-size:.68rem;color:#999">0:0'+s+'…</div>';
+    var iv=setInterval(function(){ s++; var el=document.getElementById('expsec'); if(!el){clearInterval(iv);return;} el.textContent='0:'+(s<10?'0':'')+s+'…'+(s>=4?' (still going — no end shown)':''); if(s>=7){clearInterval(iv); btn.disabled=false; exporting=false;} },700);
+  }
+
+  // ---------- latency ----------
+  function checkLat(){ var rows=[...document.querySelectorAll('.lat')], right=0;
+    rows.forEach(r=>{ var v=r.querySelector('select').value, ok=v===r.dataset.correct; r.classList.remove('ok','no'); r.classList.add(ok?'ok':'no'); if(ok)right++; });
+    var res=document.getElementById('latRes'); res.innerHTML='<b>'+right+' / 4 correct.</b> Under ~1 s, just show the result; 1–10 s earns a spinner; past 10 s you owe a progress bar + estimate. Over-feedbacking a fast action is its own flickery failure.'; res.classList.add('show'); }
+
+  // ---------- brightness (reversed) ----------
+  function brightUpd(rangeId,swId,valId){ var v=+document.getElementById(rangeId).value; var bright=100-v; // reversed
+    var l=20+bright*0.65; document.getElementById(swId).style.background='hsl(45,55%,'+l+'%)'; document.getElementById(valId).textContent='Brightness: '+bright+'%'; }
+
+  // ---------- quiz widgets ----------
+  var heartCount=0;
+  function heartTap(){ heartCount++; /* deliberately NO visual change */ }
+  function bothTap(el){ /* deliberately no visible state change AND ambiguous which label */ }
+  var qExporting=false;
+  function qExport(){ if(qExporting)return; qExporting=true; var a=document.getElementById('qExpArea'), b=document.getElementById('qExpBtn'); b.disabled=true; var s=0;
+    a.innerHTML='<div class="spin2"></div><div id="qsec" style="font-size:.66rem;color:#999">0:00…</div>';
+    var iv=setInterval(function(){ s++; var el=document.getElementById('qsec'); if(!el){clearInterval(iv);return;} el.textContent='0:'+(s<10?'0':'')+s+'…'+(s>=4?' (no progress shown)':''); if(s>=7){clearInterval(iv); b.disabled=false; qExporting=false;} },700); }
+  // mini stove for quiz (knobs in a row, scrambled)
+  (function(){ var burn=document.getElementById('qStoveBurn'), kn=document.getElementById('qStoveKnob'); if(!burn)return;
+    for(var i=0;i<4;i++){ var s=document.createElement('span'); s.style.cssText='height:20px;border-radius:50%;background:#ddd'; s.id='qb'+i; burn.appendChild(s); }
+    var map=[2,0,3,1];
+    for(var k=0;k<4;k++){ var d=document.createElement('span'); d.style.cssText='width:18px;height:18px;border-radius:50%;background:#cbb89f;cursor:pointer;border:1px solid #b09a78';
+      d.onclick=(function(idx){return function(){ for(var j=0;j<4;j++){var e=document.getElementById('qb'+j); e.style.background='#ddd';}
+        var lit=map[idx]; var el=document.getElementById('qb'+lit); el.style.background='radial-gradient(circle,#ff7a3c,#c4361a)';
+        var names=['back-left','back-right','front-left','front-right'];
+        document.getElementById('qStoveRes').textContent = lit===2?'✓ front-left lit':'✗ lit the '+names[lit]; setTimeout(function(){var e2=document.getElementById('qb'+lit); if(e2)e2.style.background='#ddd';},1100); };})(k);
+      kn.appendChild(d); }
+  })();
+
+  // ---------- audit ----------
+  var audLocked=false;
+  function flagTog(btn){ if(audLocked)return; btn.classList.toggle('on'); }
+  function reorder(dir){ var box=document.getElementById('reord'); var items=[...box.querySelectorAll('.item')]; var i=items.findIndex(x=>x.classList.contains('sel'));
+    /* INVERTED (the bug): ▲ (dir=1) moves the item DOWN, ▼ (dir=-1) moves it UP */
+    rebuildReorder(i, i + dir); }
+  function rebuildReorder(from,to){ var box=document.getElementById('reord'); var items=[...box.querySelectorAll('.item')]; if(to<0||to>=items.length)return;
+    var labels=items.map(x=>x.firstChild.textContent.trim()); var selLabel=labels[from]; labels.splice(from,1); labels.splice(to,0,selLabel);
+    box.innerHTML=''; labels.forEach(function(lb){ var d=document.createElement('div'); d.className='item'+(lb===selLabel?' sel':'');
+      d.innerHTML=lb+(lb===selLabel?' <span><button class="stepbtn" onclick="reorder(1)">▲</button><button class="stepbtn" onclick="reorder(-1)">▼</button></span>':''); box.appendChild(d); }); }
+  function resetAll(restore){ document.getElementById('audBright').value=40; brightUpd('audBright','audSw','audBval');
+    document.querySelectorAll('#s9 .pill').forEach(p=>p.classList.remove('on')); rebuildReorder(0,0);
+    var s=document.getElementById('audSave'); s.disabled=false; s.innerHTML='Save';
+    if(!restore){ /* no confirmation — that's the point */ } }
+  function audSaveRun(){ var b=document.getElementById('audSave'); b.disabled=true; b.innerHTML='Saving <span class="spin"></span>'; setTimeout(function(){ b.innerHTML='Saved ✓'; },1100); }
+  function audCheck(){ if(audLocked)return; audLocked=true; var els=[...document.querySelectorAll('.audwrap')], tp=0,fp=0,fn=0;
+    els.forEach(el=>{ var bad=el.dataset.v==='bad', flagged=el.querySelector('.flagbtn').classList.contains('on'); var badge=el.querySelector('.vbadge'); el.classList.add('checked');
+      if(bad&&flagged){tp++; el.classList.add('a-correct'); badge.style.background='var(--right)'; badge.textContent='✓ caught';}
+      else if(!bad&&flagged){fp++; el.classList.add('a-false'); badge.style.background='var(--warn)'; badge.textContent='false alarm';}
+      else if(bad&&!flagged){fn++; el.classList.add('a-missed'); badge.style.background='var(--wrong)'; badge.textContent='✗ missed';}
+      else { badge.style.background='#9aa'; badge.textContent='ok'; } el.title=el.dataset.k; });
+    var res=document.getElementById('audRes'); res.innerHTML='<b>'+tp+'/3 broken caught.</b> '+(fp?fp+' false alarm'+(fp===1?'':'s')+'. ':'')+(fn?fn+' missed. ':'')+(tp===3&&fp===0?'Clean audit — you split mapping from feedback failures by feel. ':'')+'Hover any element for its verdict, or reveal the mark-up.'; res.classList.add('show'); }
+
+  // ---------- quiz ----------
+  var score=0,total=document.querySelectorAll('#quiz .q').length; document.getElementById('score').textContent='Score: 0 / '+total;
+  function ans(btn,choice){ var q=btn.closest('.q'); if(q.dataset.done)return; q.dataset.done='1'; var correct=q.dataset.a; q.querySelectorAll('.opts button').forEach(b=>b.disabled=true);
+    if(choice===correct){btn.classList.add('correct');score++;} else{btn.classList.add('wrong'); q.querySelectorAll('.opts button').forEach(b=>{ if(b.getAttribute('onclick').indexOf("'"+correct+"'")>-1) b.classList.add('correct'); });}
+    q.querySelector('.fb').classList.add('show'); document.getElementById('score').textContent='Score: '+score+' / '+total; }
+
+  // ---------- guided stepper ----------
+  function gans(btn,choice,stepId,nextId){ var box=btn.closest('.opts'); if(box.dataset.locked)return; box.dataset.locked='1'; var correct=box.dataset.a; box.querySelectorAll('button').forEach(b=>b.disabled=true);
+    if(choice===correct) btn.classList.add('correct'); else { btn.classList.add('wrong'); box.querySelectorAll('button').forEach((b,i)=>{ if('abc'[i]===correct) b.classList.add('correct'); }); }
+    var nxt=document.getElementById(nextId); if(nxt) nxt.classList.add(nxt.classList.contains('gsynth')?'show':'active'); }
+  // walk-through widgets
+  var thv=68; function thermo(dir){ thv += -dir; /* INVERTED: ▲ lowers */ document.getElementById('thVal').textContent=thv+'°'; }
+  var uploading=false; function uploadRun(){ if(uploading)return; uploading=true; var b=document.getElementById('upBtn'), a=document.getElementById('upArea'); b.disabled=true;
+    /* deliberate silence, then sudden result */ setTimeout(function(){ a.innerHTML='<div style="font-size:.72rem;color:var(--right)">✓ 8 files uploaded</div>'; b.disabled=false; uploading=false; },2600); }
+
+  // ---------- capstone bulk ----------
+  function bulkAct(kind){ var msg=document.getElementById('bulkMsg');
+    if(kind==='del'){ /* fires instantly, no confirm, list not updated */ msg.innerHTML='<span style="color:var(--wrong)">(action fired — but did anything change? no confirmation, list looks the same)</span>'; }
+    else { msg.innerHTML='<span style="color:#999">(action fired silently — which one was that icon again?)</span>'; } }
+
+  // ---------- capstone textarea ----------
+  var ta=document.getElementById('capAns'), KEY='lesson02-capstone';
+  try{ var saved=localStorage.getItem(KEY); if(saved) ta.value=saved; }catch(e){}
+  function wc(){ var w=ta.value.trim()?ta.value.trim().split(/\s+/).length:0; document.getElementById('capCount').textContent=w+' word'+(w===1?'':'s'); }
+  ta.addEventListener('input',function(){ wc(); try{ localStorage.setItem(KEY,ta.value); document.getElementById('capSaved').textContent='saved'; }catch(e){} }); wc();
+  function revealCap(){ var w=ta.value.trim()?ta.value.trim().split(/\s+/).length:0; if(w<10 && !document.getElementById('capExp').classList.contains('show')){ if(!confirm('Writing your own answer first is where the learning happens. Reveal the model anyway?')) return; } tog('capExp'); }
+
+  // ---------- field mission ----------
+  (function(){ var FKEY='lesson02-field', fields=[...document.querySelectorAll('.fmf')];
+    try{ var d=JSON.parse(localStorage.getItem(FKEY)||'{}'); fields.forEach(f=>{ if(d[f.dataset.k]!=null) f.value=d[f.dataset.k]; }); }catch(e){}
+    function count(){ var rows=[['el1','q1','fx1'],['el2','q2','fx2'],['el3','q3','fx3']]; var n=rows.filter(r=>r.some(k=>{var f=document.querySelector('.fmf[data-k="'+k+'"]');return f&&f.value.trim();})).length; document.getElementById('fmCount').textContent=n+' / 3 logged'; }
+    fields.forEach(f=>f.addEventListener('input',function(){ var d={}; fields.forEach(x=>d[x.dataset.k]=x.value); try{ localStorage.setItem(FKEY,JSON.stringify(d)); document.getElementById('fmSaved').textContent='saved'; }catch(e){} count(); })); count(); })();
+
+  // init
+  renderStove('wrong'); setSil('wrong'); brightUpd('audBright','audSw','audBval'); brightUpd('qBright','qSw','qBval');
+</script>
+</body>
+</html>

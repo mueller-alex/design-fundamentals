@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — Interaction & UX Design Fundamentals</title>
+<style>
+  :root{
+    --ink:#1a1814; --muted:#6b6357; --rule:#d9d2c5; --bg:#fbf9f4;
+    --accent:#7a4f2a; --right:#3f6b4a; --wrong:#9c4a3c;
+  }
+  *{box-sizing:border-box}
+  html{font-size:17px}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:Georgia,'Iowan Old Style','Palatino Linotype',serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:4rem 1.5rem 6rem;}
+  header{border-bottom:2px solid var(--ink); padding-bottom:1rem; margin-bottom:2.5rem;}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted); font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;}
+  h1{font-size:2rem; margin:.4rem 0 .2rem; font-weight:600; letter-spacing:-.01em;}
+  .sub{color:var(--muted); font-style:italic;}
+  dl{margin:0;}
+  .term{padding:1.4rem 0; border-bottom:1px solid var(--rule);}
+  dt{font-size:1.18rem; font-weight:600; letter-spacing:-.01em;}
+  dt .pos{font-style:italic; font-weight:400; color:var(--muted); font-size:.9rem; margin-left:.5rem;}
+  dd{margin:.5rem 0 0; color:#2c281f;}
+  dd .src{display:block; margin-top:.4rem; font-size:.82rem; color:var(--muted);
+    font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;}
+  a{color:var(--accent);}
+  .pill{display:inline-block; font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
+    font-size:.7rem; letter-spacing:.04em; padding:.12rem .5rem; border-radius:10px;
+    border:1px solid var(--rule); color:var(--muted); margin-left:.4rem; vertical-align:middle;}
+  footer{margin-top:3rem; font-size:.82rem; color:var(--muted);
+    font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;}
+  @media print{ body{background:#fff} .wrap{padding:0} a{color:var(--ink); text-decoration:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="kicker">Reference · Living Document</div>
+  <h1>Glossary</h1>
+  <div class="sub">The shared vocabulary of interaction & UX design. Terms stay consistent across every lesson.</div>
+</header>
+
+<dl>
+  <div class="term" id="affordance">
+    <dt>Affordance <span class="pos">noun</span> <span class="pill">Lesson 01</span></dt>
+    <dd>A <em>relationship</em> between an object and an agent that determines what actions are possible. A button affords clicking; a scrollable area affords scrolling. Affordances exist whether or not they are perceived — they are about possibility, not communication.
+      <span class="src">Norman, <em>Design of Everyday Things</em> (2013); jnd.org, "Affordances and Design"</span></dd>
+  </div>
+
+  <div class="term" id="signifier">
+    <dt>Signifier <span class="pos">noun</span> <span class="pill">Lesson 01</span></dt>
+    <dd>Any perceivable cue that communicates <em>where</em> an action should take place and how. The raised look of a button, an underline on a link, a "drag here" label. A signifier must be perceivable to function. Affordances determine what's possible; signifiers tell the user where and how.
+      <span class="src">Norman (2013); jnd.org, "Signifiers, Not Affordances"</span></dd>
+  </div>
+
+  <div class="term" id="false-affordance">
+    <dt>False affordance <span class="pos">noun</span></dt>
+    <dd>A cue that signals an action the system cannot actually perform — e.g. text styled to look tappable that does nothing. The mirror of a hidden affordance (a real action with no signifier). Both break the user's trust.
+      <span class="src">Derived from Norman; common UX usage</span></dd>
+  </div>
+
+  <div class="term" id="discoverability">
+    <dt>Discoverability <span class="pos">noun</span> <span class="pill">Lesson 01</span></dt>
+    <dd>The degree to which a user can figure out what actions are possible and how to perform them. The field's real target — <em>not</em> total exposure. A hidden affordance is acceptable as an <em>accelerator</em> if a discoverable primary path also exists; it is only a defect when a <em>critical</em> action is reachable <em>only</em> by a hidden path. See <a href="#affordance">affordance</a>, <a href="#signifier">signifier</a>.
+      <span class="src">Norman (2013); applied via Gaver (1991)</span></dd>
+  </div>
+
+  <div class="term" id="mapping">
+    <dt>Mapping <span class="pos">noun</span> <span class="pill">Lesson 02</span></dt>
+    <dd>The relationship between a control and its effect. The main bridge across the <a href="#gulf-execution">gulf of execution</a> — good mapping lets a user predict what a control will do <em>before</em> acting. See <a href="#natural-mapping">natural mapping</a>.
+      <span class="src">Norman (2013)</span></dd>
+  </div>
+
+  <div class="term" id="natural-mapping">
+    <dt>Natural mapping <span class="pos">noun</span> <span class="pill">Lesson 02</span></dt>
+    <dd>A mapping that exploits spatial layout or cultural convention so the relationship is obvious without a label — e.g. arranging stove knobs in the same 2×2 as the burners, or a slider that rises to mean "more." Spatial mapping is near-universal; cultural mapping is local and must be verified for your audience.
+      <span class="src">Norman (2013); <a href="https://www.nngroup.com/articles/natural-mappings/">NN/G, "Natural Mappings"</a></span></dd>
+  </div>
+
+  <div class="term" id="feedback">
+    <dt>Feedback <span class="pos">noun</span> <span class="pill">Lesson 02</span></dt>
+    <dd>The system communicating that it registered an action, what it's doing, and the result. The main bridge across the <a href="#gulf-evaluation">gulf of evaluation</a>. Good feedback is <em>immediate, informative, and appropriate</em> — its absence forces users to guess (double-clicks, duplicate orders). See <a href="#response-time-limits">response-time limits</a>.
+      <span class="src">Norman (2013); Nielsen heuristic #1</span></dd>
+  </div>
+
+  <div class="term" id="visibility-of-system-status">
+    <dt>Visibility of system status <span class="pos">phrase</span> <span class="pill">Lesson 02</span></dt>
+    <dd>The first usability heuristic: keep users informed about what is going on, through appropriate feedback within reasonable time. The applied form of <a href="#feedback">feedback</a> across a whole interface.
+      <span class="src">Nielsen's 10 Usability Heuristics, #1</span></dd>
+  </div>
+
+  <div class="term" id="response-time-limits">
+    <dt>Response-time limits <span class="pos">noun</span> <span class="pill">Lesson 02</span></dt>
+    <dd>Nielsen's three perceptual thresholds for how fast feedback must arrive: <b>0.1 s</b> feels instant (show the result, no special feedback); <b>1 s</b> keeps thought uninterrupted (still usually none); <b>10 s</b> is the limit of held attention (owe a progress bar + estimate beyond it). Turns "good feedback" into a spec.
+      <span class="src"><a href="https://www.nngroup.com/articles/response-times-3-important-limits/">Nielsen, "Response Time Limits"</a></span></dd>
+  </div>
+
+  <div class="term" id="conceptual-model">
+    <dt>Conceptual model <span class="pos">noun</span></dt>
+    <dd>The simplified mental explanation a user forms of how a system works. Good design helps users build an accurate one. Covered in a later lesson.
+      <span class="src">Norman (2013)</span></dd>
+  </div>
+
+  <div class="term" id="gulf-execution">
+    <dt>Gulf of execution <span class="pos">noun</span></dt>
+    <dd>The gap between what a user wants to do and the actions the system makes available — "how do I even do this?" Bridged primarily by good <a href="#mapping">mapping</a> (also signifiers and constraints).
+      <span class="src">Norman, <em>User Centered System Design</em> (1986); DOET (2013)</span></dd>
+  </div>
+
+  <div class="term" id="gulf-evaluation">
+    <dt>Gulf of evaluation <span class="pos">noun</span></dt>
+    <dd>The gap between the system's state and the user's ability to tell whether their goal was met — "did that work?" Bridged by good <a href="#feedback">feedback</a> within the right <a href="#response-time-limits">time limits</a>.
+      <span class="src">Norman (1986); DOET (2013)</span></dd>
+  </div>
+</dl>
+
+<footer>
+  This glossary grows with each lesson. If a term here feels fuzzy, ask your teacher to drill it.
+  &nbsp;·&nbsp; <a href="../lessons/0001-affordances-and-signifiers.html">← Lesson 01</a>
+</footer>
+</div>
+</body>
+</html>

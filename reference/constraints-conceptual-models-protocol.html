@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference — Constraints & Conceptual Models Protocol</title>
+<style>
+  :root{ --ink:#1a1814; --muted:#6b6357; --rule:#d9d2c5; --bg:#fbf9f4; --paper:#fff;
+    --accent:#7a4f2a; --right:#3f6b4a; --wrong:#9c4a3c; --ui:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:Georgia,'Palatino Linotype',serif; line-height:1.45;}
+  .wrap{max-width:760px; margin:0 auto; padding:3rem 1.5rem 5rem;}
+  header{border-bottom:2px solid var(--ink); padding-bottom:.9rem; margin-bottom:2rem;}
+  .kicker{font-family:var(--ui); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);}
+  h1{font-size:1.9rem; margin:.3rem 0 .2rem; font-weight:600;}
+  .sub{color:var(--muted); font-style:italic;}
+  h2{font-family:var(--ui); font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); margin:2rem 0 .7rem;}
+
+  .models{display:grid; grid-template-columns:1fr 1fr; gap:.6rem; font-family:var(--ui); font-size:.85rem; margin:.5rem 0;}
+  .model{border:1px solid var(--rule); border-radius:10px; padding:.9rem; background:#fff;}
+  .model b{display:block; color:var(--accent); margin-bottom:.2rem;}
+  .model .when{font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted);}
+
+  .proto{counter-reset:p; font-family:var(--ui);}
+  .step{display:flex; gap:.9rem; padding:.8rem 0; border-top:1px solid var(--rule);}
+  .step:first-child{border-top:0;}
+  .num{counter-increment:p; flex:0 0 auto; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center;}
+  .num::before{content:counter(p);}
+  .step .t{font-size:.95rem;} .step .q{color:var(--accent); font-style:italic;}
+
+  table{width:100%; border-collapse:collapse; font-family:var(--ui); font-size:.85rem; margin:.5rem 0;}
+  th,td{text-align:left; padding:.55rem .6rem; border-bottom:1px solid var(--rule); vertical-align:top;}
+  th{font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted);}
+  td b{color:var(--accent);}
+  .rule{font-family:var(--ui); background:#1a1814; color:#f2ece1; border-radius:10px; padding:1rem 1.2rem; font-size:.9rem; margin:1.2rem 0;}
+  .rule b{color:#e7c79c;}
+  footer{margin-top:2.5rem; font-family:var(--ui); font-size:.82rem; color:var(--muted);}
+  a{color:var(--accent);}
+  @media print{ body{background:#fff} .wrap{padding:0} .rule{-webkit-print-color-adjust:exact; print-color-adjust:exact} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="kicker">Reference Card · Lesson 03</div>
+  <h1>Constraints &amp; Conceptual Models Protocol</h1>
+  <div class="sub">Prevent the error before it forms; teach the true model through the system image. Don't patch one gap with the other's tool.</div>
+</header>
+
+<h2>The two models</h2>
+<div class="models">
+  <div class="model"><span class="when">How it actually works</span><b>System model</b>The real behavior of the product.</div>
+  <div class="model"><span class="when">What the user believes</span><b>Mental model</b>Inferred entirely from the <b>system image</b> — the visible surface you control.</div>
+</div>
+<p style="font-family:var(--ui); font-size:.85rem; color:var(--muted); margin:.4rem 0 0">Match → predictable. Diverge → <em>systematic</em>, repeating errors. You can only ever change the system image.</p>
+
+<h2>The four constraints</h2>
+<table>
+  <tr><th>Type</th><th>How it limits the action</th><th>UI example</th></tr>
+  <tr><td><b>Physical</b></td><td>The form makes the wrong input impossible</td><td>Slider bounded 0–100; number-only field; picker that can't express "Feb 31"</td></tr>
+  <tr><td><b>Logical</b></td><td>The user reasons the valid move from the situation</td><td>"Continue" disabled until a choice is made; step 3 locked until step 2 done</td></tr>
+  <tr><td><b>Semantic</b></td><td>The meaning of the thing narrows its use</td><td>A trash-can icon means delete; an envelope means message</td></tr>
+  <tr><td><b>Cultural</b></td><td>A learned convention shared by a group</td><td>Red = danger; the hamburger = menu; X closes</td></tr>
+</table>
+
+<h2>The five steps</h2>
+<div class="proto">
+  <div class="step"><div class="num"></div><div class="t"><b>Name the action and its valid set.</b> <span class="q">What is the user doing, and what counts as a valid input or move?</span></div></div>
+  <div class="step"><div class="num"></div><div class="t"><b>Constraint check (before the error).</b> <span class="q">Is an invalid action hard or impossible?</span> If yes, which type carries it — physical, logical, semantic, cultural?</div></div>
+  <div class="step"><div class="num"></div><div class="t"><b>Model check (after the action).</b> <span class="q">What does the user believe it does, and what does it actually do?</span> Mark where the two diverge.</div></div>
+  <div class="step"><div class="num"></div><div class="t"><b>Locate the gap.</b> Constraint gap = invalid actions possible or caught too late. Model gap = behavior surprises the user the same way every time.</div></div>
+  <div class="step"><div class="num"></div><div class="t"><b>Prescribe to the right gap.</b> Constraint → add/strengthen it, prefer prevention over an error message. Model → fix the <em>system image</em>: labels, scope, structure, feedback.</div></div>
+</div>
+
+<div class="rule"><b>Watch-outs:</b> a constraint <em>guides</em>; a restriction <em>blocks and reports late</em> — prefer prevention to correction. Over-constraining cages experts: scaffold for novices, let the practiced opt out. Mental models are borrowed from other apps — honor conventions unless the payoff beats the cost of re-teaching. You can't out-confirm a wrong model; correct the system image instead.</div>
+
+<footer>
+  Terms: see the <a href="glossary.html">Glossary</a>. Full lesson: <a href="../lessons/0003-constraints-and-conceptual-models.html">03 · Constraints &amp; Conceptual Models</a>. Prior: <a href="mapping-feedback-protocol.html">Mapping &amp; Feedback Protocol</a>.
+  <br>Sources: Norman, <em>DOET</em> (2013), Ch. 1 &amp; 4; Nielsen, "Mental Models" &amp; "Constraints" (NN/G).
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference — Affordance Diagnostic Protocol</title>
+<style>
+  :root{ --ink:#1a1814; --muted:#6b6357; --rule:#d9d2c5; --bg:#fbf9f4; --paper:#fff;
+    --accent:#7a4f2a; --right:#3f6b4a; --wrong:#9c4a3c; --ui:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:Georgia,'Palatino Linotype',serif; line-height:1.45;}
+  .wrap{max-width:760px; margin:0 auto; padding:3rem 1.5rem 5rem;}
+  header{border-bottom:2px solid var(--ink); padding-bottom:.9rem; margin-bottom:2rem;}
+  .kicker{font-family:var(--ui); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);}
+  h1{font-size:1.9rem; margin:.3rem 0 .2rem; font-weight:600;}
+  .sub{color:var(--muted); font-style:italic;}
+  h2{font-family:var(--ui); font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); margin:2rem 0 .7rem;}
+
+  .proto{counter-reset:p; font-family:var(--ui);}
+  .step{display:flex; gap:.9rem; padding:.8rem 0; border-top:1px solid var(--rule);}
+  .step:first-child{border-top:0;}
+  .num{counter-increment:p; flex:0 0 auto; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center;}
+  .num::before{content:counter(p);}
+  .step .t{font-size:.95rem;} .step .q{color:var(--accent); font-style:italic;}
+
+  .grid{display:grid; grid-template-columns:auto 1fr 1fr; gap:.4rem; font-family:var(--ui); font-size:.82rem; margin:.5rem 0;}
+  .grid .ax{display:flex; align-items:center; justify-content:center; font-size:.66rem; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); text-align:center;}
+  .box{border:1px solid var(--rule); border-radius:9px; padding:.7rem; background:#fff;}
+  .box b{display:block; margin-bottom:.15rem;}
+  .box.g b{color:var(--right);} .box.r b{color:var(--wrong);} .box.n b{color:var(--muted);}
+  .box small{color:#777;}
+
+  .branch{font-family:var(--ui); font-size:.9rem; background:var(--paper); border:1px solid var(--rule); border-radius:10px; padding:1rem 1.2rem; margin:.5rem 0;}
+  .branch p{margin:.4rem 0;}
+  .branch .k{display:inline-block; font-weight:700; color:var(--wrong); min-width:4.5rem;}
+  .rule{font-family:var(--ui); background:#1a1814; color:#f2ece1; border-radius:10px; padding:1rem 1.2rem; font-size:.9rem; margin:1.2rem 0;}
+  .rule b{color:#e7c79c;}
+  footer{margin-top:2.5rem; font-family:var(--ui); font-size:.82rem; color:var(--muted);}
+  a{color:var(--accent);}
+  @media print{ body{background:#fff} .wrap{padding:0} .rule{-webkit-print-color-adjust:exact; print-color-adjust:exact} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="kicker">Reference Card · Lesson 01</div>
+  <h1>Affordance Diagnostic Protocol</h1>
+  <div class="sub">Run this on any element until it runs itself. Change perception, not function.</div>
+</header>
+
+<h2>The five steps</h2>
+<div class="proto">
+  <div class="step"><div class="num"></div><div class="t"><b>Name the affordance.</b> <span class="q">What can this element actually do?</span> Mentally strip the styling — what's the real capability underneath?</div></div>
+  <div class="step"><div class="num"></div><div class="t"><b>Find the signifier.</b> <span class="q">What perceptible cue communicates it?</span> If you can't point at one, there isn't one.</div></div>
+  <div class="step"><div class="num"></div><div class="t"><b>Place it on the 2×2.</b> <span class="q">Affordance present? × signifier present?</span> → one of four verdicts.</div></div>
+  <div class="step"><div class="num"></div><div class="t"><b>If broken, branch.</b> Hidden or false? Then ask the branch questions below.</div></div>
+  <div class="step"><div class="num"></div><div class="t"><b>Prescribe.</b> Add a signifier, remove a false one, or add a discoverable path. <span class="q">Rarely rebuild the behaviour.</span></div></div>
+</div>
+
+<h2>The 2×2 (step 3)</h2>
+<div class="grid">
+  <div></div><div class="ax">Signifier present</div><div class="ax">Signifier absent</div>
+  <div class="ax" style="writing-mode:vertical-rl; transform:rotate(180deg)">Affordance present</div>
+  <div class="box g"><b>Perceptible</b><small>works &amp; is signalled — the goal</small></div>
+  <div class="box r"><b>Hidden</b><small>works, but nothing says so</small></div>
+  <div class="ax" style="writing-mode:vertical-rl; transform:rotate(180deg)">Affordance absent</div>
+  <div class="box r"><b>False</b><small>signalled, but does nothing</small></div>
+  <div class="box n"><b>Correct rejection</b><small>nothing there, nothing implied</small></div>
+</div>
+
+<h2>The branch (step 4)</h2>
+<div class="branch">
+  <p><span class="k">Hidden →</span> Is the action <b>critical</b>? Is there a <b>discoverable equivalent</b>? Only <em>critical + no equivalent</em> is a real defect. Otherwise it's a fine accelerator (shortcuts, swipes, long-press).</p>
+  <p><span class="k">False →</span> Which <b>interaction signifier</b> is lying — pointer cursor, hover-lift/motion, underline, button shadow? Strip that specific cue; keep honest static decoration.</p>
+</div>
+
+<div class="rule"><b>The one rule that overrides "signify everything":</b> no critical action may be reachable <em>only</em> by a hidden affordance. The target is <b>discoverability</b>, not total exposure. And signifier <em>strength</em> should match the action's stakes.</div>
+
+<footer>
+  Terms: see the <a href="glossary.html">Glossary</a>. Full lesson: <a href="../lessons/0001-affordances-and-signifiers.html">01 · Affordances &amp; Signifiers</a>.
+  <br>Sources: Norman, <em>The Design of Everyday Things</em> (2013); Gaver, "Technology Affordances" (CHI '91).
+</footer>
+</div>
+</body>
+</html>

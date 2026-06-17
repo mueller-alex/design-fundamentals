@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(start \"\" \"C:/Users/alexm/OneDrive/Documents/GitHub/design-fundamentals/lessons/0001-affordances-and-signifiers.html\")"
+    ]
+  }
+}

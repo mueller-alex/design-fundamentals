@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 03 — Constraints & Conceptual Models</title>
+<link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Lesson 03 · Norman's Foundations · Deep + visual</div>
+  <h1>Constraints &amp; Conceptual Models</h1>
+  <div class="lede">Lessons 1 and 2 made an element readable, then operable. This one shapes the path before the action and the picture behind it: constraints cut down the moves a user can make until the right one is nearly the only one left; a conceptual model is the story the user builds of how the whole thing works. As before, the exercises don't name the flaw — you operate each interface and find it.</div>
+
+  <nav class="toc">
+    <a href="#s1">Constraints: guide, don't block</a>
+    <a href="#s2">The four constraints</a>
+    <a href="#s3">Live: the impossible date</a>
+    <a href="#s4">Conceptual &amp; mental models</a>
+    <a href="#s5">Live: where did it go?</a>
+    <a href="#s6">Clinic: the password</a>
+    <a href="#s7">Clinic: the sync toggle</a>
+    <a href="#s8">Build it: pick the constraint</a>
+    <a href="#s9">Audit a real screen</a>
+    <a href="#s10">The expert's nuance</a>
+    <a href="#s11">Retrieve it (operate &amp; classify)</a>
+    <a href="#s12">Capstone (write your answer)</a>
+    <a href="#s13">Strengthen the muscle</a>
+  </nav>
+
+  <h2 id="s1"><span class="n">01</span>Constraints: guide, don't block</h2>
+  <p>A <em>constraint</em> is anything that reduces the set of actions a user can take. Done well, it does the work a signifier would — it makes the right move obvious without a label, because the wrong moves are quietly off the table.<span class="cite"> — Norman, <em>DOET</em> (2013), Ch. 4</span></p>
+  <div class="pull">"Constraints are powerful clues, limiting the set of possible actions. The thoughtful use of constraints in design lets people readily determine the proper course of action, even in a novel situation."<br><span class="cite">— Don Norman, <em>The Design of Everyday Things</em></span></div>
+
+  <h2 id="s2"><span class="n">02</span>The four constraints</h2>
+  <p>The confusion to unlearn: a constraint is not the same as a restriction. A restriction <em>blocks</em> a user who is trying to act and reports the failure afterward. A good constraint <em>guides</em> — it removes the invalid option before the user reaches for it, so the error never forms. Norman names four kinds, strongest to most learned:<span class="cite"> — <a href="https://www.nngroup.com/articles/constraints/">NN/G, "Constraints"</a></span></p>
+  <ul>
+    <li><b>Physical</b> — the form of the control makes the wrong input impossible. A slider bounded 0–100; a number field that won't accept letters; a date picker that can't express "Feb 31."</li>
+    <li><b>Logical</b> — the user reasons out the valid move from the situation. "Continue" disabled until a choice is made; step 3 locked until step 2 is done; one empty slot, one piece left.</li>
+    <li><b>Semantic</b> — the meaning of the thing narrows its use. A trash-can icon means delete; an envelope means message. You know what to do because you know what it <em>is</em>.</li>
+    <li><b>Cultural</b> — an arbitrary convention shared by a group. Red means danger or stop; the hamburger means menu; an X closes. Nothing about red requires it — your audience just learned it.</li>
+  </ul>
+
+  <h2 id="s3"><span class="n">03</span>Live: the impossible date <span class="tag try">your turn</span></h2>
+  <p>The same booking form, twice. Both work and both save a real date — only the <em>constraint</em> changes. You're asked to book delivery for the last day of February; enter it the way you naturally would in each version.</p>
+  <div class="ix">
+    <div class="ix-head"><span id="dateLabel">Version A</span>
+      <div class="toggle"><button data-v="wrong" class="on" onclick="setDate('wrong')">Version A</button><button data-v="right" onclick="setDate('right')">Version B</button></div>
+    </div>
+    <div class="ix-body">
+      <div class="task">book the delivery for the last day of February.</div>
+      <div class="stage">
+        <div class="screen" id="dateWrong" style="width:280px">
+          <div class="u-title">Schedule delivery</div>
+          <div style="display:flex; gap:.4rem">
+            <label style="flex:1; font-size:.7rem; color:#666">Month<input id="dwM" placeholder="MM" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.85rem"></label>
+            <label style="flex:1; font-size:.7rem; color:#666">Day<input id="dwD" placeholder="DD" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.85rem"></label>
+            <label style="flex:1.3; font-size:.7rem; color:#666">Year<input id="dwY" placeholder="YYYY" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.85rem"></label>
+          </div>
+          <button class="btn" style="width:100%; margin-top:.7rem" onclick="bookWrong()">Book delivery</button>
+          <div id="dwMsg" class="readout" style="margin-top:.6rem; min-height:1.1rem; text-align:left"></div>
+        </div>
+        <div class="screen" id="dateRight" style="width:280px; display:none">
+          <div class="u-title">Schedule delivery</div>
+          <div style="display:flex; gap:.4rem">
+            <label style="flex:1; font-size:.7rem; color:#666">Month<select id="drM" onchange="fillDays()" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.85rem"></select></label>
+            <label style="flex:1; font-size:.7rem; color:#666">Day<select id="drD" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.85rem"></select></label>
+            <label style="flex:1.3; font-size:.7rem; color:#666">Year<select id="drY" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.85rem"></select></label>
+          </div>
+          <button class="btn" style="width:100%; margin-top:.7rem" onclick="bookRight()">Book delivery</button>
+          <div id="drMsg" class="readout" style="margin-top:.6rem; min-height:1.1rem; text-align:left"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p>Version A accepts whatever you type, then tells you "Feb 30" was wrong — the error forms in the user, surfaces late, and has to be read and undone. Version B's dropdowns never offer a 30th of February at all: the invalid date is unexpressible, so the mistake can't happen. Same outcome, but one prevents the error where the other only reports it. That is the difference between a constraint and a restriction.</p>
+
+  <h2 id="s4"><span class="n">04</span>Conceptual &amp; mental models</h2>
+  <p>A <em>conceptual model</em> is a simplified explanation of how something works. Two of them sit in every interaction: the <b>system model</b> — how the product actually behaves — and the user's <b>mental model</b> — what the user believes it does. The user can't see your code or your design intent; they infer their model entirely from what the interface shows. Norman calls that visible surface the <b>system image</b>.<span class="cite"> — Norman, <em>DOET</em>, Ch. 1; <a href="https://www.nngroup.com/articles/mental-models/">NN/G, "Mental Models"</a></span></p>
+  <div class="pull"><b>When the two models match</b>, behavior is predictable and the user feels in control. <b>When they diverge</b>, the errors aren't random — they're <em>systematic</em>: the same wrong expectation fires every time, because the user is reasoning correctly from a model the interface taught them. You fix it by correcting the system image, not the user.</div>
+
+  <h2 id="s5"><span class="n">05</span>Live: where did it go? <span class="tag try">your turn</span></h2>
+  <p>A notes list with a delete on each row. The action is identical in both versions — the item is always soft-deleted to a recoverable Trash. Only the <em>system image</em> differs. Delete a note in each, then ask yourself where you'd look to get it back.</p>
+  <div class="ix">
+    <div class="ix-head"><span id="trashLabel">Version A</span>
+      <div class="toggle"><button data-v="wrong" class="on" onclick="setTrash('wrong')">Version A</button><button data-v="right" onclick="setTrash('right')">Version B</button></div>
+    </div>
+    <div class="ix-body">
+      <div class="task">delete the "Groceries" note.</div>
+      <div class="stage">
+        <div class="screen" id="delWrong" style="width:260px">
+          <div class="u-title">Notes</div>
+          <div id="delWList"></div>
+          <div id="delWMsg" class="readout" style="margin-top:.5rem; min-height:1rem; text-align:left"></div>
+        </div>
+        <div class="screen" id="delRight" style="width:260px; display:none">
+          <div class="u-title">Notes</div>
+          <div id="delRList"></div>
+          <div class="row" style="border:0; margin-top:.4rem; color:#888; font-size:.78rem"><span>🗑 Trash</span><span id="trashCount">0</span></div>
+          <div id="delRMsg" class="readout" style="margin-top:.4rem; min-height:1rem; text-align:left"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p>Both versions move the note to the same Trash. But Version A says only "Deleted," so the user builds a model of "gone for good" — they stop looking, and either panic or recreate the note while it sits safely in a bin they never learned about. Version B's "Moved to Trash · Undo," plus a Trash count they can see fill up, teaches the true system model in the moment. The behavior didn't change; the system image did, and with it the user's mental model.</p>
+
+  <h2 id="s6"><span class="n">06</span>Clinic: the password <span class="tag try">your turn</span></h2>
+  <p>A sign-up field, exactly as it shipped. Pick a password the way you would in a hurry, then create the account.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">choose a password and create the account.</div>
+      <div class="stage"><div class="screen" style="width:260px">
+        <div class="u-title">Create your account</div>
+        <div class="u-text" style="margin-bottom:.2rem">Password</div>
+        <input id="pwField" type="text" placeholder="" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.45rem; font-size:.85rem">
+        <button class="btn" style="width:100%; margin-top:.7rem" onclick="pwCreate()">Create account</button>
+        <div id="pwMsg" class="readout" style="margin-top:.6rem; min-height:1.1rem; text-align:left"></div>
+      </div></div>
+
+      <div class="neutralq">What, if anything, is wrong here?</div>
+      <div class="opts grid2" data-a="a">
+        <button onclick="clinic(this,'a','c1')">A missing or weak constraint</button>
+        <button onclick="clinic(this,'b','c1')">A conceptual-model mismatch</button>
+        <button onclick="clinic(this,'c','c1')">Both at once</button>
+        <button onclick="clinic(this,'d','c1')">Nothing — it's fine</button>
+      </div>
+      <div class="fb" id="c1">The rules exist (8+ characters, a number, a symbol) but they're hidden until you've already failed — a <b>missing constraint</b>. Nothing limited or guided your input beforehand, so the error forms in you and surfaces late, across the gulf of execution. The fix is to constrain and guide <em>before</em> the submit, not to scold after it.</div>
+
+      <div class="step-label">Pick the changes that actually add a constraint (choose all that apply)</div>
+      <div class="pick" id="c1fix">
+        <label><input type="checkbox" data-good="1"> Show the requirements up front, beside the field</label>
+        <label><input type="checkbox" data-good="1"> Validate live, ticking off each rule as it's met</label>
+        <label><input type="checkbox" data-good="0"> Make the server error message larger and red</label>
+        <label><input type="checkbox" data-good="0"> Add a success animation once the account is created</label>
+      </div>
+      <button class="btn" onclick="checkPick('c1fix','c1res')">Check my fixes</button>
+      <div class="fb" id="c1res"></div>
+      <button class="reveal" onclick="tog('c1exp')">Reveal how an expert frames it ▾</button>
+      <div class="expert" id="c1exp"><b>Expert framing:</b> a constraint does its work <em>before</em> the action — surface the rules and validate live, so the invalid password is hard to form in the first place. A louder, redder error is still an error message: it reports the failure across the gulf of execution after the fact, it doesn't prevent it. Prevention beats correction.</div>
+    </div>
+  </div>
+
+  <h2 id="s7"><span class="n">07</span>Clinic: the sync toggle <span class="tag try">your turn</span></h2>
+  <p>A file inside a folder that syncs to the cloud, as shipped. You're low on disk space and want this file off your laptop. Use the control that looks right.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">free up space — get "Q3 Forecast.xlsx" off this device.</div>
+      <div class="stage"><div class="screen" style="width:280px">
+        <div class="u-title">Synced folder · Work</div>
+        <div class="row" style="border:0"><span>Q3 Forecast.xlsx</span><button class="btn" style="background:#9c4a3c; padding:.4rem .8rem; font-size:.8rem" onclick="cloudDel()">Delete from folder</button></div>
+        <div id="cloudMsg" class="readout" style="margin-top:.6rem; min-height:1.2rem; text-align:left"></div>
+      </div></div>
+
+      <div class="neutralq">What, if anything, is wrong here?</div>
+      <div class="opts grid2" data-a="b">
+        <button onclick="clinic(this,'a','c2')">A missing or weak constraint</button>
+        <button onclick="clinic(this,'b','c2')">A conceptual-model mismatch</button>
+        <button onclick="clinic(this,'c','c2')">A false signifier only</button>
+        <button onclick="clinic(this,'d','c2')">Nothing — it's fine</button>
+      </div>
+      <div class="fb" id="c2">In a "synced folder," most people's mental model of "Delete from folder" is "remove the local copy, keep it in the cloud." The system model is the opposite: it deletes everywhere, on every device. The models <b>diverge</b>, so the error is systematic — anyone reaching to save space wipes the only copy. This is a <b>conceptual-model mismatch</b>, and the fix is to correct the system image.</div>
+
+      <div class="step-label">The fix that closes the gap?</div>
+      <div class="opts" data-a="c">
+        <button onclick="clinic(this,'a','c2b')">Add a spinner so the delete feels more deliberate</button>
+        <button onclick="clinic(this,'b','c2b')">Make the red button bigger so people notice it</button>
+        <button onclick="clinic(this,'c','c2b')">Split it into two labeled actions — "Remove download (keep in cloud)" vs "Delete everywhere" — so the scope is explicit</button>
+      </div>
+      <div class="fb" id="c2b">The user's intent ("keep it, just not here") was never expressible, so the model collided with reality. Naming both scopes makes the real system model visible and lets the user pick the action they actually meant. A spinner or a bigger button changes how the wrong action <em>feels</em>, not what the user <em>believes</em> it does.</div>
+      <button class="reveal" onclick="tog('c2exp')">Reveal the principle ▾</button>
+      <div class="expert" id="c2exp"><b>Principle:</b> a model mismatch is fixed in the <em>system image</em> — the labels, scopes, and structure the interface exposes — not in feedback or emphasis. When the user's reasonable belief diverges from the truth, change what the interface communicates until the belief is correct. You can't out-confirm a wrong mental model; you have to teach the right one.</div>
+    </div>
+  </div>
+
+  <h2 id="s8"><span class="n">08</span>Build it: pick the constraint <span class="tag do">rule drill</span></h2>
+  <p>For each goal, choose the <em>type of constraint</em> doing the work, using the four from §02: <b>physical</b> (form makes it impossible), <b>logical</b> (reason it out from the situation), <b>semantic</b> (meaning of the thing), <b>cultural</b> (learned convention).</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div id="conGrid">
+        <div class="lat" data-correct="physical"><span>A volume slider you can't drag past 0 or 100</span><span class="dur">?</span>
+          <select><option value="">choose…</option><option value="physical">Physical</option><option value="logical">Logical</option><option value="semantic">Semantic</option><option value="cultural">Cultural</option></select></div>
+        <div class="lat" data-correct="logical"><span>"Place order" stays disabled until address and payment are filled</span><span class="dur">?</span>
+          <select><option value="">choose…</option><option value="physical">Physical</option><option value="logical">Logical</option><option value="semantic">Semantic</option><option value="cultural">Cultural</option></select></div>
+        <div class="lat" data-correct="semantic"><span>A trash-can icon on the row tells people that button deletes</span><span class="dur">?</span>
+          <select><option value="">choose…</option><option value="physical">Physical</option><option value="logical">Logical</option><option value="semantic">Semantic</option><option value="cultural">Cultural</option></select></div>
+        <div class="lat" data-correct="cultural"><span>The destructive "Delete" button is colored red</span><span class="dur">?</span>
+          <select><option value="">choose…</option><option value="physical">Physical</option><option value="logical">Logical</option><option value="semantic">Semantic</option><option value="cultural">Cultural</option></select></div>
+        <div class="lat" data-correct="logical"><span>Step 3 of checkout is locked until steps 1–2 are complete</span><span class="dur">?</span>
+          <select><option value="">choose…</option><option value="physical">Physical</option><option value="logical">Logical</option><option value="semantic">Semantic</option><option value="cultural">Cultural</option></select></div>
+        <div class="lat" data-correct="physical"><span>A date picker that makes "February 31" impossible to select</span><span class="dur">?</span>
+          <select><option value="">choose…</option><option value="physical">Physical</option><option value="logical">Logical</option><option value="semantic">Semantic</option><option value="cultural">Cultural</option></select></div>
+      </div>
+      <button class="btn" style="margin-top:1rem" onclick="checkCon()">Check my choices</button>
+      <div class="fb" id="conRes"></div>
+    </div>
+  </div>
+
+  <h2 id="s9"><span class="n">09</span>Audit a real screen <span class="tag try">hardest</span></h2>
+  <p>An account-settings screen, as shipped. <b>Operate every control</b> — type into the fields, press the buttons, flip the toggles. When one fails to constrain bad input, or behaves differently from what its label led you to expect, hit its <b>⚑ flag</b>. Leave the honest ones. No descriptions; trust your hands, then check.</p>
+  <div class="ix">
+    <div class="ix-body">
+      <div class="stage"><div class="screen" style="width:330px">
+        <div class="audwrap" data-v="ok" data-k="Section heading — inert, nothing implied. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="u-title" style="margin:0">Account</div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="MISSING CONSTRAINT: the Age field is free text — it accepts letters, negatives, anything. No physical/logical limit on the input."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="row" style="border:0"><span>Age</span><input id="audAge" type="text" placeholder="type anything…" style="width:110px; border:1px solid #c9c2b5; border-radius:6px; padding:.35rem; font-size:.82rem"></div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="ok" data-k="CONSTRAINT ok: the quantity stepper is bounded 1–10 — a clean physical constraint. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="row" style="border:0"><span>Seats</span><span><button class="stepbtn" onclick="qtyStep(-1)">−</button><b id="qtyVal" style="margin:0 .5rem">1</b><button class="stepbtn" onclick="qtyStep(1)">+</button></span></div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="FALSE CONSTRAINT: the Username field is greyed to look locked/permanent — but it's fully editable. It signals a constraint that doesn't exist."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="row" style="border:0"><span>Username</span><input id="audUser" type="text" value="alex_m" style="width:130px; border:1px solid #ddd; border-radius:6px; padding:.35rem; font-size:.82rem; background:#eee; color:#999"></div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="ok" data-k="MODEL ok: a clean toggle row — label left, switch right, flips clearly. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="row" style="border:0"><span>Email me product news</span><div class="pill" onclick="this.classList.toggle('on')"></div></div><span class="vbadge"></span></div>
+
+        <div class="audwrap" data-v="bad" data-k="MODEL MISMATCH: 'Remove card' also cancels the subscription — the scope is far larger than the label implies."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <button class="btn" style="width:100%; background:#9c4a3c" onclick="audCardRemove()">Remove card</button>
+          <div id="audCardMsg" class="readout" style="margin-top:.4rem; min-height:.9rem; text-align:left"></div><span class="vbadge"></span></div>
+      </div></div>
+      <div style="text-align:center;margin-top:1rem"><button class="btn" onclick="audCheck()">Check my audit</button></div>
+      <div class="fb" id="audRes"></div>
+      <button class="reveal" onclick="tog('audExp')">Reveal the full mark-up ▾</button>
+      <div class="expert" id="audExp"><b>The three broken:</b> the <u>Age field</u> (missing constraint — free text takes any garbage), the <u>Username field</u> (false constraint — greyed to look permanent, but editable), and <u>Remove card</u> (model mismatch — it silently cancels the subscription too). <b>The three honest:</b> the "Account" heading, the bounded <u>Seats stepper</u> (a working physical constraint), and the clean <u>product-news toggle</u>. For each one, name it first — missing constraint, false constraint, or model mismatch — and the name points to the fix.</div>
+    </div>
+  </div>
+
+  <h2 id="s10"><span class="n">10</span>The expert's nuance</h2>
+  <h3 class="sub">Over-constraining frustrates the people who know what they're doing</h3>
+  <p>A constraint that protects a novice can cage an expert. Force-stepped wizards, fields that reject paste, modals that re-ask the obvious — useful the first time, friction the hundredth. Scaffold for the new user, then let the experienced one opt out: remembered defaults, a "skip setup," paste that's tolerated and validated rather than blocked.</p>
+  <h3 class="sub">Mental models are borrowed, so honor conventions unless the payoff is real</h3>
+  <p>Users arrive with a model assembled from every other app they've used — that's what cultural constraints lean on. A trash icon, a left-swipe to delete, a pull-to-refresh: pre-installed in the user's head. Inventing your own forces re-learning and breaks the borrowed model. Break a convention only when the gain clearly beats the cost of re-teaching it.</p>
+  <h3 class="sub">You can only ever fix the system image</h3>
+  <p>You never touch the user's mind directly. Norman's chain runs designer's model → <em>system image</em> → user's model, and the middle term is the only one you control. When a model mismatch shows up, the lever is always the same: change what the interface shows — labels, scope, structure, feedback — until the model it teaches is the true one.</p>
+
+  <h2 id="s11"><span class="n">11</span>Retrieve it — operate &amp; classify</h2>
+  <p>Each widget below works. <b>Do the task, watch what happens, then classify</b>: a <b>constraint</b> problem (an invalid action wasn't prevented), a <b>mental-model</b> problem (it did something other than what you'd expect), <b>both</b>, or <b>nothing wrong</b>. The wording won't tell you which; you have to try it.</p>
+  <div class="ix"><div class="ix-body" id="quiz">
+
+    <div class="q" data-a="constraint">
+      <div class="task">set the quantity to what you want to buy.</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;margin-bottom:4px">Quantity</div>
+        <input id="qQty" type="text" placeholder="try anything" style="width:100%; border:1px solid #ddd; border-radius:6px; padding:.4rem; font-size:.82rem">
+        <div id="qQtyMsg" class="readout" style="font-size:.68rem; margin-top:4px; text-align:left; min-height:.8rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">It took "-4", "abc", whatever you gave it — nothing limited the input to a sensible quantity. A missing <b>constraint</b>: the field should be a bounded, number-only control so the invalid value can't be entered.</div>
+    </div>
+
+    <div class="q" data-a="model">
+      <div class="task">clear your inbox — mark everything as read.</div>
+      <div class="qwidget"><div class="qcard" style="text-align:center"><button class="btn" style="width:100%" onclick="qMarkRead()">Mark all as read</button><div id="qReadMsg" class="readout" style="font-size:.68rem; margin-top:6px; min-height:.9rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">"Mark all as read" <em>archived</em> every message instead. The action was easy to take (no constraint problem) but it did something other than the label promised — the system model diverges from yours. A <b>mental-model</b> mismatch; fix the label and scope.</div>
+    </div>
+
+    <div class="q" data-a="both">
+      <div class="task">tidy up — get rid of this old project.</div>
+      <div class="qwidget"><div class="qcard" style="text-align:center"><button class="btn" style="width:100%; background:#9c4a3c" onclick="qProjDel()">Archive project</button><div id="qProjMsg" class="readout" style="font-size:.68rem; margin-top:6px; min-height:.9rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">"Archive" permanently <em>deleted</em> it (model mismatch) <em>and</em> it fired instantly with no confirmation on a destructive, irreversible action (a missing constraint to guard it). Two failures stacked — <b>both</b>.</div>
+    </div>
+
+    <div class="q" data-a="none">
+      <div class="task">set the number of seats for your team.</div>
+      <div class="qwidget"><div class="qcard"><div class="row" style="border:0; padding:.3rem 0"><span style="font-size:.78rem">Seats</span><span><button class="stepbtn" onclick="qSeatStep(-1)">−</button><b id="qSeatVal" style="margin:0 .5rem">2</b><button class="stepbtn" onclick="qSeatStep(1)">+</button></span></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">The stepper is bounded 1–20 (a clean physical constraint) and it does exactly what it says. Correctly designed — <b>nothing wrong</b>. Don't invent a defect, and don't add a constraint it doesn't need.</div>
+    </div>
+
+    <div class="q" data-a="constraint">
+      <div class="task">enter your appointment time.</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;margin-bottom:4px">Time (24h)</div>
+        <input id="qTime" type="text" placeholder="HH:MM" style="width:100%; border:1px solid #ddd; border-radius:6px; padding:.4rem; font-size:.82rem">
+        <div id="qTimeMsg" class="readout" style="font-size:.68rem; margin-top:4px; text-align:left; min-height:.8rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">It accepted "25:99" without a blink. Free text lets you express a time that doesn't exist — a missing <b>constraint</b>. A picker or masked input would make the impossible time unenterable.</div>
+    </div>
+
+    <div class="q" data-a="model">
+      <div class="task">you're done editing — close the editor.</div>
+      <div class="qwidget"><div class="qcard" style="text-align:center"><button class="btn" style="width:100%" onclick="qDone()">Done</button><div id="qDoneMsg" class="readout" style="font-size:.68rem; margin-top:6px; min-height:.9rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">"Done" read as "save and close," but your edits were discarded — there was a separate Save you never saw. The action worked fine; it just didn't match the model the label built. A <b>mental-model</b> mismatch.</div>
+    </div>
+
+    <div class="score" id="score">Score: 0 / 6</div>
+  </div></div>
+
+  <h2 id="s12"><span class="n">12</span>Capstone — write your answer</h2>
+  <p>One scenario fusing both ideas. A teammate wants to <b>strip every inline validation hint off the sign-up form</b> "to reduce visual noise — let people just type, and we'll check on submit." Below is the form as they'd ship it. Fill it in quickly, the way a rushed user would, and submit. Then critique the proposal.</p>
+  <div class="ix"><div class="ix-body">
+    <div class="task">fill it in fast and submit — don't overthink the values.</div>
+    <div class="stage"><div class="screen" style="width:300px">
+      <div class="u-title">Create your account</div>
+      <div class="u-text" style="margin:.3rem 0 .15rem">Email</div>
+      <input id="capEmail" type="text" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.82rem">
+      <div class="u-text" style="margin:.5rem 0 .15rem">Age</div>
+      <input id="capAge" type="text" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.82rem">
+      <div class="u-text" style="margin:.5rem 0 .15rem">Password</div>
+      <input id="capPw" type="text" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.4rem; font-size:.82rem">
+      <button class="btn" style="width:100%; margin-top:.7rem" onclick="capSubmit()">Create account</button>
+      <div id="capFormMsg" class="readout" style="margin-top:.6rem; min-height:1.1rem; text-align:left"></div>
+    </div></div>
+    <p style="font-family:var(--ui);font-size:.9rem">Write the critique: <b>(1)</b> what removing the inline constraints costs the user, in constraint vocabulary; <b>(2)</b> what it does to the user's <b>mental model</b> of "what counts as valid here"; and <b>(3)</b> the teammate isn't entirely wrong about noise — when <em>is</em> inline validation a problem, and what's the move that keeps the constraint without the clutter?</p>
+    <textarea class="answer" id="capAns" placeholder="1) The constraint cost…&#10;&#10;2) The mental-model cost…&#10;&#10;3) When noise is real, and the fix…"></textarea>
+    <div class="countline"><span id="capCount">0 words</span><span id="capSaved"></span></div>
+    <button class="reveal" onclick="revealCap()">Reveal a model answer ▾</button>
+    <div class="expert" id="capExp"><b>Model answer:</b> "<u>Constraint cost:</u> stripping inline hints removes the constraints that prevent invalid input. Errors no longer fail early and locally — they pile up at submit, across the gulf of execution, where the user has to read, locate, and re-fix each one. Prevention turns back into correction. <u>Mental-model cost:</u> with nothing guiding input, the user can't form a model of what's valid until the form rejects them; they're reasoning in the dark, and the rejection feels arbitrary rather than learnable. <u>The grain of truth:</u> inline validation <em>is</em> noise when it nags too early — firing a red error on an email before you've finished typing it. The move isn't none-vs-all: validate at the right moment (on blur, or once a field looks complete), show requirements up front as quiet hints, and confirm success inline. That keeps the constraint and kills the noise." Check your own answer for three things: you framed the loss as constraints moving from prevention to late correction, you named the mental-model gap, and you resolved the noise objection with timing rather than removal.</div>
+  </div></div>
+
+  <h2 id="s13"><span class="n">13</span>Strengthen the muscle</h2>
+  <p>Turn the reasoning into a <em>conscious procedure</em>. Protocol → guided walk-through → real-world mission.</p>
+
+  <h3 class="sub">Part A — The protocol (run it on any control)</h3>
+  <div class="ix"><div class="ix-body">
+    <div class="proto">
+      <div class="s"><div class="num"></div><div class="t"><b>Name the action and its valid set.</b> <span class="ask-q">What is the user doing here, and what counts as a valid input or move?</span></div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Constraint check (before the error).</b> <span class="ask-q">Is an invalid action hard or impossible to take?</span> If yes, which type carries it — physical, logical, semantic, cultural?</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Model check (after the action).</b> <span class="ask-q">What does the user believe this does, and what does it actually do?</span> List both models; mark where they diverge.</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Locate the gap.</b> A <em>constraint</em> gap = invalid actions are possible or caught too late. A <em>model</em> gap = the behavior surprises the user the same way every time.</div></div>
+      <div class="s"><div class="num"></div><div class="t"><b>Prescribe to the right gap.</b> Constraint → add or strengthen it, prefer prevention over an error message, pick the type that fits. Model → fix the <em>system image</em>: labels, scope, structure, feedback. Don't paper a model mismatch with a tooltip; don't fix a missing constraint by retraining the user.</div></div>
+    </div>
+    <p style="font-family:var(--ui); font-size:.84rem; color:var(--muted); margin:.4rem 0 0">Keep it as a card: <a href="../reference/constraints-conceptual-models-protocol.html">Constraints &amp; Conceptual Models Protocol reference ↗</a>.</p>
+  </div></div>
+
+  <h3 class="sub">Part B — Walk the reasoning (operate, then earn the verdict)</h3>
+  <p>Two cases that mirror each other. Operate each, then commit every step before the next unlocks.</p>
+
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">enter how many tickets you want.</div>
+      <div class="stage"><div class="screen" style="width:220px;text-align:center"><div class="u-title">Tickets</div>
+        <input id="gTix" type="text" placeholder="try -2 or 'ten'" style="width:100%; border:1px solid #c9c2b5; border-radius:6px; padding:.45rem; font-size:.85rem">
+        <div id="gTixMsg" class="readout" style="font-size:.7rem; margin-top:.4rem; min-height:.9rem"></div>
+        <button class="btn" style="width:100%; margin-top:.5rem" onclick="gTixGo()">Add to cart</button></div></div>
+      <div class="gstep active" id="g1s1"><div class="ql">Step 1 — Could you enter something invalid?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g1s1','g1s2')">No — it only accepted sensible numbers</button><button onclick="gans(this,'b','g1s1','g1s2')">Yes — it took letters and negatives too</button></div></div>
+      <div class="gstep" id="g1s2"><div class="ql">Step 2 — Did the result match what "Add to cart" promised?</div>
+        <div class="opts" data-a="a"><button onclick="gans(this,'a','g1s2','g1s3')">Yes — it added to the cart, the value was just garbage</button><button onclick="gans(this,'b','g1s2','g1s3')">No — it did something entirely different</button></div></div>
+      <div class="gstep" id="g1s3"><div class="ql">Step 3 — Verdict + prescription?</div>
+        <div class="opts" data-a="a"><button onclick="gans(this,'a','g1s3','g1synth')">Missing constraint → bound the input (number-only stepper)</button><button onclick="gans(this,'b','g1s3','g1synth')">Model mismatch → relabel the button</button></div></div>
+      <div class="gsynth" id="g1synth"><b>Invalid input possible</b> (letters, negatives) → <b>but the action behaved as labeled</b> → <b>missing constraint</b> → <b>bound the input</b> with a number-only, range-limited control. The behavior was honest; the input was unconstrained.</div>
+    </div>
+  </div>
+
+  <div class="ix">
+    <div class="ix-body">
+      <div class="task">save your work-in-progress so you can come back to it.</div>
+      <div class="stage"><div class="screen" style="width:220px;text-align:center"><div class="u-title">Editor</div>
+        <div class="u-text" style="margin:.3rem 0 .6rem">Draft · 240 words</div>
+        <button class="btn" id="gSaveBtn" style="width:100%" onclick="gSaveGo()">Save draft</button>
+        <div id="gSaveMsg" class="readout" style="font-size:.7rem; margin-top:.4rem; min-height:.9rem"></div></div></div>
+      <div class="gstep active" id="g2s1"><div class="ql">Step 1 — Could you take an invalid action?</div>
+        <div class="opts" data-a="a"><button onclick="gans(this,'a','g2s1','g2s2')">No — the action itself was simple and accepted</button><button onclick="gans(this,'b','g2s1','g2s2')">Yes — it let me enter something impossible</button></div></div>
+      <div class="gstep" id="g2s2"><div class="ql">Step 2 — Did the result match what "Save draft" led you to expect?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g2s2','g2s3')">Yes — it saved a private draft, as promised</button><button onclick="gans(this,'b','g2s2','g2s3')">No — it published the draft publicly</button></div></div>
+      <div class="gstep" id="g2s3"><div class="ql">Step 3 — Verdict + prescription?</div>
+        <div class="opts" data-a="b"><button onclick="gans(this,'a','g2s3','g2synth')">Missing constraint → block the save</button><button onclick="gans(this,'b','g2s3','g2synth')">Model mismatch → fix the system image (relabel, show scope)</button></div></div>
+      <div class="gsynth" id="g2synth">The mirror of the first case: <b>no constraint problem</b> (the action was valid) → <b>the result diverged from the label</b> ("Save draft" published) → <b>model mismatch</b> → <b>fix the system image</b>, not a constraint. Telling these two apart is the point of the drill.</div>
+    </div>
+  </div>
+
+  <h3 class="sub">Part C — Field mission</h3>
+  <p>Over the next few days, catch <b>three failures in apps you actually use</b> — a missing or false constraint, or a control whose behavior diverged from its label. Log the element, which gap it fails, and the fix. Saved automatically.</p>
+  <div class="ix"><div class="ix-body">
+    <div class="fm"><input class="fmf" data-k="el1" placeholder="Element &amp; app"><select class="fmf" data-k="q1"><option value="">Which gap…</option><option>Constraint</option><option>Conceptual model</option><option>Both</option></select><input class="fmf" data-k="fx1" placeholder="One-line fix"></div>
+    <div class="fm"><input class="fmf" data-k="el2" placeholder="Element &amp; app"><select class="fmf" data-k="q2"><option value="">Which gap…</option><option>Constraint</option><option>Conceptual model</option><option>Both</option></select><input class="fmf" data-k="fx2" placeholder="One-line fix"></div>
+    <div class="fm"><input class="fmf" data-k="el3" placeholder="Element &amp; app"><select class="fmf" data-k="q3"><option value="">Which gap…</option><option>Constraint</option><option>Conceptual model</option><option>Both</option></select><input class="fmf" data-k="fx3" placeholder="One-line fix"></div>
+    <div class="countline"><span id="fmCount">0 / 3 logged</span><span id="fmSaved"></span></div>
+    <p style="font-family:var(--ui); font-size:.84rem; color:var(--muted); margin:.6rem 0 0">Bring these back to chat and we'll pressure-test which gap each really fails — especially the ones that look like both.</p>
+  </div></div>
+
+  <div class="ask"><b>Your teacher is on call.</b> Run a screen from your own product through the §09 audit with me — we'll separate its missing constraints from its model mismatches, name the constraint type each fix needs, and check that every label teaches the true system model.</div>
+
+  <div class="source">
+    <div class="kicker">Primary source · read this next</div>
+    <h3>"The Design of Everyday Things," Ch. 4 — Don Norman</h3>
+    <p style="margin:.4rem 0 .8rem; font-size:.92rem; color:#e9e2d6;">"Knowing What to Do: Constraints, Discoverability, and Feedback" lays out the four constraints with Norman's own examples; pair it with Ch. 1 on conceptual models and the system image. For a shorter digital-first take, NN/G's <a href="https://www.nngroup.com/articles/mental-models/">"Mental Models"</a> is about eight minutes.</p>
+    <a href="https://www.nngroup.com/articles/mental-models/">nngroup.com/articles/mental-models →</a>
+  </div>
+
+  <div class="nav"><span><a href="0002-mapping-and-feedback.html">← Lesson 02</a> · <a href="../reference/glossary.html">Glossary ↗</a></span><span>Next: lesson 04</span></div>
+</div>
+
+<script>
+  // ---------- generic clinic / helpers (shared with L01/L02) ----------
+  function clinic(btn,choice,fbId){ var box=btn.closest('.opts'); if(box.dataset.locked)return; box.dataset.locked='1';
+    var correct=box.dataset.a; box.querySelectorAll('button').forEach(b=>b.disabled=true);
+    if(choice===correct) btn.classList.add('correct'); else { btn.classList.add('wrong'); box.querySelectorAll('button').forEach((b,i)=>{ if('abcd'[i]===correct) b.classList.add('correct'); }); }
+    document.getElementById(fbId).classList.add('show'); }
+  function tog(id){document.getElementById(id).classList.toggle('show');}
+  function checkPick(groupId,resId){ var g=document.getElementById(groupId), res=document.getElementById(resId);
+    var boxes=[...g.querySelectorAll('input')], good=0,bad=0,missed=0;
+    boxes.forEach(b=>{ var isGood=b.dataset.good==='1'; if(b.checked&&isGood)good++; if(b.checked&&!isGood)bad++; if(!b.checked&&isGood)missed++;
+      b.parentElement.style.borderColor=b.checked?(isGood?'var(--right)':'var(--wrong)'):'var(--rule)'; b.parentElement.style.background=b.checked?(isGood?'var(--right-bg)':'var(--wrong-bg)'):'#fff'; });
+    var msg; if(bad===0&&missed===0) msg='Perfect — every pick constrains or guides the input before the error, and you skipped the after-the-fact decoys.';
+    else { msg='Caught '+good+' real constraint'+(good===1?'':'s')+'. '; if(bad) msg+=bad+' fix nothing before the error (they react after it). '; if(missed) msg+=missed+' real constraint'+(missed===1?'':'s')+' missed. ';
+      msg+='Ask: does it make the wrong input HARDER TO FORM (constraint), or only respond once it already happened?'; }
+    res.textContent=msg; res.classList.add('show'); }
+
+  // ---------- §03 impossible date ----------
+  var daysIn={1:31,2:28,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31};
+  var monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function setDate(v){ document.getElementById('dateWrong').style.display=v==='wrong'?'block':'none'; document.getElementById('dateRight').style.display=v==='right'?'block':'none';
+    document.getElementById('dateLabel').textContent=v==='wrong'?'Version A — type it yourself':'Version B — pick from valid options';
+    document.querySelectorAll('[onclick^="setDate"]').forEach(b=>b.classList.toggle('on',b.dataset.v===v)); }
+  function bookWrong(){ var m=+document.getElementById('dwM').value, d=+document.getElementById('dwD').value, y=+document.getElementById('dwY').value, msg=document.getElementById('dwMsg');
+    if(!m||!d||!y){ msg.style.color='#999'; msg.textContent='Fill in month, day, and year.'; return; }
+    var max=daysIn[m]||0; var leap=(m===2 && (y%4===0 && (y%100!==0||y%400===0))); if(leap)max=29;
+    if(m<1||m>12){ msg.style.color='var(--wrong)'; msg.textContent='✗ Error: "'+m+'" is not a month.'; return; }
+    if(d<1||d>max){ msg.style.color='var(--wrong)'; msg.innerHTML='✗ Error: '+monthNames[m-1]+' has no day '+d+'. (You only find out now.)'; return; }
+    msg.style.color='var(--right)'; msg.textContent='✓ Booked for '+monthNames[m-1]+' '+d+', '+y+'.'; }
+  function fillDays(){ var mSel=document.getElementById('drM'), dSel=document.getElementById('drD'), ySel=document.getElementById('drY');
+    var m=+mSel.value, y=+ySel.value, prev=+dSel.value; var max=daysIn[m]||31; var leap=(m===2 && (y%4===0 && (y%100!==0||y%400===0))); if(leap)max=29;
+    dSel.innerHTML=''; for(var d=1;d<=max;d++){ var o=document.createElement('option'); o.value=d; o.textContent=d; dSel.appendChild(o); } if(prev&&prev<=max)dSel.value=prev; }
+  function bookRight(){ var m=+document.getElementById('drM').value, d=+document.getElementById('drD').value, y=+document.getElementById('drY').value, msg=document.getElementById('drMsg');
+    msg.style.color='var(--right)'; msg.textContent='✓ Booked for '+monthNames[m-1]+' '+d+', '+y+'. (No invalid date was ever offered.)'; }
+  (function(){ var mSel=document.getElementById('drM'), ySel=document.getElementById('drY'); if(!mSel)return;
+    monthNames.forEach(function(nm,i){ var o=document.createElement('option'); o.value=i+1; o.textContent=nm; if(i===1)o.selected=true; mSel.appendChild(o); });
+    var thisYear=new Date().getFullYear(); for(var y=thisYear;y<=thisYear+1;y++){ var o=document.createElement('option'); o.value=y; o.textContent=y; ySel.appendChild(o); }
+    fillDays(); })();
+
+  // ---------- §05 where did it go? ----------
+  var notesSeed=['Groceries','Standup agenda','Birthday ideas'];
+  var lastRemoved=null;
+  function buildNotes(listId,handler){ var box=document.getElementById(listId); box.innerHTML='';
+    notesSeed.forEach(function(nm){ var r=document.createElement('div'); r.className='row'; r.innerHTML='<span>'+nm+'</span><span style="cursor:pointer" title="Delete">🗑</span>';
+      r.querySelector('span:last-child').onclick=function(){ handler(r,nm); }; box.appendChild(r); }); }
+  function delW(r,nm){ r.remove(); var m=document.getElementById('delWMsg'); m.style.color='#444'; m.innerHTML='"'+nm+'" deleted.'; }
+  function delR(r,nm){ r.remove(); lastRemoved={nm:nm}; var c=document.getElementById('trashCount'); c.textContent=(+c.textContent)+1;
+    var m=document.getElementById('delRMsg'); m.style.color='#444'; m.innerHTML='Moved to Trash · <span style="color:var(--link);text-decoration:underline;cursor:pointer" onclick="undoDel()">Undo</span>'; }
+  function undoDel(){ if(!lastRemoved)return; buildNotes('delRList',delR); var c=document.getElementById('trashCount'); c.textContent=Math.max(0,(+c.textContent)-1); lastRemoved=null;
+    document.getElementById('delRMsg').textContent='Restored.'; }
+  function setTrash(v){ document.getElementById('delWrong').style.display=v==='wrong'?'block':'none'; document.getElementById('delRight').style.display=v==='right'?'block':'none';
+    document.getElementById('trashLabel').textContent=v==='wrong'?'Version A — "Deleted"':'Version B — "Moved to Trash"';
+    document.querySelectorAll('[onclick^="setTrash"]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+    buildNotes('delWList',delW); buildNotes('delRList',delR); document.getElementById('delWMsg').textContent=''; document.getElementById('delRMsg').textContent=''; document.getElementById('trashCount').textContent='0'; }
+
+  // ---------- §06 password ----------
+  function pwCreate(){ var v=document.getElementById('pwField').value, msg=document.getElementById('pwMsg');
+    var ok=v.length>=8 && /[0-9]/.test(v) && /[^A-Za-z0-9]/.test(v);
+    if(ok){ msg.style.color='var(--right)'; msg.textContent='✓ Account created.'; }
+    else { msg.style.color='var(--wrong)'; msg.innerHTML='✗ Server error: password must be 8+ characters with a number and a symbol.'; } }
+
+  // ---------- §07 sync toggle ----------
+  function cloudDel(){ var m=document.getElementById('cloudMsg'); m.innerHTML='<b style="color:var(--wrong)">Deleted everywhere.</b> Removed from the cloud and all 3 synced devices — not just this laptop.'; }
+
+  // ---------- §08 build it: constraints ----------
+  function checkCon(){ var rows=[...document.querySelectorAll('#conGrid .lat')], right=0;
+    rows.forEach(r=>{ var v=r.querySelector('select').value, ok=v===r.dataset.correct; r.classList.remove('ok','no'); r.classList.add(ok?'ok':'no'); if(ok)right++; });
+    var res=document.getElementById('conRes'); res.innerHTML='<b>'+right+' / 6 correct.</b> Physical = the form makes it impossible; logical = you reason it out from the situation; semantic = the meaning of the thing; cultural = a learned convention. The same goal can often be reached by more than one type — what matters is naming the one actually doing the work.'; res.classList.add('show'); }
+
+  // ---------- §09 audit ----------
+  var audLocked=false, qty=1;
+  function qtyStep(dir){ qty=Math.min(10,Math.max(1,qty+dir)); document.getElementById('qtyVal').textContent=qty; }
+  function audCardRemove(){ document.getElementById('audCardMsg').innerHTML='<span style="color:var(--wrong)">Card removed — and your subscription was cancelled.</span>'; }
+  function flagTog(btn){ if(audLocked)return; btn.classList.toggle('on'); }
+  function audCheck(){ if(audLocked)return; audLocked=true; var els=[...document.querySelectorAll('.audwrap')], tp=0,fp=0,fn=0;
+    els.forEach(el=>{ var bad=el.dataset.v==='bad', flagged=el.querySelector('.flagbtn').classList.contains('on'); var badge=el.querySelector('.vbadge'); el.classList.add('checked');
+      if(bad&&flagged){tp++; el.classList.add('a-correct'); badge.style.background='var(--right)'; badge.textContent='✓ caught';}
+      else if(!bad&&flagged){fp++; el.classList.add('a-false'); badge.style.background='var(--warn)'; badge.textContent='false alarm';}
+      else if(bad&&!flagged){fn++; el.classList.add('a-missed'); badge.style.background='var(--wrong)'; badge.textContent='✗ missed';}
+      else { badge.style.background='#9aa'; badge.textContent='ok'; } el.title=el.dataset.k; });
+    var res=document.getElementById('audRes'); res.innerHTML='<b>'+tp+'/3 broken caught.</b> '+(fp?fp+' false alarm'+(fp===1?'':'s')+'. ':'')+(fn?fn+' missed. ':'')+(tp===3&&fp===0?'Clean audit — you split missing constraints from model mismatches by feel. ':'')+'Hover any element for its verdict, or reveal the mark-up.'; res.classList.add('show'); }
+
+  // ---------- §11 quiz widgets ----------
+  function qMarkRead(){ document.getElementById('qReadMsg').innerHTML='<span style="color:var(--wrong)">All messages archived.</span>'; }
+  function qProjDel(){ document.getElementById('qProjMsg').innerHTML='<span style="color:var(--wrong)">Project permanently deleted. No undo.</span>'; }
+  var qSeat=2; function qSeatStep(dir){ qSeat=Math.min(20,Math.max(1,qSeat+dir)); document.getElementById('qSeatVal').textContent=qSeat; }
+  document.getElementById('qQty').addEventListener('input',function(){ document.getElementById('qQtyMsg').textContent='Accepted: "'+this.value+'"'; });
+  document.getElementById('qTime').addEventListener('input',function(){ document.getElementById('qTimeMsg').textContent='Accepted: "'+this.value+'"'; });
+  function qDone(){ document.getElementById('qDoneMsg').innerHTML='<span style="color:var(--wrong)">Editor closed — changes discarded. (There was a separate Save.)</span>'; }
+
+  // ---------- quiz scoring (shared) ----------
+  var score=0,total=document.querySelectorAll('#quiz .q').length; document.getElementById('score').textContent='Score: 0 / '+total;
+  function ans(btn,choice){ var q=btn.closest('.q'); if(q.dataset.done)return; q.dataset.done='1'; var correct=q.dataset.a; q.querySelectorAll('.opts button').forEach(b=>b.disabled=true);
+    if(choice===correct){btn.classList.add('correct');score++;} else{btn.classList.add('wrong'); q.querySelectorAll('.opts button').forEach(b=>{ if(b.getAttribute('onclick').indexOf("'"+correct+"'")>-1) b.classList.add('correct'); });}
+    q.querySelector('.fb').classList.add('show'); document.getElementById('score').textContent='Score: '+score+' / '+total; }
+
+  // ---------- guided stepper (shared) ----------
+  function gans(btn,choice,stepId,nextId){ var box=btn.closest('.opts'); if(box.dataset.locked)return; box.dataset.locked='1'; var correct=box.dataset.a; box.querySelectorAll('button').forEach(b=>b.disabled=true);
+    if(choice===correct) btn.classList.add('correct'); else { btn.classList.add('wrong'); box.querySelectorAll('button').forEach((b,i)=>{ if('abc'[i]===correct) b.classList.add('correct'); }); }
+    var nxt=document.getElementById(nextId); if(nxt) nxt.classList.add(nxt.classList.contains('gsynth')?'show':'active'); }
+  // walk-through widgets
+  function gTixGo(){ var v=document.getElementById('gTix').value, m=document.getElementById('gTixMsg'); m.style.color='#444'; m.textContent='Added "'+v+'" to the cart.'; }
+  function gSaveGo(){ var m=document.getElementById('gSaveMsg'); m.innerHTML='<span style="color:var(--wrong)">Published live. Your draft is now public.</span>'; }
+
+  // ---------- capstone form ----------
+  function capSubmit(){ var e=document.getElementById('capEmail').value, a=document.getElementById('capAge').value, p=document.getElementById('capPw').value, msg=document.getElementById('capFormMsg');
+    var errs=[]; if(!/.+@.+\..+/.test(e))errs.push('email looks invalid'); if(!(+a>0&&+a<120))errs.push('age must be a number'); if(p.length<8)errs.push('password too short');
+    if(errs.length){ msg.style.color='var(--wrong)'; msg.innerHTML='✗ '+errs.length+' problem'+(errs.length===1?'':'s')+', all reported now: '+errs.join('; ')+'.'; }
+    else { msg.style.color='var(--right)'; msg.textContent='✓ Account created.'; } }
+
+  // ---------- capstone textarea ----------
+  var ta=document.getElementById('capAns'), KEY='lesson03-capstone';
+  try{ var saved=localStorage.getItem(KEY); if(saved) ta.value=saved; }catch(e){}
+  function wc(){ var w=ta.value.trim()?ta.value.trim().split(/\s+/).length:0; document.getElementById('capCount').textContent=w+' word'+(w===1?'':'s'); }
+  ta.addEventListener('input',function(){ wc(); try{ localStorage.setItem(KEY,ta.value); document.getElementById('capSaved').textContent='saved'; }catch(e){} }); wc();
+  function revealCap(){ var w=ta.value.trim()?ta.value.trim().split(/\s+/).length:0; if(w<10 && !document.getElementById('capExp').classList.contains('show')){ if(!confirm('Writing your own answer first is where the learning happens. Reveal the model anyway?')) return; } tog('capExp'); }
+
+  // ---------- field mission ----------
+  (function(){ var FKEY='lesson03-field', fields=[...document.querySelectorAll('.fmf')];
+    try{ var d=JSON.parse(localStorage.getItem(FKEY)||'{}'); fields.forEach(f=>{ if(d[f.dataset.k]!=null) f.value=d[f.dataset.k]; }); }catch(e){}
+    function count(){ var rows=[['el1','q1','fx1'],['el2','q2','fx2'],['el3','q3','fx3']]; var n=rows.filter(r=>r.some(k=>{var f=document.querySelector('.fmf[data-k="'+k+'"]');return f&&f.value.trim();})).length; document.getElementById('fmCount').textContent=n+' / 3 logged'; }
+    fields.forEach(f=>f.addEventListener('input',function(){ var d={}; fields.forEach(x=>d[x.dataset.k]=x.value); try{ localStorage.setItem(FKEY,JSON.stringify(d)); document.getElementById('fmSaved').textContent='saved'; }catch(e){} count(); })); count(); })();
+
+  // init
+  setDate('wrong'); setTrash('wrong');
+</script>
+</body>
+</html>
