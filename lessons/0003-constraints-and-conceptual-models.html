@@ -76,7 +76,7 @@
   <p>Version A accepts whatever you type, then tells you "Feb 30" was wrong — the error forms in the user, surfaces late, and has to be read and undone. Version B's dropdowns never offer a 30th of February at all: the invalid date is unexpressible, so the mistake can't happen. Same outcome, but one prevents the error where the other only reports it. That is the difference between a constraint and a restriction.</p>
 
   <h2 id="s4"><span class="n">04</span>Conceptual &amp; mental models</h2>
-  <p>A <em>conceptual model</em> is a simplified explanation of how something works. Two of them sit in every interaction: the <b>system model</b> — how the product actually behaves — and the user's <b>mental model</b> — what the user believes it does. The user can't see your code or your design intent; they infer their model entirely from what the interface shows. Norman calls that visible surface the <b>system image</b>.<span class="cite"> — Norman, <em>DOET</em>, Ch. 1; <a href="https://www.nngroup.com/articles/mental-models/">NN/G, "Mental Models"</a></span></p>
+  <p>A <em>conceptual model</em> is a simplified explanation of how something works. Two of them sit in every interaction. The <b>system model</b> is how the product actually behaves; the user's <b>mental model</b> is what the user believes it does. The user can't see your code or your design intent; they infer their model entirely from what the interface shows. Norman calls that visible surface the <b>system image</b>.<span class="cite"> — Norman, <em>DOET</em>, Ch. 1; <a href="https://www.nngroup.com/articles/mental-models/">NN/G, "Mental Models"</a></span></p>
   <div class="pull"><b>When the two models match</b>, behavior is predictable and the user feels in control. <b>When they diverge</b>, the errors aren't random — they're <em>systematic</em>: the same wrong expectation fires every time, because the user is reasoning correctly from a model the interface taught them. You fix it by correcting the system image, not the user.</div>
 
   <h2 id="s5"><span class="n">05</span>Live: where did it go? <span class="tag try">your turn</span></h2>
@@ -168,7 +168,7 @@
       </div>
       <div class="fb" id="c2b">The user's intent ("keep it, just not here") was never expressible, so the model collided with reality. Naming both scopes makes the real system model visible and lets the user pick the action they actually meant. A spinner or a bigger button changes how the wrong action <em>feels</em>, not what the user <em>believes</em> it does.</div>
       <button class="reveal" onclick="tog('c2exp')">Reveal the principle ▾</button>
-      <div class="expert" id="c2exp"><b>Principle:</b> a model mismatch is fixed in the <em>system image</em> — the labels, scopes, and structure the interface exposes — not in feedback or emphasis. When the user's reasonable belief diverges from the truth, change what the interface communicates until the belief is correct. You can't out-confirm a wrong mental model; you have to teach the right one.</div>
+      <div class="expert" id="c2exp"><b>Principle:</b> a model mismatch is fixed in the <em>system image</em> (the labels, scopes, and structure the interface exposes), not in feedback or emphasis. When the user's reasonable belief diverges from the truth, change what the interface communicates until the belief is correct. You can't out-confirm a wrong mental model; you have to teach the right one.</div>
     </div>
   </div>
 
@@ -203,8 +203,9 @@
         <div class="audwrap" data-v="ok" data-k="Section heading — inert, nothing implied. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
           <div class="u-title" style="margin:0">Account</div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="MISSING CONSTRAINT: the Age field is free text — it accepts letters, negatives, anything. No physical/logical limit on the input."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
-          <div class="row" style="border:0"><span>Age</span><input id="audAge" type="text" placeholder="type anything…" style="width:110px; border:1px solid #c9c2b5; border-radius:6px; padding:.35rem; font-size:.82rem"></div><span class="vbadge"></span></div>
+        <div class="audwrap" data-v="bad" data-k="SEMANTIC MISMATCH: the action is 'Export', but the button is a trash-can icon — the symbol's meaning (delete) contradicts what it does."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+          <div class="row" style="border:0"><span>Export data</span><button class="btn" style="background:#564b3b; padding:.35rem .65rem; font-size:.95rem" onclick="audExport()">🗑</button></div>
+          <div id="audExpMsg" class="readout" style="margin-top:.3rem; min-height:.8rem; text-align:left"></div><span class="vbadge"></span></div>
 
         <div class="audwrap" data-v="ok" data-k="CONSTRAINT ok: the quantity stepper is bounded 1–10 — a clean physical constraint. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
           <div class="row" style="border:0"><span>Seats</span><span><button class="stepbtn" onclick="qtyStep(-1)">−</button><b id="qtyVal" style="margin:0 .5rem">1</b><button class="stepbtn" onclick="qtyStep(1)">+</button></span></div><span class="vbadge"></span></div>
@@ -222,7 +223,7 @@
       <div style="text-align:center;margin-top:1rem"><button class="btn" onclick="audCheck()">Check my audit</button></div>
       <div class="fb" id="audRes"></div>
       <button class="reveal" onclick="tog('audExp')">Reveal the full mark-up ▾</button>
-      <div class="expert" id="audExp"><b>The three broken:</b> the <u>Age field</u> (missing constraint — free text takes any garbage), the <u>Username field</u> (false constraint — greyed to look permanent, but editable), and <u>Remove card</u> (model mismatch — it silently cancels the subscription too). <b>The three honest:</b> the "Account" heading, the bounded <u>Seats stepper</u> (a working physical constraint), and the clean <u>product-news toggle</u>. For each one, name it first — missing constraint, false constraint, or model mismatch — and the name points to the fix.</div>
+      <div class="expert" id="audExp"><b>The three broken:</b> the <u>Export button</u> (semantic mismatch — a trash-can icon on an export action), the <u>Username field</u> (false constraint — greyed to look permanent, but editable), and <u>Remove card</u> (model mismatch — it silently cancels the subscription too). <b>The three honest:</b> the "Account" heading, the bounded <u>Seats stepper</u> (a working physical constraint), and the clean <u>product-news toggle</u>. For each one, name it first — semantic mismatch, false constraint, or model mismatch — and the name points to the fix.</div>
     </div>
   </div>
 
@@ -232,62 +233,77 @@
   <h3 class="sub">Mental models are borrowed, so honor conventions unless the payoff is real</h3>
   <p>Users arrive with a model assembled from every other app they've used — that's what cultural constraints lean on. A trash icon, a left-swipe to delete, a pull-to-refresh: pre-installed in the user's head. Inventing your own forces re-learning and breaks the borrowed model. Break a convention only when the gain clearly beats the cost of re-teaching it.</p>
   <h3 class="sub">You can only ever fix the system image</h3>
-  <p>You never touch the user's mind directly. Norman's chain runs designer's model → <em>system image</em> → user's model, and the middle term is the only one you control. When a model mismatch shows up, the lever is always the same: change what the interface shows — labels, scope, structure, feedback — until the model it teaches is the true one.</p>
+  <p>You never touch the user's mind directly. Norman's chain runs designer's model → <em>system image</em> → user's model, and the middle term is the only one you control. When a model mismatch shows up, the lever is always the same: change what the interface shows (labels, scope, structure, feedback) until the model it teaches is the true one.</p>
 
   <h2 id="s11"><span class="n">11</span>Retrieve it — operate &amp; classify</h2>
   <p>Each widget below works. <b>Do the task, watch what happens, then classify</b>: a <b>constraint</b> problem (an invalid action wasn't prevented), a <b>mental-model</b> problem (it did something other than what you'd expect), <b>both</b>, or <b>nothing wrong</b>. The wording won't tell you which; you have to try it.</p>
   <div class="ix"><div class="ix-body" id="quiz">
 
     <div class="q" data-a="constraint">
-      <div class="task">set the quantity to what you want to buy.</div>
-      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;margin-bottom:4px">Quantity</div>
-        <input id="qQty" type="text" placeholder="try anything" style="width:100%; border:1px solid #ddd; border-radius:6px; padding:.4rem; font-size:.82rem">
-        <div id="qQtyMsg" class="readout" style="font-size:.68rem; margin-top:4px; text-align:left; min-height:.8rem"></div></div></div>
+      <div class="task">you have a $100 budget — put $60 toward Rent and $60 toward Food.</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;margin-bottom:6px">Allocate your $100 budget</div>
+        <div class="row" style="border:0;padding:.2rem 0"><span style="font-size:.78rem">Rent</span><span style="font-size:.8rem">$<input id="qbRent" type="number" value="0" oninput="qBudget()" style="width:62px;border:1px solid #ddd;border-radius:6px;padding:.3rem;font-size:.8rem"></span></div>
+        <div class="row" style="border:0;padding:.2rem 0"><span style="font-size:.78rem">Food</span><span style="font-size:.8rem">$<input id="qbFood" type="number" value="0" oninput="qBudget()" style="width:62px;border:1px solid #ddd;border-radius:6px;padding:.3rem;font-size:.8rem"></span></div>
+        <div id="qbMsg" class="readout" style="font-size:.7rem;margin-top:6px;text-align:left;min-height:.8rem"></div></div></div>
       <div class="neutralq">What's wrong here, if anything?</div>
       <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
-      <div class="fb">It took "-4", "abc", whatever you gave it — nothing limited the input to a sensible quantity. A missing <b>constraint</b>: the field should be a bounded, number-only control so the invalid value can't be entered.</div>
+      <div class="fb">It accepted $120 against a $100 cap. Each field is valid on its own; what's missing is the <em>relationship</em> between them. A missing <b>logical constraint</b> — the allocations should be held to sum within the budget, so the over-spend can't be entered in the first place.</div>
     </div>
 
     <div class="q" data-a="model">
-      <div class="task">clear your inbox — mark everything as read.</div>
-      <div class="qwidget"><div class="qcard" style="text-align:center"><button class="btn" style="width:100%" onclick="qMarkRead()">Mark all as read</button><div id="qReadMsg" class="readout" style="font-size:.68rem; margin-top:6px; min-height:.9rem"></div></div></div>
+      <div class="task">there's a typo in the heading below — click into it and fix it.</div>
+      <div class="qwidget"><div class="qcard">
+        <div style="display:flex;gap:6px;margin-bottom:8px;font-size:.7rem">
+          <span style="padding:3px 8px;border:1px solid #ddd;border-radius:6px;color:#999">✏ Edit</span>
+          <span style="padding:3px 8px;border:1px solid var(--brand);border-radius:6px;background:#faf5ee;color:var(--brand);font-weight:600">💬 Comment</span></div>
+        <div id="qcmDoc" onclick="qCommentClick()" style="font-size:.95rem;font-weight:600;color:#222;cursor:text;padding:5px;border:1px solid #eee;border-radius:6px">Wellcome aboard</div>
+        <div id="qcmMsg" class="readout" style="font-size:.7rem;margin-top:6px;text-align:left;min-height:.8rem"></div></div></div>
       <div class="neutralq">What's wrong here, if anything?</div>
       <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
-      <div class="fb">"Mark all as read" <em>archived</em> every message instead. The action was easy to take (no constraint problem) but it did something other than the label promised — the system model diverges from yours. A <b>mental-model</b> mismatch; fix the label and scope.</div>
-    </div>
-
-    <div class="q" data-a="both">
-      <div class="task">tidy up — get rid of this old project.</div>
-      <div class="qwidget"><div class="qcard" style="text-align:center"><button class="btn" style="width:100%; background:#9c4a3c" onclick="qProjDel()">Archive project</button><div id="qProjMsg" class="readout" style="font-size:.68rem; margin-top:6px; min-height:.9rem"></div></div></div>
-      <div class="neutralq">What's wrong here, if anything?</div>
-      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
-      <div class="fb">"Archive" permanently <em>deleted</em> it (model mismatch) <em>and</em> it fired instantly with no confirmation on a destructive, irreversible action (a missing constraint to guard it). Two failures stacked — <b>both</b>.</div>
-    </div>
-
-    <div class="q" data-a="none">
-      <div class="task">set the number of seats for your team.</div>
-      <div class="qwidget"><div class="qcard"><div class="row" style="border:0; padding:.3rem 0"><span style="font-size:.78rem">Seats</span><span><button class="stepbtn" onclick="qSeatStep(-1)">−</button><b id="qSeatVal" style="margin:0 .5rem">2</b><button class="stepbtn" onclick="qSeatStep(1)">+</button></span></div></div></div>
-      <div class="neutralq">What's wrong here, if anything?</div>
-      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
-      <div class="fb">The stepper is bounded 1–20 (a clean physical constraint) and it does exactly what it says. Correctly designed — <b>nothing wrong</b>. Don't invent a defect, and don't add a constraint it doesn't need.</div>
+      <div class="fb">Clicking the text dropped a comment pin instead of placing a cursor: the toolbar sits in <b>Comment mode</b>, signalled only by a faint highlight on that one tool. Your model (this edits text) parted from the system's current mode. A mode error, which is a <b>mental-model</b> mismatch. The fix is to make the active mode unmissable.</div>
     </div>
 
     <div class="q" data-a="constraint">
-      <div class="task">enter your appointment time.</div>
-      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;margin-bottom:4px">Time (24h)</div>
-        <input id="qTime" type="text" placeholder="HH:MM" style="width:100%; border:1px solid #ddd; border-radius:6px; padding:.4rem; font-size:.82rem">
-        <div id="qTimeMsg" class="readout" style="font-size:.68rem; margin-top:4px; text-align:left; min-height:.8rem"></div></div></div>
+      <div class="task">your manager sent a strong 20-character password — paste it in.</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;margin-bottom:4px">New password</div>
+        <input id="qpwField" type="text" maxlength="12" onpaste="return qPwBlock(event)" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:.4rem;font-size:.82rem">
+        <button class="btn ghost" style="margin-top:6px;font-size:.72rem;padding:.35rem .7rem" onclick="qPwPaste()">📋 Paste manager's password</button>
+        <div id="qpwMsg" class="readout" style="font-size:.7rem;margin-top:6px;text-align:left;min-height:.8rem"></div></div></div>
       <div class="neutralq">What's wrong here, if anything?</div>
       <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
-      <div class="fb">It accepted "25:99" without a blink. Free text lets you express a time that doesn't exist — a missing <b>constraint</b>. A picker or masked input would make the impossible time unenterable.</div>
+      <div class="fb">It blocks paste and caps the field at 12 characters, so the stronger 20-character passphrase won't fit. The constraint is real, and aimed the wrong way. A <b>constraint</b> problem of over-reach: it prevents a <em>valid, safer</em> action. The fix is to loosen it — allow paste, raise the limit — the rare case where you remove a constraint rather than add one.</div>
+    </div>
+
+    <div class="q" data-a="none">
+      <div class="task">type your card number: 4242 4242 4242 4242.</div>
+      <div class="qwidget"><div class="qcard"><div style="font-size:.74rem;margin-bottom:4px">Card number</div>
+        <input id="qcardField" type="text" inputmode="numeric" oninput="qCardMask()" placeholder="1234 5678 9012 3456" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:.4rem;font-size:.82rem;letter-spacing:.04em">
+        <div id="qcardMsg" class="readout" style="font-size:.7rem;margin-top:6px;text-align:left;min-height:.8rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">It drops anything non-numeric, groups the digits in fours, and stops at sixteen — a clean physical <b>constraint</b> doing its job. <b>Nothing wrong</b>. A working constraint can look busy as it reformats; don't mistake active shaping of valid input for a defect.</div>
     </div>
 
     <div class="q" data-a="model">
-      <div class="task">you're done editing — close the editor.</div>
-      <div class="qwidget"><div class="qcard" style="text-align:center"><button class="btn" style="width:100%" onclick="qDone()">Done</button><div id="qDoneMsg" class="readout" style="font-size:.68rem; margin-top:6px; min-height:.9rem"></div></div></div>
+      <div class="task">save your changes, then check they're safely stored.</div>
+      <div class="qwidget"><div class="qcard" style="text-align:center"><button class="btn" style="width:100%" onclick="qOptSave()">Save</button><div id="qoptMsg" class="readout" style="font-size:.7rem;margin-top:8px;min-height:1.2rem"></div></div></div>
       <div class="neutralq">What's wrong here, if anything?</div>
       <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
-      <div class="fb">"Done" read as "save and close," but your edits were discarded — there was a separate Save you never saw. The action worked fine; it just didn't match the model the label built. A <b>mental-model</b> mismatch.</div>
+      <div class="fb">It flashed "Saved ✓" the instant you clicked, before anything reached the server, then quietly showed it never synced. The system image reported a state the system wasn't in, so your model (safe) parted from reality (unsaved). A <b>mental-model</b> mismatch from optimistic feedback that was never reconciled. Lesson 02's trade-off, seen from the model side.</div>
+    </div>
+
+    <div class="q" data-a="both">
+      <div class="task">you have an unsaved draft — close this dialog without losing it.</div>
+      <div class="qwidget"><div class="qcard">
+        <div style="font-size:.82rem;font-weight:600;color:#222">Discard changes?</div>
+        <div class="u-text" style="margin:.2rem 0 .6rem">You have an unsaved draft.</div>
+        <div id="qmodal" tabindex="0" onkeydown="qModalKey(event)" style="display:flex;gap:8px;outline:none">
+          <button class="btn" style="flex:1;background:#9c4a3c" onclick="qModalAct('discard')">Discard</button>
+          <button class="btn ghost" style="flex:1;background:transparent;border:1px solid #ddd;color:#999" onclick="qModalAct('keep')">Keep editing</button></div>
+        <div id="qmodalMsg" class="readout" style="font-size:.7rem;margin-top:8px;text-align:left;min-height:.8rem"></div></div></div>
+      <div class="neutralq">What's wrong here, if anything?</div>
+      <div class="opts grid2"><button onclick="ans(this,'constraint')">Constraint problem</button><button onclick="ans(this,'model')">Mental-model problem</button><button onclick="ans(this,'both')">Both</button><button onclick="ans(this,'none')">Nothing wrong</button></div>
+      <div class="fb">The destructive "Discard" wears the filled primary styling your model reads as the safe, recommended choice (a violated convention — a model mismatch), and it fires with no guard: clicking it, or pressing Enter, loses the draft instantly (a missing constraint on a destructive action). <b>Both</b> gaps, stacked on the riskiest button.</div>
     </div>
 
     <div class="score" id="score">Score: 0 / 6</div>
@@ -308,11 +324,11 @@
       <button class="btn" style="width:100%; margin-top:.7rem" onclick="capSubmit()">Create account</button>
       <div id="capFormMsg" class="readout" style="margin-top:.6rem; min-height:1.1rem; text-align:left"></div>
     </div></div>
-    <p style="font-family:var(--ui);font-size:.9rem">Write the critique: <b>(1)</b> what removing the inline constraints costs the user, in constraint vocabulary; <b>(2)</b> what it does to the user's <b>mental model</b> of "what counts as valid here"; and <b>(3)</b> the teammate isn't entirely wrong about noise — when <em>is</em> inline validation a problem, and what's the move that keeps the constraint without the clutter?</p>
+    <p style="font-family:var(--ui);font-size:.9rem">Write the critique: <b>(1)</b> what removing the inline constraints costs the user, in constraint vocabulary; <b>(2)</b> what it does to the user's <b>mental model</b> of "what counts as valid here"; and <b>(3)</b> the teammate isn't entirely wrong about noise — when <em>is</em> inline validation a problem, and what's the fix that keeps the constraint without the clutter?</p>
     <textarea class="answer" id="capAns" placeholder="1) The constraint cost…&#10;&#10;2) The mental-model cost…&#10;&#10;3) When noise is real, and the fix…"></textarea>
     <div class="countline"><span id="capCount">0 words</span><span id="capSaved"></span></div>
     <button class="reveal" onclick="revealCap()">Reveal a model answer ▾</button>
-    <div class="expert" id="capExp"><b>Model answer:</b> "<u>Constraint cost:</u> stripping inline hints removes the constraints that prevent invalid input. Errors no longer fail early and locally — they pile up at submit, across the gulf of execution, where the user has to read, locate, and re-fix each one. Prevention turns back into correction. <u>Mental-model cost:</u> with nothing guiding input, the user can't form a model of what's valid until the form rejects them; they're reasoning in the dark, and the rejection feels arbitrary rather than learnable. <u>The grain of truth:</u> inline validation <em>is</em> noise when it nags too early — firing a red error on an email before you've finished typing it. The move isn't none-vs-all: validate at the right moment (on blur, or once a field looks complete), show requirements up front as quiet hints, and confirm success inline. That keeps the constraint and kills the noise." Check your own answer for three things: you framed the loss as constraints moving from prevention to late correction, you named the mental-model gap, and you resolved the noise objection with timing rather than removal.</div>
+    <div class="expert" id="capExp"><b>Model answer:</b> "<u>Constraint cost:</u> stripping inline hints removes the constraints that prevent invalid input. Errors no longer fail early and locally — they pile up at submit, across the gulf of execution, where the user has to read, locate, and re-fix each one. Prevention turns back into correction. <u>Mental-model cost:</u> with nothing guiding input, the user can't form a model of what's valid until the form rejects them; they're reasoning in the dark, and the rejection feels arbitrary rather than learnable. <u>The grain of truth:</u> inline validation <em>is</em> noise when it nags too early — firing a red error on an email before you've finished typing it. Timing resolves it: validate at the right moment (on blur, or once a field looks complete), show requirements up front as quiet hints, and confirm success inline. That keeps the constraint and kills the noise." Check your own answer for three things: you framed the loss as constraints moving from prevention to late correction, you named the mental-model gap, and you resolved the noise objection with timing rather than removal.</div>
   </div></div>
 
   <h2 id="s13"><span class="n">13</span>Strengthen the muscle</h2>
@@ -461,6 +477,7 @@
   var audLocked=false, qty=1;
   function qtyStep(dir){ qty=Math.min(10,Math.max(1,qty+dir)); document.getElementById('qtyVal').textContent=qty; }
   function audCardRemove(){ document.getElementById('audCardMsg').innerHTML='<span style="color:var(--wrong)">Card removed — and your subscription was cancelled.</span>'; }
+  function audExport(){ document.getElementById('audExpMsg').innerHTML='<span style="color:#3f6b4a">✓ Exported 1,240 rows to CSV. (Nothing was deleted.)</span>'; }
   function flagTog(btn){ if(audLocked)return; btn.classList.toggle('on'); }
   function audCheck(){ if(audLocked)return; audLocked=true; var els=[...document.querySelectorAll('.audwrap')], tp=0,fp=0,fn=0;
     els.forEach(el=>{ var bad=el.dataset.v==='bad', flagged=el.querySelector('.flagbtn').classList.contains('on'); var badge=el.querySelector('.vbadge'); el.classList.add('checked');
@@ -471,12 +488,26 @@
     var res=document.getElementById('audRes'); res.innerHTML='<b>'+tp+'/3 broken caught.</b> '+(fp?fp+' false alarm'+(fp===1?'':'s')+'. ':'')+(fn?fn+' missed. ':'')+(tp===3&&fp===0?'Clean audit — you split missing constraints from model mismatches by feel. ':'')+'Hover any element for its verdict, or reveal the mark-up.'; res.classList.add('show'); }
 
   // ---------- §11 quiz widgets ----------
-  function qMarkRead(){ document.getElementById('qReadMsg').innerHTML='<span style="color:var(--wrong)">All messages archived.</span>'; }
-  function qProjDel(){ document.getElementById('qProjMsg').innerHTML='<span style="color:var(--wrong)">Project permanently deleted. No undo.</span>'; }
-  var qSeat=2; function qSeatStep(dir){ qSeat=Math.min(20,Math.max(1,qSeat+dir)); document.getElementById('qSeatVal').textContent=qSeat; }
-  document.getElementById('qQty').addEventListener('input',function(){ document.getElementById('qQtyMsg').textContent='Accepted: "'+this.value+'"'; });
-  document.getElementById('qTime').addEventListener('input',function(){ document.getElementById('qTimeMsg').textContent='Accepted: "'+this.value+'"'; });
-  function qDone(){ document.getElementById('qDoneMsg').innerHTML='<span style="color:var(--wrong)">Editor closed — changes discarded. (There was a separate Save.)</span>'; }
+  // Q1 budget allocator (missing logical constraint)
+  function qBudget(){ var r=+document.getElementById('qbRent').value||0, f=+document.getElementById('qbFood').value||0, t=r+f, m=document.getElementById('qbMsg');
+    m.innerHTML='Allocated: <b style="color:'+(t>100?'var(--wrong)':'#3f6b4a')+'">$'+t+'</b> of $100'+(t>100?' — accepted anyway':''); }
+  // Q2 comment-mode (mode error / model)
+  function qCommentClick(){ document.getElementById('qcmMsg').innerHTML='<span style="color:#9c4a3c">💬 Comment added on "Wellcome" — the text was not edited.</span>'; }
+  // Q3 paste-blocked, length-capped password (over-constraint)
+  function qPwBlock(e){ e.preventDefault(); document.getElementById('qpwMsg').innerHTML='<span style="color:#9c4a3c">Paste is blocked on this field.</span>'; return false; }
+  function qPwPaste(){ var full='Tr0ub4dor&3-Xkcd!9z', fld=document.getElementById('qpwField'); fld.value=full.slice(0,12);
+    document.getElementById('qpwMsg').innerHTML='<span style="color:#9c4a3c">Only 12 of '+full.length+' characters fit (paste blocked, length capped).</span>'; }
+  // Q4 honest auto-formatting card field (working constraint)
+  function qCardMask(){ var fld=document.getElementById('qcardField'); var d=fld.value.replace(/\D/g,'').slice(0,16); fld.value=d.replace(/(.{4})/g,'$1 ').trim();
+    document.getElementById('qcardMsg').innerHTML='Digits accepted: <b>'+d.length+'/16</b>'+(d.length===16?' <span style="color:#3f6b4a">✓</span>':''); }
+  // Q5 optimistic save that lies about state (model)
+  function qOptSave(){ var m=document.getElementById('qoptMsg'); m.innerHTML='<span style="color:#3f6b4a">✓ Saved</span>';
+    setTimeout(function(){ m.innerHTML='<span style="color:#3f6b4a">✓ Saved</span><br><span style="color:#9c4a3c">(offline — your changes were not actually synced)</span>'; },1000); }
+  // Q6 destructive primary + Enter default (both)
+  function qModalAct(kind){ var m=document.getElementById('qmodalMsg');
+    if(kind==='discard'){ m.innerHTML='<span style="color:#9c4a3c">Draft discarded — gone, with no confirmation.</span>'; }
+    else { m.innerHTML='<span style="color:#3f6b4a">Kept editing — your draft is safe.</span>'; } }
+  function qModalKey(e){ if(e.key==='Enter'){ e.preventDefault(); qModalAct('discard'); } }
 
   // ---------- quiz scoring (shared) ----------
   var score=0,total=document.querySelectorAll('#quiz .q').length; document.getElementById('score').textContent='Score: 0 / '+total;
