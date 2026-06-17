@@ -7,7 +7,15 @@
 <link rel="stylesheet" href="lesson.css">
 </head>
 <body>
-<div class="wrap">
+<nav class="site-nav">
+  <a class="site-nav-home" href="../index.html">Design Fundamentals</a>
+  <div class="site-nav-arrows">
+    <a class="disabled" aria-hidden="true">← Prev</a>
+    <a href="0002-mapping-and-feedback.html">Next →</a>
+  </div>
+</nav>
+<a class="skip" href="#main">Skip to lesson</a>
+<main class="wrap" id="main">
   <div class="kicker">Lesson 01 · Norman's Foundations · Deep + visual</div>
   <h1>Affordances &amp; Signifiers</h1>
   <div class="lede">You already build good signifiers by instinct. This lesson adds the vocabulary and the framework behind them. The exercises don't tell you what's wrong; you operate each interface and judge it yourself.</div>
@@ -181,22 +189,22 @@
   <div class="ix">
     <div class="ix-body">
       <div class="stage"><div class="screen" style="width:320px">
-        <div class="audwrap" data-v="ok" data-k="A heading — inert, and nothing implies otherwise. Correct rejection." onclick="probeAud(this,null)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="A heading — inert, and nothing implies otherwise. Correct rejection." onclick="probeAud(this,null)"><button class="flagbtn" aria-label="Flag this element" title="Flag this element" onclick="flagTog(this,event)">⚑</button>
           <div class="u-title" style="margin:0">Order #4821</div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="ok" data-k="Filled, labelled button. Looks clickable, is clickable. Perceptible affordance — honest." onclick="probeAud(this,true)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="Filled, labelled button. Looks clickable, is clickable. Perceptible affordance — honest." onclick="probeAud(this,true)"><button class="flagbtn" aria-label="Flag this element" title="Flag this element" onclick="flagTog(this,event)">⚑</button>
           <div class="btn" style="width:100%;text-align:center;pointer-events:none">Track package</div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="Looks like plain dark body text — but it IS tappable and opens an address editor. Hidden affordance." onclick="probeAud(this,true)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="Looks like plain dark body text — but it IS tappable and opens an address editor. Hidden affordance." onclick="probeAud(this,true)"><button class="flagbtn" aria-label="Flag this element" title="Flag this element" onclick="flagTog(this,event)">⚑</button>
           <div class="u-text" style="color:#222">Change delivery address</div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="Card shadow + hover-lift like a button, but it does nothing — pure status. False affordance." onclick="probeAud(this,false)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="Card shadow + hover-lift like a button, but it does nothing — pure status. False affordance." onclick="probeAud(this,false)"><button class="flagbtn" aria-label="Flag this element" title="Flag this element" onclick="flagTog(this,event)">⚑</button>
           <div class="stat" style="pointer-events:none"><div class="v" style="font-size:.9rem">Delivered</div><div class="l">2 days ago</div></div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="Blue + underlined = the link signifier, but it's just emphasis — no link behind it. False affordance." onclick="probeAud(this,false)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="Blue + underlined = the link signifier, but it's just emphasis — no link behind it. False affordance." onclick="probeAud(this,false)"><button class="flagbtn" aria-label="Flag this element" title="Flag this element" onclick="flagTog(this,event)">⚑</button>
           <div class="u-text">Your <span style="color:var(--link);text-decoration:underline">Premium</span> membership renews May 3.</div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="ok" data-k="A genuine link, styled as one. Perceptible affordance — honest." onclick="probeAud(this,true)"><button class="flagbtn" onclick="flagTog(this,event)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="A genuine link, styled as one. Perceptible affordance — honest." onclick="probeAud(this,true)"><button class="flagbtn" aria-label="Flag this element" title="Flag this element" onclick="flagTog(this,event)">⚑</button>
           <div style="color:var(--link);text-decoration:underline;font-size:.82rem">View receipt ›</div><span class="vbadge"></span></div>
       </div></div>
       <div style="text-align:center;margin-top:1rem"><button class="btn" onclick="audCheck()">Check my audit</button></div>
@@ -377,7 +385,7 @@
   </div>
 
   <div class="nav"><span><a href="../reference/glossary.html">Glossary ↗</a></span><span><a href="0002-mapping-and-feedback.html">Lesson 02 → Mapping &amp; Feedback</a></span></div>
-</div>
+</main>
 
 <script>
   // ---- small helper: flash a result tag on an element ----

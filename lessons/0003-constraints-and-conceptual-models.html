@@ -7,7 +7,15 @@
 <link rel="stylesheet" href="lesson.css">
 </head>
 <body>
-<div class="wrap">
+<nav class="site-nav">
+  <a class="site-nav-home" href="../index.html">Design Fundamentals</a>
+  <div class="site-nav-arrows">
+    <a href="0002-mapping-and-feedback.html">← Prev</a>
+    <a class="disabled" aria-hidden="true">Next →</a>
+  </div>
+</nav>
+<a class="skip" href="#main">Skip to lesson</a>
+<main class="wrap" id="main">
   <div class="kicker">Lesson 03 · Norman's Foundations · Deep + visual</div>
   <h1>Constraints &amp; Conceptual Models</h1>
   <div class="lede">Lessons 1 and 2 made an element readable, then operable. This one shapes the path before the action and the picture behind it: constraints cut down the moves a user can make until the right one is nearly the only one left; a conceptual model is the story the user builds of how the whole thing works. As before, the exercises don't name the flaw — you operate each interface and find it.</div>
@@ -200,23 +208,23 @@
   <div class="ix">
     <div class="ix-body">
       <div class="stage"><div class="screen" style="width:330px">
-        <div class="audwrap" data-v="ok" data-k="Section heading — inert, nothing implied. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="Section heading — inert, nothing implied. Honest."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="u-title" style="margin:0">Account</div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="SEMANTIC MISMATCH: the action is 'Export', but the button is a trash-can icon — the symbol's meaning (delete) contradicts what it does."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="SEMANTIC MISMATCH: the action is 'Export', but the button is a trash-can icon — the symbol's meaning (delete) contradicts what it does."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="row" style="border:0"><span>Export data</span><button class="btn" style="background:#564b3b; padding:.35rem .65rem; font-size:.95rem" onclick="audExport()">🗑</button></div>
           <div id="audExpMsg" class="readout" style="margin-top:.3rem; min-height:.8rem; text-align:left"></div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="ok" data-k="CONSTRAINT ok: the quantity stepper is bounded 1–10 — a clean physical constraint. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="CONSTRAINT ok: the quantity stepper is bounded 1–10 — a clean physical constraint. Honest."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="row" style="border:0"><span>Seats</span><span><button class="stepbtn" onclick="qtyStep(-1)">−</button><b id="qtyVal" style="margin:0 .5rem">1</b><button class="stepbtn" onclick="qtyStep(1)">+</button></span></div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="FALSE CONSTRAINT: the Username field is greyed to look locked/permanent — but it's fully editable. It signals a constraint that doesn't exist."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="FALSE CONSTRAINT: the Username field is greyed to look locked/permanent — but it's fully editable. It signals a constraint that doesn't exist."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="row" style="border:0"><span>Username</span><input id="audUser" type="text" value="alex_m" style="width:130px; border:1px solid #ddd; border-radius:6px; padding:.35rem; font-size:.82rem; background:#eee; color:#999"></div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="ok" data-k="MODEL ok: a clean toggle row — label left, switch right, flips clearly. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="MODEL ok: a clean toggle row — label left, switch right, flips clearly. Honest."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="row" style="border:0"><span>Email me product news</span><div class="pill" onclick="this.classList.toggle('on')"></div></div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="MODEL MISMATCH: 'Remove card' also cancels the subscription — the scope is far larger than the label implies."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="MODEL MISMATCH: 'Remove card' also cancels the subscription — the scope is far larger than the label implies."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <button class="btn" style="width:100%; background:#9c4a3c" onclick="audCardRemove()">Remove card</button>
           <div id="audCardMsg" class="readout" style="margin-top:.4rem; min-height:.9rem; text-align:left"></div><span class="vbadge"></span></div>
       </div></div>
@@ -403,7 +411,7 @@
   </div>
 
   <div class="nav"><span><a href="0002-mapping-and-feedback.html">← Lesson 02</a> · <a href="../reference/glossary.html">Glossary ↗</a></span><span>Next: lesson 04</span></div>
-</div>
+</main>
 
 <script>
   // ---------- generic clinic / helpers (shared with L01/L02) ----------

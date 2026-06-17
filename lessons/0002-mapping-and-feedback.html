@@ -7,7 +7,15 @@
 <link rel="stylesheet" href="lesson.css">
 </head>
 <body>
-<div class="wrap">
+<nav class="site-nav">
+  <a class="site-nav-home" href="../index.html">Design Fundamentals</a>
+  <div class="site-nav-arrows">
+    <a href="0001-affordances-and-signifiers.html">← Prev</a>
+    <a href="0003-constraints-and-conceptual-models.html">Next →</a>
+  </div>
+</nav>
+<a class="skip" href="#main">Skip to lesson</a>
+<main class="wrap" id="main">
   <div class="kicker">Lesson 02 · Norman's Foundations · Deep + visual</div>
   <h1>Mapping &amp; Feedback</h1>
   <div class="lede">Lesson 01 was about making an element readable. This one is about making it operable: mapping lets a user predict what a control will do before acting; feedback tells them what happened after. The exercises don't describe the bugs; you operate each interface and find them.</div>
@@ -179,27 +187,27 @@
   <div class="ix">
     <div class="ix-body">
       <div class="stage"><div class="screen" style="width:330px">
-        <div class="audwrap" data-v="ok" data-k="Section heading — inert, nothing implied. Honest."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="Section heading — inert, nothing implied. Honest."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="u-title" style="margin:0">Display</div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="MAPPING: the slider runs backwards — dragging right makes the screen darker."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="MAPPING: the slider runs backwards — dragging right makes the screen darker."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="u-text">Brightness</div>
           <input type="range" id="audBright" min="0" max="100" value="40" oninput="brightUpd('audBright','audSw','audBval')">
           <div class="swatch" id="audSw"></div><div class="readout" id="audBval"></div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="ok" data-k="MAPPING + FEEDBACK ok: label left, toggle right on the same row; flips clearly."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="MAPPING + FEEDBACK ok: label left, toggle right on the same row; flips clearly."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="row" style="border:0"><span>Dark mode</span><div class="pill" onclick="this.classList.toggle('on')"></div></div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="MAPPING: ▲ moves the selected item DOWN and ▼ moves it up — direction inverted from effect."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="MAPPING: ▲ moves the selected item DOWN and ▼ moves it up — direction inverted from effect."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <div class="reord" id="reord">
             <div class="item sel">Widget A <span><button class="stepbtn" onclick="reorder(1)">▲</button><button class="stepbtn" onclick="reorder(-1)">▼</button></span></div>
             <div class="item">Widget B</div><div class="item">Widget C</div>
           </div><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="bad" data-k="FEEDBACK: 'Reset all' wipes every setting instantly — no confirmation, no undo."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="bad" data-k="FEEDBACK: 'Reset all' wipes every setting instantly — no confirmation, no undo."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <button class="btn" style="width:100%;background:#9c4a3c" onclick="resetAll()">Reset all settings</button><span class="vbadge"></span></div>
 
-        <div class="audwrap" data-v="ok" data-k="FEEDBACK ok: Save disables, shows a spinner, then 'Saved ✓' — status visible throughout."><button class="flagbtn" onclick="flagTog(this)">⚑</button>
+        <div class="audwrap" data-v="ok" data-k="FEEDBACK ok: Save disables, shows a spinner, then 'Saved ✓' — status visible throughout."><button class="flagbtn" aria-label="Flag this control" title="Flag this control" onclick="flagTog(this)">⚑</button>
           <button class="btn" style="width:100%" id="audSave" onclick="audSaveRun()">Save</button><span class="vbadge"></span></div>
       </div></div>
       <div style="text-align:center;margin-top:1rem"><button class="btn" onclick="audCheck()">Check my audit</button> <button class="btn ghost" onclick="resetAll(true)">Restore screen</button></div>
@@ -373,7 +381,7 @@
   </div>
 
   <div class="nav"><span><a href="0001-affordances-and-signifiers.html">← Lesson 01</a> · <a href="../reference/glossary.html">Glossary ↗</a></span><span><a href="0003-constraints-and-conceptual-models.html">Lesson 03 → Constraints &amp; Conceptual Models</a></span></div>
-</div>
+</main>
 
 <script>
   // ---------- stovetop ----------
