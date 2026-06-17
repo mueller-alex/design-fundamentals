@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interaction & UX Design Fundamentals</title>
+        <link rel="stylesheet" href="lessons/lesson.css" />
+        <style>
+            .hero {
+                padding: 5rem 1.5rem 3.5rem;
+                max-width: 760px;
+                margin: 0 auto;
+            }
+            .hero h1 {
+                font-size: clamp(2.6rem, 6vw, 4rem);
+                margin: 0.45rem 0 0.35rem;
+            }
+            .hero .lede {
+                margin: 1.4rem 0 2.8rem;
+            }
+
+            .lessons-grid {
+                max-width: 760px;
+                margin: 0 auto;
+                padding: 0 1.5rem 6rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .lesson-card {
+                display: flex;
+                align-items: flex-start;
+                gap: 1.4rem;
+                background: var(--surface);
+                border: 1px solid var(--rule);
+                border-top-color: var(--lift);
+                border-radius: 14px;
+                padding: 1.35rem 1.5rem;
+                text-decoration: none;
+                color: var(--ink);
+                box-shadow: var(--shadow);
+                transition:
+                    border-color 0.15s,
+                    transform 0.15s;
+            }
+            .lesson-card:hover {
+                border-color: var(--accent);
+                transform: translateY(-2px);
+                text-decoration: none;
+            }
+
+            .lesson-num {
+                flex: 0 0 auto;
+                width: 2.6rem;
+                height: 2.6rem;
+                border-radius: 50%;
+                border: 1px solid var(--accent-dim);
+                color: var(--accent-dim);
+                font-family: var(--ui);
+                font-size: 0.78rem;
+                font-weight: 600;
+                font-variant-numeric: tabular-nums;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                margin-top: 0.15rem;
+            }
+
+            .lesson-body {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .lesson-eyebrow {
+                font-family: var(--ui);
+                font-size: 0.68rem;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                color: var(--accent-dim);
+                margin-bottom: 0.35rem;
+            }
+
+            .lesson-title {
+                font-family: var(--serif);
+                font-size: 1.35rem;
+                font-weight: 400;
+                line-height: 1.15;
+                margin: 0 0 0.45rem;
+                color: var(--ink);
+            }
+
+            .lesson-desc {
+                font-family: var(--ui);
+                font-size: 0.88rem;
+                color: var(--muted);
+                line-height: 1.55;
+                margin: 0;
+            }
+
+            .lesson-arrow {
+                flex: 0 0 auto;
+                color: var(--accent-dim);
+                font-size: 1.1rem;
+                margin-top: 0.5rem;
+                transition:
+                    transform 0.15s,
+                    color 0.15s;
+            }
+            .lesson-card:hover .lesson-arrow {
+                transform: translateX(3px);
+                color: var(--accent);
+            }
+
+            .section-head {
+                max-width: 760px;
+                margin: 0 auto;
+                padding: 0 1.5rem 0.85rem;
+                font-family: var(--ui);
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.04em;
+                color: var(--accent-dim);
+            }
+
+            .about {
+                max-width: 760px;
+                margin: 3.5rem auto 0;
+                padding: 0 1.5rem;
+            }
+            .about-card {
+                background: #100c07;
+                border: 1px solid var(--rule);
+                border-top-color: var(--lift);
+                border-radius: 14px;
+                padding: 1.5rem 1.7rem;
+                box-shadow: var(--shadow);
+            }
+            .about-card p {
+                font-size: 0.95rem;
+                color: #d8cdb9;
+                margin: 0.6rem 0 0;
+            }
+            .about-card p:first-of-type {
+                margin-top: 0.8rem;
+            }
+
+            @media (max-width: 560px) {
+                .lesson-card {
+                    gap: 1rem;
+                    padding: 1.1rem 1.15rem;
+                }
+                .hero h1 {
+                    font-size: 2.6rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="hero">
+            <div class="kicker">Interaction &amp; UX Design Fundamentals</div>
+            <h1>The reasoning behind<br />the instinct.</h1>
+            <div class="lede">
+                A field guide to the foundational principles behind every
+                interface decision — drawn from Norman's
+                <em>Design of Everyday Things</em> and applied to the product
+                interfaces you build every day.
+            </div>
+        </div>
+
+        <div class="section-head">Lessons</div>
+
+        <div class="lessons-grid">
+            <a
+                class="lesson-card"
+                href="lessons/0001-affordances-and-signifiers.html"
+            >
+                <div class="lesson-num">01</div>
+                <div class="lesson-body">
+                    <div class="lesson-eyebrow">Norman's Foundations</div>
+                    <div class="lesson-title">Affordances &amp; Signifiers</div>
+                    <p class="lesson-desc">
+                        You already build good signifiers by instinct. This
+                        lesson adds the vocabulary and framework behind them —
+                        so you can name the principle and defend the decision.
+                    </p>
+                </div>
+                <div class="lesson-arrow">→</div>
+            </a>
+
+            <a
+                class="lesson-card"
+                href="lessons/0002-mapping-and-feedback.html"
+            >
+                <div class="lesson-num">02</div>
+                <div class="lesson-body">
+                    <div class="lesson-eyebrow">Norman's Foundations</div>
+                    <div class="lesson-title">Mapping &amp; Feedback</div>
+                    <p class="lesson-desc">
+                        Making an element readable was lesson one. This one is
+                        about making it operable: mapping lets users predict
+                        what a control does before acting; feedback tells them
+                        what happened after.
+                    </p>
+                </div>
+                <div class="lesson-arrow">→</div>
+            </a>
+
+            <a
+                class="lesson-card"
+                href="lessons/0003-constraints-and-conceptual-models.html"
+            >
+                <div class="lesson-num">03</div>
+                <div class="lesson-body">
+                    <div class="lesson-eyebrow">Norman's Foundations</div>
+                    <div class="lesson-title">
+                        Constraints &amp; Conceptual Models
+                    </div>
+                    <p class="lesson-desc">
+                        Constraints cut down the moves a user can make until the
+                        right one is nearly the only one left. A conceptual
+                        model is the story they build of how the whole system
+                        works.
+                    </p>
+                </div>
+                <div class="lesson-arrow">→</div>
+            </a>
+        </div>
+
+        <div class="about">
+            <div class="about-card">
+                <div class="kicker">About this course</div>
+                <p>
+                    Built for a practitioner with 11 years of visual and UX
+                    design experience who wants a <em>shared vocabulary</em> —
+                    not beginner mechanics, but the reasoning framework behind
+                    decisions already made by instinct.
+                </p>
+                <p>
+                    Each lesson skips the lecture and goes straight to the
+                    thinking: interactive wrong-way / right-way comparisons,
+                    expert drills, and real product interface examples. The
+                    exercises don't tell you what's wrong; you operate each
+                    interface and judge it yourself.
+                </p>
+                <p
+                    style="
+                        margin-top: 1.1rem;
+                        color: var(--muted);
+                        font-size: 0.82rem;
+                    "
+                >
+                    Source: Norman's <em>The Design of Everyday Things</em> ·
+                    Interaction design principles
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
